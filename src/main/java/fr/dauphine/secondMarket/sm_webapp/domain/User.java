@@ -41,7 +41,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	private int id;
+	private Long id;
 
 	@Column(name = "email", nullable = false, length = 20)
 	private String email;
@@ -63,13 +63,6 @@ public class User implements Serializable {
 
 	private Boolean actif;
 
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getEmail() {
 		return this.email;
@@ -95,55 +88,6 @@ public class User implements Serializable {
 		this.pass = pass;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + ((pass == null) ? 0 : pass.hashCode());
-		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (id != other.id)
-			return false;
-		if (login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		if (pass == null) {
-			if (other.pass != null)
-				return false;
-		} else if (!pass.equals(other.pass))
-			return false;
-		return true;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -223,6 +167,20 @@ public class User implements Serializable {
 	 */
 	public void setRole(int role) {
 		this.role = role;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
