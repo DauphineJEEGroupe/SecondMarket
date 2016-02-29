@@ -6,25 +6,26 @@ package fr.dauphine.secondMarket.sm_webapp.repo;
 import java.util.List;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Societe;
-
+import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 
 /**
  * @author gnepa.rene.barou
  *
  */
 public interface SocieteDao {
-	public Societe findById(int id);
-	
-	public Societe findBySiren(String siren);
-	
-    public List<Societe> findByName(String name);
 
-    public List<Societe> findAllOrderedByName();
+	Societe findById(int id) throws SmDaoException;
 
-    public void register(Societe societe);
-    
-    public void delete(Integer id);
-    
-    public void update(Societe societe);
-    
+	Societe findBySiren(String siren) throws SmDaoException;
+
+	List<Societe> findByName(String name) throws SmDaoException;
+
+	List<Societe> findAllOrderedByName() throws SmDaoException;
+
+	void register(Societe societe) throws SmDaoException;
+
+	void delete(Societe societe) throws SmDaoException;
+
+	void update(Societe societe) throws SmDaoException;
+
 }

@@ -12,25 +12,19 @@ import fr.dauphine.secondMarket.sm_webapp.domain.User;
  *
  */
 public interface UserDao {
-	public User findById(Long id);
 
-	public User findByName(String name);
+	User findById(int id);
 
-	public List<User> findAllOrderedByName();
-
-	public void register(User user);
-
-	/**
-	 * 
-	 * @param login
-	 * @return
-	 */
-	User findByLogin(String login);
-
-	/**
-	 * 
-	 * @param email
-	 * @return
-	 */
 	User findByEmail(String email);
+
+	List<User> findByName(String name);
+
+	List<User> findAllOrderedByName();
+
+	User register(User user);
+
+	void delete(Integer id);
+
+	User update(User user);
+
 }

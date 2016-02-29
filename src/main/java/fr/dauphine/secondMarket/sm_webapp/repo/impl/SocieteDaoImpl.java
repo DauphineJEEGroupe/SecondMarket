@@ -7,6 +7,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+import javax.persistence.PersistenceException;
+import javax.persistence.TransactionRequiredException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Societe;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.repo.SocieteDao;
 
 /**
@@ -43,8 +48,13 @@ public class SocieteDaoImpl implements SocieteDao {
 	 * .Long)
 	 */
 	@Override
-	public Societe findById(int id) {
-		return em.find(Societe.class, id);
+	public Societe findById(int id) throws SmDaoException {
+		try {
+			return em.find(Societe.class, id);
+		} catch (IllegalArgumentException e) {
+			throw new SmDaoException(e.getMessage(), e);
+		}
+
 	}
 
 	/*
@@ -55,18 +65,18 @@ public class SocieteDaoImpl implements SocieteDao {
 	 * .String)
 	 */
 	@Override
-	public List<Societe> findByName(String name) {
-		CriteriaQuery<Societe> criteria = builder.createQuery(Societe.class);
-		Root<Societe> societe = criteria.from(Societe.class);
+	public List<Societe> findByName(String name) throws SmDaoException {
+		try {
+			CriteriaQuery<Societe> criteria = builder
+					.createQuery(Societe.class);
+			Root<Societe> societe = criteria.from(Societe.class);
 
-		/*
-		 * Swap criteria statements if you would like to try out type-safe
-		 * criteria queries, a new feature in JPA 2.0
-		 * criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-		 */
-
-		criteria.select(societe).where(builder.equal(societe.get("nom"), name));
-		return em.createQuery(criteria).getResultList();
+			criteria.select(societe).where(
+					builder.equal(societe.get("nom"), name));
+			return em.createQuery(criteria).getResultList();
+		} catch (IllegalArgumentException | PersistenceException e1) {
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
 	}
 
 	/*
@@ -76,19 +86,20 @@ public class SocieteDaoImpl implements SocieteDao {
 	 * fr.dauphine.secondMarket.sm_webapp.repo.SocieteDao#findAllOrderedByName()
 	 */
 	@Override
-	public List<Societe> findAllOrderedByName() {
-//		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Societe> criteria = builder.createQuery(Societe.class);
-		Root<Societe> societe = criteria.from(Societe.class);
+	public List<Societe> findAllOrderedByName() throws SmDaoException {
 
-		/*
-		 * Swap criteria statements if you would like to try out type-safe
-		 * criteria queries, a new feature in JPA 2.0
-		 * criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-		 */
+		try {
+			CriteriaQuery<Societe> criteria = builder
+					.createQuery(Societe.class);
+			Root<Societe> societeRoot = criteria.from(Societe.class);
 
-		criteria.select(societe).orderBy(builder.asc(societe.get("nom")));
-		return em.createQuery(criteria).getResultList();
+			criteria.select(societeRoot).orderBy(
+					builder.asc(societeRoot.get("nom")));
+			return em.createQuery(criteria).getResultList();
+		} catch (IllegalArgumentException | PersistenceException e1) {
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
+
 	}
 
 	/*
@@ -99,38 +110,59 @@ public class SocieteDaoImpl implements SocieteDao {
 	 * .secondMarket.sm_webapp.domain.Societe)
 	 */
 	@Override
-	public void register(Societe societe) {
-		em.persist(societe);
-		return;
+	public void register(Societe societe) throws SmDaoException {
+
+		try {
+			em.persist(societe);
+			return;
+		} catch (IllegalArgumentException | PersistenceException e1) {
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
 
 	}
 
 	@Override
-	public Societe findBySiren(String siren) {
+	public Societe findBySiren(String siren) throws SmDaoException {
+		Societe result;
 		CriteriaQuery<Societe> criteria = builder.createQuery(Societe.class);
 		Root<Societe> societe = criteria.from(Societe.class);
 
-		/*
-		 * Swap criteria statements if you would like to try out type-safe
-		 * criteria queries, a new feature in JPA 2.0
-		 * criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-		 */
-
 		criteria.select(societe).where(
 				builder.equal(societe.get("siren"), siren));
-		return em.createQuery(criteria).getSingleResult();
+		try {
+			result = em.createQuery(criteria).getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			result = null;
+			return result;
+		} catch (NonUniqueResultException | IllegalArgumentException e1) {
+			result = null;
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
+
 	}
 
 	@Override
-	public void delete(Integer id) {
-		Societe societe=findById(id);
-		if(null!=societe) em.remove(societe);
+	public void delete(Societe societe) throws SmDaoException {
+
+		try {
+			em.remove(societe);
+			return;
+		} catch (IllegalArgumentException | TransactionRequiredException e1) {
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
 	}
 
 	@Override
-	public void update(Societe societe) {
-		em.merge(societe);
-	}
+	public void update(Societe societeToUpdate) throws SmDaoException {
 
+		try {
+			em.merge(societeToUpdate);
+			return;
+		} catch (IllegalArgumentException | TransactionRequiredException e1) {
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
+
+	}
 
 }
