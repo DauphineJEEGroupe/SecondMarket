@@ -34,20 +34,16 @@ public class User implements Serializable {
 	public User(String email, String login, String pass) {
 		super();
 		this.email = email;
-		this.login = login;
 		this.pass = pass;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "email", nullable = false, length = 20)
 	private String email;
-
-	@Column(name = "identifiant", nullable = false, length = 20)
-	private String login;
 
 	@Column(name = "motdepasse", nullable = false, length = 20)
 	private String pass;
@@ -72,14 +68,6 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getLogin() {
-		return this.login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
 	public String getPass() {
 		return this.pass;
 	}
@@ -102,7 +90,6 @@ public class User implements Serializable {
 		builder.append(", email=");
 		builder.append(email);
 		builder.append(", login=");
-		builder.append(login);
 		builder.append(", pass=");
 		builder.append(pass);
 		builder.append("]");
@@ -172,14 +159,14 @@ public class User implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
