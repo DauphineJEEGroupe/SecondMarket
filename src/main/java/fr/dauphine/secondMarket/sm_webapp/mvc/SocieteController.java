@@ -3,6 +3,7 @@
  */
 package fr.dauphine.secondMarket.sm_webapp.mvc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Societe;
-import fr.dauphine.secondMarket.sm_webapp.domain.Statut;
-import fr.dauphine.secondMarket.sm_webapp.repo.SocieteDao;
-import fr.dauphine.secondMarket.sm_webapp.repo.StatutDao;
-import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
+import fr.dauphine.secondMarket.sm_webapp.service.SocieteService;
 
 /**
  * @author gnepa.rene.barou
@@ -32,14 +31,19 @@ import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
 @RequestMapping(value = "/societe")
 public class SocieteController {
 	@Autowired
-	private SocieteDao societeDao;
-	@Autowired
-	private StatutDao statutDao;
+	private SocieteService societeService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String displaySortedSocietes(Model model) {
+		List<Societe> societes = new ArrayList<Societe>();
+		try {
+			societes = societeService.findAll();
+		} catch (SmDaoException e) {
+			// TODO logger
+			System.out.println("--------------ERROR---------"+e.getMessage());
+		}
 		model.addAttribute("newSociete", new Societe());
-		model.addAttribute("societes", societeDao.findAllOrderedByName());
+		model.addAttribute("societes", societes);
 		return "back/societe";
 	}
 
@@ -51,28 +55,47 @@ public class SocieteController {
 		String message = "";
 
 		if (!result.hasErrors()) {
-			Statut statut = statutDao.findByName(Constantes.STATUT_REFERENCEE);
-			newSociete.setStatut(statut);
-			societeDao.register(newSociete);
-			redirectAttributes.addFlashAttribute("message", message);
-			return "redirect:/societe";
-		} else {
-			System.out.println("------------------has error---------------");
-			List<ObjectError> errors = result.getAllErrors();
-			for (ObjectError objectError : errors) {
-				System.out.println(objectError.toString());
+			try {
+				societeService.create(newSociete);
+				message = "Enregistrement avec succès de la société: "
+						+ newSociete.getNom();
+			} catch (SmDaoException e) {
+				// TODO Auto-generated catch block
+				message = "Erreur d'enregistrement de la société: "
+						+ newSociete.getNom();
+				System.out.println("--------------ERROR---------"+e.getMessage());
+				e.printStackTrace();
+			}catch (SmTechException e1){
+				message = e1.getMessage();
+				System.out.println("--------------ERROR---------"+e1.getMessage());
 			}
-			model.addAttribute("societes", societeDao.findAllOrderedByName());
-			redirectAttributes.addFlashAttribute("message", message);
-			return "back/societe";
+			
+
+		} else {
+			// TODO error : List<ObjectError> errors = result.getAllErrors();
+			message = "Erreur d'enregistrement de la société: "
+					+ newSociete.getNom();
+			
 		}
+		redirectAttributes.addFlashAttribute("message", message);
+		return "redirect:/societe";
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public String editSocietePage(@PathVariable Integer id, Model model) {
-		Societe societeToUpdate = societeDao.findById(id);
-		model.addAttribute("societeToUpdate", societeToUpdate);
-		return "back/societe-edit";
+	public String editSocietePage(@PathVariable Integer id, Model model,
+			final RedirectAttributes redirectAttributes) {
+		try {
+			Societe societeToUpdate = societeService.findById(id);
+			model.addAttribute("societeToUpdate", societeToUpdate);
+			return "back/societe-edit";
+		} catch (SmDaoException e) {
+			// TODO logger
+			System.out.println("--------------ERROR---------"+e.getMessage());
+			String message = "Erreur de modification de la société id: " + id;
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/societe";
+		}
+
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
@@ -80,36 +103,44 @@ public class SocieteController {
 			@Valid @ModelAttribute("societeToUpdate") Societe societeToUpdate,
 			BindingResult result) {
 		if (!result.hasErrors()) {
-			societeDao.update(societeToUpdate);
-//			return "redirect:/societe";
+			try {
+				societeService.update(societeToUpdate);
+			} catch (SmDaoException e) {
+				// TODO logger SmDaoException
+				System.out.println("--------------ERROR---------"+e.getMessage());
+			}
 		} else {
 			System.out.println("------------------has error---------------");
-			List<ObjectError> errors = result.getAllErrors();
-			for (ObjectError objectError : errors) {
-				System.out.println(objectError.toString());
-			}
-//			model.addAttribute("societes", societeDao.findAllOrderedByName());
-//			return "back/societe";
+			// TODO logger List<ObjectError> errors = result.getAllErrors();
 		}
 		return "redirect:/societe";
-		
+
 	}
-	
+
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteSociete(@PathVariable Integer id) {
-			societeDao.delete(id);
-			return "redirect:/societe";
-		
-		
+
+		try {
+			societeService.delete(id);
+		} catch (SmDaoException e) {
+			// TODO logger SmDaoException
+			System.out.println("--------------ERROR---------"+e.getMessage());
+		}
+		return "redirect:/societe";
+
 	}
+
 	@RequestMapping(value = "/accredit/{id}", method = RequestMethod.GET)
 	public String accreditSociete(@PathVariable Integer id) {
-		Societe societeToUpdate=societeDao.findById(id);
-		Statut statut = statutDao.findByName(Constantes.STATUT_ACCREDITEE);
-		societeToUpdate.setStatut(statut);
-		societeDao.update(societeToUpdate);
+
+		try {
+			societeService.accredit(id);
+		} catch (SmDaoException e) {
+			// TODO logger SmDaoException
+			System.out.println("--------------ERROR---------"+e.getMessage());
+		}
 		return "redirect:/societe";
-		
+
 	}
 
 }
