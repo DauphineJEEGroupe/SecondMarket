@@ -18,9 +18,9 @@
 		<div id="content">
 			<h1>Page des sociétés</h1>
 
-
+			<p><span class="message">${message}</span> </p>
 			<form:form commandName="newSociete" id="reg">
-				<h2>Référencer une société</h2>
+				<h2>Ajout d'une nouvelle une société</h2>
 				<table>
 					<tbody>
 						<tr>
