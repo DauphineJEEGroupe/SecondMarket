@@ -10,6 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Entity implementation class for Entity: User
@@ -28,13 +35,14 @@ public class User implements Serializable {
 
 	/**
 	 * @param email
-	 * @param login
+	 * @param nom
 	 * @param pass
 	 */
-	public User(String email, String login, String pass) {
+	public User(String email, String nom, String pass) {
 		super();
 		this.email = email;
 		this.pass = pass;
+		this.nom=nom;
 	}
 
 	@Id
@@ -42,23 +50,35 @@ public class User implements Serializable {
 	@Column(unique = true, nullable = false)
 	private Integer id;
 
+	@NotNull
+	@NotEmpty
+	@Email
 	@Column(name = "email", nullable = false, length = 20)
 	private String email;
 
 	@Column(name = "motdepasse", nullable = false, length = 20)
 	private String pass;
 
-	@Column(name = "nom", length = 20)
+	@NotNull
+	@Size(min = 1, max = 25)
+	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+	@Column(name = "nom", length = 25)
 	private String nom;
 
 	@Column(name = "prenom", length = 20)
 	private String prenom;
 
+	@NotNull
+	@Size(min = 10, max = 12)
+	@Digits(fraction = 0, integer = 12)
+	@Column(name = "phone_number")
+	private String phoneNumber;
+
+	@NotNull
 	@Column(name = "role", nullable = false, length = 2)
 	private int role;
 
 	private Boolean actif;
-
 
 	public String getEmail() {
 		return this.email;
@@ -74,26 +94,6 @@ public class User implements Serializable {
 
 	public void setPass(String pass) {
 		this.pass = pass;
-	}
-
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("User [id=");
-		builder.append(id);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", login=");
-		builder.append(", pass=");
-		builder.append(pass);
-		builder.append("]");
-		return builder.toString();
 	}
 
 	/**
@@ -164,10 +164,25 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the phoneNumber
+	 */
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	/**
+	 * @param phoneNumber the phoneNumber to set
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 }

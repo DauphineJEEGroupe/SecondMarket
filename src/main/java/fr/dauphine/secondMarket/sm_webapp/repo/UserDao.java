@@ -6,6 +6,7 @@ package fr.dauphine.secondMarket.sm_webapp.repo;
 import java.util.List;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.User;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 
 /**
  * @author gnepa.rene.barou
@@ -13,18 +14,18 @@ import fr.dauphine.secondMarket.sm_webapp.domain.User;
  */
 public interface UserDao {
 
-	User findById(int id);
+	User findById(int id) throws SmDaoException;
 
-	User findByEmail(String email);
+	User findByEmail(String email) throws SmDaoException;
 
-	List<User> findByName(String name);
+	List<User> findByName(String name) throws SmDaoException;
 
-	List<User> findAllOrderedByName();
+	List<User> findAllOrderedByName() throws SmDaoException;
 
-	User register(User user);
+	void register(User user) throws SmDaoException;
 
-	void delete(Integer id);
+	void delete(User user) throws SmDaoException;
 
-	User update(User user);
+	void update(User user) throws SmDaoException;
 
 }

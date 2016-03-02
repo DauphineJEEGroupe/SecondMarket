@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.User;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.repo.UserDao;
 
 /**
@@ -43,7 +45,6 @@ public class UserDaoImpl implements UserDao {
 	 * 
 	 */
 	public UserDaoImpl() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/*
@@ -53,8 +54,13 @@ public class UserDaoImpl implements UserDao {
 	 * fr.dauphine.secondMarket.sm_webapp.repo.UserDao#findById(java.lang.Long)
 	 */
 	@Override
-	public User findById(int id) {
-		return em.find(User.class, id);
+	public User findById(int id) throws SmDaoException {
+		try {
+			return em.find(User.class, id);
+		} catch (IllegalArgumentException e) {
+			throw new SmDaoException(e.getMessage(), e);
+		}
+
 	}
 
 	/*
@@ -64,9 +70,13 @@ public class UserDaoImpl implements UserDao {
 	 * fr.dauphine.secondMarket.sm_webapp.repo.UserDao#findAllOrderedByName()
 	 */
 	@Override
-	public List<User> findAllOrderedByName() {
-		criteria.select(userRoot).orderBy(builder.asc(userRoot.get("nom")));
-		return em.createQuery(criteria).getResultList();
+	public List<User> findAllOrderedByName() throws SmDaoException {
+		try {
+			criteria.select(userRoot).orderBy(builder.asc(userRoot.get("nom")));
+			return em.createQuery(criteria).getResultList();
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new SmDaoException(e.getMessage(), e);
+		}
 	}
 
 	/*
@@ -77,9 +87,13 @@ public class UserDaoImpl implements UserDao {
 	 * secondMarket.sm_webapp.domain.User)
 	 */
 	@Override
-	public User register(User user) {
-		em.persist(user);
-		return findByEmail(user.getEmail());
+	public void register(User user) throws SmDaoException {
+		try {
+			em.persist(user);
+			return;
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new SmDaoException(e.getMessage(), e);
+		}
 	}
 
 	/*
@@ -90,30 +104,42 @@ public class UserDaoImpl implements UserDao {
 	 * .String)
 	 */
 	@Override
-	public User findByEmail(String email) {
-		criteria.select(userRoot).where(
-				builder.equal(userRoot.get("email"), email));
-		return em.createQuery(criteria).getSingleResult();
+	public User findByEmail(String email) throws SmDaoException {
+		try {
+			criteria.select(userRoot).where(
+					builder.equal(userRoot.get("email"), email));
+			return em.createQuery(criteria).getSingleResult();
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new SmDaoException(e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public List<User> findByName(String name) {
-		this.criteria.where(builder.equal(userRoot.get("nom"), name));
-		return em.createQuery(criteria).getResultList();
+	public List<User> findByName(String name) throws SmDaoException {
+		try {
+			this.criteria.where(builder.equal(userRoot.get("nom"), name));
+			return em.createQuery(criteria).getResultList();
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new SmDaoException(e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public void delete(Integer id) {
-		User user = findById(id);
-
-		if (null != user)
+	public void delete(User user) throws SmDaoException {
+		try {
 			em.remove(user);
-
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new SmDaoException(e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public User update(User user) {
-		return em.merge(user);
+	public void update(User user) throws SmDaoException {
+		try {
+			em.merge(user);
+		} catch (IllegalArgumentException | PersistenceException e) {
+			throw new SmDaoException(e.getMessage(), e);
+		}
 	}
 
 }
