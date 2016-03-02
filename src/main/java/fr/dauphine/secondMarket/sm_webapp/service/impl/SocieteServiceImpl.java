@@ -25,14 +25,16 @@ public class SocieteServiceImpl implements SocieteService {
 	}
 
 	@Override
-	public void create(Societe newSociete) throws SmDaoException, SmTechException {
+	public void create(Societe newSociete) throws SmDaoException,
+			SmTechException {
 
 		if (null == societeDao.findBySiren(newSociete.getSiren())) {
 			Statut statut = statutDao.findByName(Constantes.STATUT_REFERENCEE);
 			newSociete.setStatut(statut);
 			societeDao.register(newSociete);
-		}else{
-			throw new SmTechException("La société avec le siren: "+newSociete.getSiren()+" existe deja");
+		} else {
+			throw new SmTechException("La société avec le siren: "
+					+ newSociete.getSiren() + " existe deja");
 		}
 
 	}
@@ -52,11 +54,10 @@ public class SocieteServiceImpl implements SocieteService {
 
 	@Override
 	public void update(Societe societeToUpdate) throws SmDaoException {
-		Societe societe;
-			societe = societeDao.findBySiren(societeToUpdate.getSiren());
-			if (null == societe || societe.getId() == societeToUpdate.getId()) {
-				societeDao.update(societeToUpdate);
-			}
+		Societe societe = societeDao.findBySiren(societeToUpdate.getSiren());
+		if (null == societe || societe.getId() == societeToUpdate.getId()) {
+			societeDao.update(societeToUpdate);
+		}
 
 	}
 
