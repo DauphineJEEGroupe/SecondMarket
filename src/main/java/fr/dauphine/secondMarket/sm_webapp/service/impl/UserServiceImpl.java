@@ -3,13 +3,14 @@ package fr.dauphine.secondMarket.sm_webapp.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.User;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
 import fr.dauphine.secondMarket.sm_webapp.repo.UserDao;
 import fr.dauphine.secondMarket.sm_webapp.service.UserService;
-
+@Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;

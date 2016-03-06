@@ -209,3 +209,8 @@ input {
 	font-style: italic;
 	color: blue;
 }
+
+.erreur {
+	font-style: italic;
+	color: red;
+}
