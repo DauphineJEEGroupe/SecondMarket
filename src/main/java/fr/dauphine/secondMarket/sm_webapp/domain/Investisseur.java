@@ -26,15 +26,6 @@ public class Investisseur extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param email
-	 * @param login
-	 * @param pass
-	 */
-	public Investisseur(String email, String login, String pass) {
-		super(email, login, pass);
-		// TODO Auto-generated constructor stub
-	}
 
 	private String profilInvestisseur;
 

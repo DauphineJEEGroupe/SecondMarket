@@ -27,15 +27,7 @@ public class MembreSociete extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @param email
-	 * @param login
-	 * @param pass
-	 */
-	public MembreSociete(String email, String login, String pass) {
-		super(email, login, pass);
-		// TODO Auto-generated constructor stub
-	}
+	
 	
 	@OneToOne
 	private Societe societe;

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -105,10 +106,14 @@ public class UserDaoImpl implements UserDao {
 	 */
 	@Override
 	public User findByEmail(String email) throws SmDaoException {
+		User result;
 		try {
 			criteria.select(userRoot).where(
 					builder.equal(userRoot.get("email"), email));
 			return em.createQuery(criteria).getSingleResult();
+		} catch (NoResultException e) {
+			result = null;
+			return result;
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new SmDaoException(e.getMessage(), e);
 		}

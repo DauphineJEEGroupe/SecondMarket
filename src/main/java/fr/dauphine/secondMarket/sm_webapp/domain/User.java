@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -33,27 +32,18 @@ public class User implements Serializable {
 		super();
 	}
 
-	/**
-	 * @param email
-	 * @param nom
-	 * @param pass
-	 */
-	public User(String email, String nom, String pass) {
-		super();
-		this.email = email;
-		this.pass = pass;
-		this.nom=nom;
-	}
+	
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
 	private Integer id;
 
 	@NotNull
 	@NotEmpty
 	@Email
-	@Column(name = "email", nullable = false, length = 20)
+	@Column(name = "email", nullable = false, length = 50)
 	private String email;
 
 	@Column(name = "motdepasse", nullable = false, length = 20)
@@ -65,7 +55,7 @@ public class User implements Serializable {
 	@Column(name = "nom", length = 25)
 	private String nom;
 
-	@Column(name = "prenom", length = 20)
+	@Column(name = "prenom", length = 50)
 	private String prenom;
 
 	@NotNull
@@ -74,7 +64,6 @@ public class User implements Serializable {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 
-	@NotNull
 	@Column(name = "role", nullable = false, length = 2)
 	private int role;
 
@@ -179,7 +168,8 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @param phoneNumber the phoneNumber to set
+	 * @param phoneNumber
+	 *            the phoneNumber to set
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
