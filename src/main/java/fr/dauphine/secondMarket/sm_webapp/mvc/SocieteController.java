@@ -5,6 +5,7 @@ package fr.dauphine.secondMarket.sm_webapp.mvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
@@ -32,6 +33,8 @@ import fr.dauphine.secondMarket.sm_webapp.service.SocieteService;
 public class SocieteController {
 	@Autowired
 	private SocieteService societeService;
+	
+	private static Logger logger=Logger.getLogger(SocieteController.class.getCanonicalName());
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String displaySortedSocietes(Model model) {
@@ -39,8 +42,7 @@ public class SocieteController {
 		try {
 			societes = societeService.findAll();
 		} catch (SmDaoException e) {
-			// TODO logger
-			System.out.println("--------------ERROR---------"+e.getMessage());
+			logger.severe("--------------ERROR---------"+e.getMessage());
 		}
 		model.addAttribute("newSociete", new Societe());
 		model.addAttribute("societes", societes);
