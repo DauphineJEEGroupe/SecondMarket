@@ -4,19 +4,19 @@
 <html>
 
 	<head>
-		<title>Marché Secondaire | Paris-Dauphine</title>
+		<title>Marché Secondaire</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="<c:url value="/static/resources/css/screen.css"/>"/>
+		<link rel="stylesheet" type="text/css"
+			href="<c:url value="/static/resources/css/screen.css"/>" />
 	</head>
 
 	<body>
 		<div id="container">
 			<div class="dualbrand">
-				<img src="<c:url value="/static/resources/gfx/Dauphine_logo.png"/>"/>
+				<img src="<c:url value="/static/resources/gfx/Dauphine_logo.png"/>" />
 			</div>
 			<div id="content">
 				<h1>Statuts d'une société</h1>
-
 
 				<form:form commandName="newStatut" id="reg">
 					<h2>Nouveau statut</h2>
