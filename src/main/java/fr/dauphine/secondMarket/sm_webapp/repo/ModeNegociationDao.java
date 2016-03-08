@@ -6,6 +6,7 @@ package fr.dauphine.secondMarket.sm_webapp.repo;
 import java.util.List;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.ModeNegociation;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 
 /**
  * @author gb2c7dcn
@@ -13,12 +14,12 @@ import fr.dauphine.secondMarket.sm_webapp.domain.ModeNegociation;
  */
 public interface ModeNegociationDao {
 	
-	public ModeNegociation findById(Long id);
+	public ModeNegociation findById(Long id) throws SmDaoException;
 
-    public ModeNegociation findByCode(String code);
+    public ModeNegociation findByCode(String code) throws SmDaoException;
 
-    public List<ModeNegociation> findAllOrderedByCode();
+    public List<ModeNegociation> findAllOrderedByCode() throws SmDaoException;
 
-    public void register(ModeNegociation modeNegociation);
+    public void register(ModeNegociation modeNegociation) throws SmDaoException;
 
 }

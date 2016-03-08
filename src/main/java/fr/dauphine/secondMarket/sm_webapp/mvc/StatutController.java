@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Statut;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.repo.StatutDao;
 
 /**
@@ -29,7 +30,12 @@ public class StatutController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String displaySortedStatuts(Model model) {
 		model.addAttribute("newStatut", new Statut());
-		model.addAttribute("statuts", statutDao.findAllOrderedByName());
+		try {
+			model.addAttribute("statuts", statutDao.findAllOrderedByCode());
+		} catch (SmDaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "back/statut";
 	}
 
@@ -38,10 +44,20 @@ public class StatutController {
 			@Valid @ModelAttribute("newStatut") Statut newStatut,
 			BindingResult result, Model model) {
 		if (!result.hasErrors()) {
-			statutDao.register(newStatut);
+			try {
+				statutDao.register(newStatut);
+			} catch (SmDaoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return "redirect:/statut";
 		} else {
-			model.addAttribute("statuts", statutDao.findAllOrderedByName());
+			try {
+				model.addAttribute("statuts", statutDao.findAllOrderedByCode());
+			} catch (SmDaoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return "back/statut";
 		}
 	}

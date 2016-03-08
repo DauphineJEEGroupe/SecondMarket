@@ -29,7 +29,7 @@ public class SocieteServiceImpl implements SocieteService {
 			SmTechException {
 
 		if (null == societeDao.findBySiren(newSociete.getSiren())) {
-			Statut statut = statutDao.findByName(Constantes.STATUT_REFERENCEE);
+			Statut statut = statutDao.findByCode(Constantes.STATUT_REFERENCEE);
 			newSociete.setStatut(statut);
 			societeDao.register(newSociete);
 		} else {
@@ -70,7 +70,7 @@ public class SocieteServiceImpl implements SocieteService {
 	public void accredit(int id) throws SmDaoException {
 		Societe societeToUpdate = societeDao.findById(id);
 		if (null != societeToUpdate) {
-			Statut statut = statutDao.findByName(Constantes.STATUT_ACCREDITEE);
+			Statut statut = statutDao.findByCode(Constantes.STATUT_ACCREDITEE);
 			societeToUpdate.setStatut(statut);
 			societeDao.update(societeToUpdate);
 		}

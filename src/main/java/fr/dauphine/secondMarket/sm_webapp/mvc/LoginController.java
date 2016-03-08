@@ -27,7 +27,8 @@ public class LoginController {
 
 	@Autowired
 	private UserBean userBean;
-	private static Logger logger = Logger.getLogger(LoginController.class
+
+	private static final Logger logger = Logger.getLogger(LoginController.class
 			.getCanonicalName());
 
 	@RequestMapping(method = RequestMethod.GET)

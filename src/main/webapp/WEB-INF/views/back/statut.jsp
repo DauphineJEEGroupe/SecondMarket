@@ -23,9 +23,9 @@
 					<table>
 						<tbody>
 							<tr>
-								<td><form:label path="nom">Nom:</form:label></td>
-								<td><form:input path="nom"/></td>
-								<td><form:errors class="invalid" path="nom"/></td>
+								<td><form:label path="code">Code:</form:label></td>
+								<td><form:input path="code"/></td>
+								<td><form:errors class="invalid" path="code"/></td>
 							</tr>
 						</tbody>
 					</table>
@@ -47,14 +47,14 @@
 							<thead>
 								<tr>
 									<th>Id</th>
-									<th>Nom</th>
+									<th>Code</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${statuts}" var="statut">
 									<tr>
 										<td>${statut.id}</td>
-										<td>${statut.nom}</td>
+										<td>${statut.code}</td>
 								</c:forEach>
 							</tbody>
 						</table>
