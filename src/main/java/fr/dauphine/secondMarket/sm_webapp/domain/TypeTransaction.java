@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 public class TypeTransaction implements Serializable {
-
 	
 	/**
 	 * 

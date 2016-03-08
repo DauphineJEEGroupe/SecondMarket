@@ -47,25 +47,25 @@ public class StatutDaoImpl implements StatutDao {
 	 * @see fr.dauphine.secondMarket.sm_webapp.repo.StatutDao#findByEmail(java.lang.String)
 	 */
 	@Override
-	public Statut findByName(String name) {
+	public Statut findByCode(String code) {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Statut> criteria = builder.createQuery(Statut.class);
         Root<Statut> statut = criteria.from(Statut.class);
 
-        criteria.select(statut).where(builder.equal(statut.get("nom"), name));
+        criteria.select(statut).where(builder.equal(statut.get("code"), code));
         return em.createQuery(criteria).getSingleResult();
 	}
 
 	/* (non-Javadoc)
-	 * @see fr.dauphine.secondMarket.sm_webapp.repo.StatutDao#findAllOrderedByName()
+	 * @see fr.dauphine.secondMarket.sm_webapp.repo.StatutDao#findAllOrderedByCode()
 	 */
 	@Override
-	public List<Statut> findAllOrderedByName() {
+	public List<Statut> findAllOrderedByCode() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Statut> criteria = cb.createQuery(Statut.class);
         Root<Statut> statut = criteria.from(Statut.class);
 
-        criteria.select(statut).orderBy(cb.asc(statut.get("nom")));
+        criteria.select(statut).orderBy(cb.asc(statut.get("code")));
         return em.createQuery(criteria).getResultList();
 	}
 

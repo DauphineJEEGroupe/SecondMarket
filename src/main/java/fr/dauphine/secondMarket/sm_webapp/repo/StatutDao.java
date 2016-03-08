@@ -15,9 +15,9 @@ public interface StatutDao {
 
 	public Statut findById(Long id);
 
-    public Statut findByName(String name);
+    public Statut findByCode(String code);
 
-    public List<Statut> findAllOrderedByName();
+    public List<Statut> findAllOrderedByCode();
 
     public void register(Statut statut);
 
