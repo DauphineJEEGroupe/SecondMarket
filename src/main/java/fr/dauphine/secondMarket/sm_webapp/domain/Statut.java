@@ -15,7 +15,12 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class Statut implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1822754709531299097L;
 
 	@Id
 	@GeneratedValue
@@ -24,7 +29,7 @@ public class Statut implements Serializable {
 	@NotNull
 	@Size(min = 1, max = 25)
 	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
-	private String nom;
+	private String code;
 
 	public Statut() {
 		super();
@@ -38,12 +43,12 @@ public class Statut implements Serializable {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return this.nom;
+	public String getCode() {
+		return this.code;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setCode(String nom) {
+		this.code = nom;
 	}
 
 	/* (non-Javadoc)
@@ -54,8 +59,8 @@ public class Statut implements Serializable {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Statut [id=");
 		builder.append(id);
-		builder.append(", nom=");
-		builder.append(nom);
+		builder.append(", code=");
+		builder.append(code);
 		builder.append("]");
 		return builder.toString();
 	}
