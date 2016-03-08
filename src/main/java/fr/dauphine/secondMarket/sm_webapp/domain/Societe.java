@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -40,6 +41,9 @@ public class Societe implements Serializable {
 	
 	@ManyToOne
 	private Statut statut;
+	
+	@OneToOne
+	private MembreSociete representant;
 
 	private static final long serialVersionUID = 1L;
 
@@ -123,6 +127,14 @@ public class Societe implements Serializable {
 	 */
 	public void setStatut(Statut statut) {
 		this.statut = statut;
+	}
+
+	public MembreSociete getRepresentant() {
+		return representant;
+	}
+
+	public void setRepresentant(MembreSociete representant) {
+		this.representant = representant;
 	}
 
 }
