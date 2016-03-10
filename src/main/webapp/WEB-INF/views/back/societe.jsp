@@ -83,7 +83,7 @@
 										<td>${societe.siren}</td>
 										<td>${societe.ville}</td>
 										<td>${societe.pays}</td>
-										<td>${societe.statut.nom}</td>
+										<td>${societe.statut.code}</td>
 										<td><a href="<c:url value="/societe/edit/${societe.id}"/>">Modifié</a></td>
 								</c:forEach>
 							</tbody>

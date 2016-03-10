@@ -6,7 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "codeIsin"))
 public class Contrat implements Serializable{
 
 	/**
@@ -18,7 +23,10 @@ public class Contrat implements Serializable{
 	@GeneratedValue
 	private Long id;
 	
+	@NotNull
+	@Size(min = 1, max = 25)
 	private String  codeIsin;
+	
 	
 	private long valeur;
 	
