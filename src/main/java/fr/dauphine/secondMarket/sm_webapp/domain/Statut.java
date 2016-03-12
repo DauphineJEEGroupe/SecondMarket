@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
  *
  */
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "code"))
 public class Statut implements Serializable {
 
 

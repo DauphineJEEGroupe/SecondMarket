@@ -7,55 +7,54 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- * Entity implementation class for Entity: Societe
+ * Entity implementation class for Entity: Statut
  *
  */
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "siren"))
 public class Societe implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Long id;
 
 	@NotNull
 	@Size(min = 1, max = 25)
 	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
 	private String nom;
-	
+
 	@NotNull
 	@Size(min = 1, max = 25)
 	private String siren;
-	
+
 	@NotNull
 	@Size(min = 1, max = 25)
 	private String ville;
-	
+
 	@NotNull
 	@Size(min = 1, max = 25)
 	private String pays;
-	
+
 	@ManyToOne
 	private Statut statut;
-	
+
 	@OneToOne
 	private MembreSociete representant;
 
-	private static final long serialVersionUID = 1L;
-
-	public Societe() {
-		super();
-	}
-
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -67,7 +66,8 @@ public class Societe implements Serializable {
 	}
 
 	/**
-	 * @param nom the nom to set
+	 * @param nom
+	 *            the nom to set
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -81,7 +81,8 @@ public class Societe implements Serializable {
 	}
 
 	/**
-	 * @param siren the siren to set
+	 * @param siren
+	 *            the siren to set
 	 */
 	public void setSiren(String siren) {
 		this.siren = siren;
@@ -95,7 +96,8 @@ public class Societe implements Serializable {
 	}
 
 	/**
-	 * @param ville the ville to set
+	 * @param ville
+	 *            the ville to set
 	 */
 	public void setVille(String ville) {
 		this.ville = ville;
@@ -109,7 +111,8 @@ public class Societe implements Serializable {
 	}
 
 	/**
-	 * @param pays the pays to set
+	 * @param pays
+	 *            the pays to set
 	 */
 	public void setPays(String pays) {
 		this.pays = pays;
@@ -123,7 +126,8 @@ public class Societe implements Serializable {
 	}
 
 	/**
-	 * @param statut the statut to set
+	 * @param statut
+	 *            the statut to set
 	 */
 	public void setStatut(Statut statut) {
 		this.statut = statut;

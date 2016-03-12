@@ -1,7 +1,8 @@
-package fr.dauphine.secondMarket.sm_webapp.mvc;
+package fr.dauphine.secondMarket.sm_webapp.mvc.bean;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class UserBean implements Serializable{
 	
 	/** The username. */
     private String username;
-    
+    @Email
     private String email;
 
     /** The password. */

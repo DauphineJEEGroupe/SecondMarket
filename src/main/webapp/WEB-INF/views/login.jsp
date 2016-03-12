@@ -24,13 +24,13 @@
 					<table>
 						<tbody>
 							<tr>
-								<td><form:label path="email">Adresse mail:</form:label></td>
-								<td><form:input path="email"/></td> 
+								<td><form:label path="email" >Adresse mail:</form:label></td>
+								<td><form:input path="email" required="required"/></td> 
 								<td><form:errors class="invalid" path="email"/></td>
 							</tr>
 							<tr>
 								<td><form:label path="password">Mot de passe:</form:label></td>
-								<td><form:password path="password" /></td> 
+								<td><form:password path="password" required="required"/></td> 
 								<td><form:errors class="invalid" path="password"/></td>
 							</tr>
 						</tbody>

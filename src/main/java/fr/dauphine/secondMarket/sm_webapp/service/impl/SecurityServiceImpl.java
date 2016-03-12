@@ -69,17 +69,22 @@ public class SecurityServiceImpl implements SecurityService {
 	}
 
 	@Override
-	public User getAuthenticateUser(String email, String password)  throws SmTechException{
+	public User getAuthenticateUser(String email, String password)
+			throws SmTechException {
 		User user;
 		try {
 			user = userService.findByMail(email);
+
 		} catch (SmDaoException e) {
 			throw new SmTechException(e.getMessage());
 		}
-		if(!authenticate(user, password)){
+		if (null == user)
+			throw new SmTechException("L'adresse mail :" + email
+					+ " ne correspond à aucun utilisateur");
+
+		if (!authenticate(user, password)) {
 			throw new SmTechException("Erreur de mot de passe");
 		}
-		
 		return user;
 	}
 

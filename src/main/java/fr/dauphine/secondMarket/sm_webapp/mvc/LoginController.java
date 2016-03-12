@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.User;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
+import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.service.SecurityService;
 
 @Controller
@@ -56,8 +57,8 @@ public class LoginController {
 			return "redirect:/user";
 		} catch (SmTechException e) {
 			redirectAttributes.addFlashAttribute("erreur",
-					"L'email et le mot de passe sont obligatoire");
-			logger.severe("L'email et le mot de passe sont obligatoire");
+					"L'email ou le mot de passe sont incorrects");
+			logger.severe(e.getMessage());
 			return "redirect:/login";
 		}
 

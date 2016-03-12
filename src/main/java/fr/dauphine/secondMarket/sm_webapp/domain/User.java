@@ -31,16 +31,9 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public User() {
-		super();
-	}
-
-	
-
 	@Id
 	@GeneratedValue
 	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
 	private Long id;
 
 	@NotNull
