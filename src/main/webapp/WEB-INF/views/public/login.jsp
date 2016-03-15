@@ -1,24 +1,13 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
-<html>
-
-	<head>
-		<title>Marché Secondaire | Paris-Dauphine</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css"
-			href="<c:url value="/static/resources/css/screen.css"/>" />
-	</head>
-
-	<body>
-		<div id="container">
-			<div class="dualbrand">
-				<img src="<c:url value="/static/resources/gfx/Dauphine_logo.png"/>" />
-			</div>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<jsp:include page="../fragments/header.jsp"/>
 			<div id="content">
 				<h1>Identification</h1>
 				<p>
-					<span class="erreur">${erreur}</span>
+					<span class="erreur">${erreur}</span> 
+				</p>
+				<p>
+					<span class="message"> admin@secondMarket.com / admin</span>
 				</p>
 				<form:form commandName="userBean" id="reg">
 					<table>
@@ -46,16 +35,8 @@
 				<div>
 					<h3>Pas encore membre?</h3>
 					<p>
-					<a href="<c:url value="/"/>">Inscription investisseur</a><br />
+					<a href="<c:url value="/user/inscription"/>">Inscription investisseur</a><br />
 			    	</p>
 			</div>
 			</div>
-			
-			<div id="footer">
-			    <p>
-					<a href="<c:url value="/"/>">Home</a><br />
-			    </p>
-			</div>
-		</div>
-	</body>
-</html>
+		<jsp:include page="../fragments/footer.jsp"/>

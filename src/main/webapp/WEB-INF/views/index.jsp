@@ -27,6 +27,8 @@
 			<div id="aside">
 				<p>Acces rapide.</p>
 				<ul>
+					<li><a href="<c:url value="/login"/>">Connexion</a></li>
+					<li><a href="<c:url value="/user/inscription"/>">Inscription</a></li>
 					<li><a href="<c:url value="/statut"/>">Statut</a></li>
 					<li><a href="<c:url value="/societe"/>">Societe</a></li>
 				</ul>

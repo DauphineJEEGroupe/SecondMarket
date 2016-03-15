@@ -66,4 +66,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.findByEmail(email);
 	}
 
+	@Override
+	public List<User> findByType(String type) throws SmDaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -17,6 +17,8 @@ public interface UserService {
 	List<User> findAll() throws SmDaoException;
 	
 	List<User> findByName(String name) throws SmDaoException;
+	
+	List<User> findByType(String type) throws SmDaoException;
 
 	User findById(int id) throws SmDaoException;
 

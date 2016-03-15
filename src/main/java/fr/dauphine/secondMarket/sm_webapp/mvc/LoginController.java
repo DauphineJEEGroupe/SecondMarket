@@ -21,8 +21,9 @@ import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.service.SecurityService;
 
 @Controller
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/")
 public class LoginController {
+	
 	@Autowired
 	private SecurityService securityService;
 
@@ -32,18 +33,26 @@ public class LoginController {
 	private static final Logger logger = Logger.getLogger(LoginController.class
 			.getCanonicalName());
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index(Model model) {
+		logger.info("index()");
+		return "index";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
+		logger.info("login(): GET");
 		model.addAttribute("userBean", userBean);
-		return "login";
+		return "public/login";
 
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request,
 			HttpServletResponse response,
 			@Valid @ModelAttribute("login") UserBean userBean,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
+		logger.info("login(): POST");
 		try {
 			User user = securityService.getAuthenticateUser(
 					userBean.getEmail(), userBean.getPassword());
