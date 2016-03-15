@@ -29,6 +29,7 @@ import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
 public class UserController {
 	
 	Logger logger=Logger.getLogger(UserController.class.getCanonicalName());
+	
 	@Autowired
 	private UserService userService;
 	
@@ -37,6 +38,7 @@ public class UserController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String displayUser(Model model){
+		logger.info("displayUser()");
 		List<User> users=new ArrayList<User>();
 		try {
 			users=userService.findAll();
@@ -54,6 +56,7 @@ public class UserController {
 			@Valid @ModelAttribute("newUser") User newUser,
 			BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
+		logger.info("registerNewUser()");
 		if(result.hasErrors()){
 			StringBuilder erreur=new StringBuilder();
 			for (ObjectError error : result.getAllErrors()) {
@@ -89,6 +92,7 @@ public class UserController {
 			@Valid @ModelAttribute("newInvestisseur") Investisseur newInvestisseur,
 			BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
+		logger.info("registerNewInvestisseur()");
 		if(result.hasErrors()){
 			StringBuilder erreur=new StringBuilder();
 			for (ObjectError error : result.getAllErrors()) {

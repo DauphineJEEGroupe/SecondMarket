@@ -10,7 +10,7 @@ public interface UserService {
 
 	void create(User newUser) throws SmDaoException, SmTechException;
 
-	void delete(int id) throws SmDaoException;
+	void delete(Long id) throws SmDaoException;
 
 	void update(User userToUpdate) throws SmDaoException;
 
@@ -20,7 +20,7 @@ public interface UserService {
 	
 	List<User> findByType(String type) throws SmDaoException;
 
-	User findById(int id) throws SmDaoException;
+	User findById(Long id) throws SmDaoException;
 
 	User findByMail(String email) throws SmDaoException;
 

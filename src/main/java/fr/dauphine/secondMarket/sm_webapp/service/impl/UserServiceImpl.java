@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(int id) throws SmDaoException {
+	public void delete(Long id) throws SmDaoException {
 			User user=userDao.findById(id);
 			if(null!=user) userDao.delete(user);
 		
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User findById(int id) throws SmDaoException {
+	public User findById(Long id) throws SmDaoException {
 		return userDao.findById(id);
 	}
 

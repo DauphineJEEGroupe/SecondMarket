@@ -14,7 +14,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
  */
 public interface UserDao {
 
-	User findById(int id) throws SmDaoException;
+	User findById(Long id) throws SmDaoException;
 
 	User findByEmail(String email) throws SmDaoException;
 

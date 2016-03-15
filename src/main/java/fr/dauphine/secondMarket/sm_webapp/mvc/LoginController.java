@@ -50,7 +50,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request,
 			HttpServletResponse response,
-			@Valid @ModelAttribute("login") UserBean userBean,
+			@Valid @ModelAttribute("userBean") UserBean userBean,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
 		logger.info("login(): POST");
 		try {
@@ -60,6 +60,7 @@ public class LoginController {
 			this.userBean.setUsername(user.getNom());
 			this.userBean.setRole(securityService.getRole(user.getRole()));
 			this.userBean.setConneted(true);
+			this.userBean.setId(user.getId());
 			logger.info("Connexion de: " + userBean.getEmail() + " / "
 					+ userBean.getPassword());
 

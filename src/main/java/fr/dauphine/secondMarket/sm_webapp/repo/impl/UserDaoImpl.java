@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
 	 * fr.dauphine.secondMarket.sm_webapp.repo.UserDao#findById(java.lang.Long)
 	 */
 	@Override
-	public User findById(int id) throws SmDaoException {
+	public User findById(Long id) throws SmDaoException {
 		try {
 			return em.find(User.class, id);
 		} catch (IllegalArgumentException e) {
