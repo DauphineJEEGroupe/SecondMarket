@@ -18,6 +18,14 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <filter>
+		<filter-name>errorHandlerFilter</filter-name>
+		<filter-class>fr.dauphine.secondMarket.sm_webapp.mvc.filter.ErrorHandleFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>errorHandlerFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
   <servlet-mapping>
     <servlet-name>jboss-as-kitchensink</servlet-name>
     <url-pattern>/</url-pattern>
