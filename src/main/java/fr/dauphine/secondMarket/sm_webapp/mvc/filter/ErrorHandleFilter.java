@@ -3,7 +3,16 @@
  */
 package fr.dauphine.secondMarket.sm_webapp.mvc.filter;
 
-import org.jboss.logging.Logger;
+import java.io.IOException;
+import java.util.logging.Logger;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 
 /**
  * @author gb2c7dcn
@@ -29,11 +38,14 @@ public class ErrorHandleFilter implements Filter {
 		try {
 			chain.doFilter(request, response);
 		} catch (Exception ex) {
+			logger.severe(ex.getMessage());
 			request.setAttribute("errorMessage", ex);
 			request.getRequestDispatcher("/WEB-INF/views/public/error.jsp")
                                .forward(request, response);
 		}
 
 	}
+
+
 
 }

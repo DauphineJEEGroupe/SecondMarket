@@ -5,6 +5,8 @@ package fr.dauphine.secondMarket.sm_webapp.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
@@ -14,6 +16,7 @@ import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
  * @author gnepa.rene.barou
  *
  */
+@Service
 public class ContratServiceImpl implements ContratService {
 
 	/**

@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<jsp:include page="../fragments/header.jsp"/>
+<jsp:include page="../membre/fragments/header.jsp"/>
 			<div id="content">
 				<h1>Inscription Investisseur</h1>
 	
@@ -41,4 +41,4 @@
 					</table>
 				</form:form>
 			</div>
-		<jsp:include page="../fragments/footer.jsp"/>
+		<jsp:include page="../membre/fragments/footer.jsp"/>

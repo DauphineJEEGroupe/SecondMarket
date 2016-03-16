@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import fr.dauphine.secondMarket.sm_webapp.domain.User;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
 import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.service.SecurityService;
+import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
 
 @Controller
 @RequestMapping(value = "/")
@@ -27,8 +29,8 @@ public class LoginController {
 	@Autowired
 	private SecurityService securityService;
 
-	@Autowired
-	private UserBean userBean;
+//	@Autowired
+//	private UserBean userBean;
 
 	private static final Logger logger = Logger.getLogger(LoginController.class
 			.getCanonicalName());
@@ -39,37 +41,40 @@ public class LoginController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "public/login", method = RequestMethod.GET)
 	public String login(Model model) {
 		logger.info("login(): GET");
-		model.addAttribute("userBean", userBean);
+		model.addAttribute("login", new User());
 		return "public/login";
 
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "public/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request,
 			HttpServletResponse response,
-			@Valid @ModelAttribute("userBean") UserBean userBean,
+			@Valid @ModelAttribute("userBean") User login,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
 		logger.info("login(): POST");
-		try {
+		UserBean userBean=new UserBean();
+		 try {
 			User user = securityService.getAuthenticateUser(
-					userBean.getEmail(), userBean.getPassword());
-			this.userBean.setEmail(user.getEmail());
-			this.userBean.setUsername(user.getNom());
-			this.userBean.setRole(securityService.getRole(user.getRole()));
-			this.userBean.setConneted(true);
-			this.userBean.setId(user.getId());
+					login.getEmail(), login.getPass());
+			userBean.setEmail(user.getEmail());
+			userBean.setUsername(user.getNom());
+			userBean.setRole(securityService.getRole(user.getRole()));
+			userBean.setConneted(true);
+			userBean.setId(user.getId());
 			logger.info("Connexion de: " + userBean.getEmail() + " / "
-					+ userBean.getPassword());
-
+					+ userBean.getPassword()+" is conected: "+userBean.isConneted());
+			/* Récupération de la session depuis la requête */
+			HttpSession session = request.getSession();
+			session.setAttribute(Constantes.ATT_SESSION_USER, userBean);
 			return "redirect:/user";
 		} catch (SmTechException e) {
 			redirectAttributes.addFlashAttribute("erreur",
 					"L'email ou le mot de passe sont incorrects");
 			logger.severe(e.getMessage());
-			return "redirect:/login";
+			return "redirect:/public/login";
 		}
 
 	}

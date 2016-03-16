@@ -50,7 +50,7 @@ public class InvestisseursController {
 					.findByInvestisseur(investisseur.getId());
 			model.addAttribute("titres", titres);
 			model.addAttribute("investisseur", investisseur);
-			return "front/investisseur/monProfil";
+			return "membre/front/investisseur/monProfil";
 		} catch (SmDaoException e) {
 			logger.severe(e.getMessage());
 			return "redirect:/login";

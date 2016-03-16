@@ -46,7 +46,7 @@ public class SocieteController {
 		}
 		model.addAttribute("newSociete", new Societe());
 		model.addAttribute("societes", societes);
-		return "back/societe";
+		return "membre/back/societe";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -89,7 +89,7 @@ public class SocieteController {
 		try {
 			Societe societeToUpdate = societeService.findById(id);
 			model.addAttribute("societeToUpdate", societeToUpdate);
-			return "back/societe-edit";
+			return "membre/back/societe-edit";
 		} catch (SmDaoException e) {
 			// TODO logger
 			System.out.println("--------------ERROR---------"+e.getMessage());

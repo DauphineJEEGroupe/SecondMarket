@@ -29,7 +29,7 @@ public class TestView {
 	@RequestMapping(method = RequestMethod.GET)
 	public String login(Model model) {
 		
-		return "back/accueil";
+		return "membre/back/accueil";
 
 	}
 

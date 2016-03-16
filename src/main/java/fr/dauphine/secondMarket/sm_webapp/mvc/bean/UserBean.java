@@ -115,7 +115,7 @@ public class UserBean implements Serializable {
 	 * @param isConneted
 	 *            the isConneted to set
 	 */
-	public void setConneted(final boolean isConneted) {
+	public void setConneted( boolean isConneted) {
 		this.isConneted = isConneted;
 	}
 

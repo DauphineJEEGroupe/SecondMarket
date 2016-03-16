@@ -47,7 +47,7 @@ public class UserController {
 		}
 		model.addAttribute("users", users);
 		model.addAttribute("newUser", new User());
-		return "back/user/list";
+		return "membre/back/user/list";
 		
 	}
 	

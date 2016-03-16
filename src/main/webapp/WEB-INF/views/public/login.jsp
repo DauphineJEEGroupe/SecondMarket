@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<jsp:include page="../fragments/header.jsp"/>
+<jsp:include page="../membre/fragments/header.jsp"/>
 			<div id="content">
 				<h1>Identification</h1>
 				<p>
@@ -9,7 +9,7 @@
 				<p>
 					<span class="message"> admin@secondMarket.com / admin</span>
 				</p>
-				<form:form commandName="userBean" id="reg">
+				<form:form commandName="login" id="reg">
 					<table>
 						<tbody>
 							<tr>
@@ -18,9 +18,9 @@
 								<td><form:errors class="invalid" path="email"/></td>
 							</tr>
 							<tr>
-								<td><form:label path="password">Mot de passe:</form:label></td>
-								<td><form:password path="password" required="required"/></td> 
-								<td><form:errors class="invalid" path="password"/></td>
+								<td><form:label path="pass">Mot de passe:</form:label></td>
+								<td><form:password path="pass" required="required"/></td> 
+								<td><form:errors class="invalid" path="pass"/></td>
 							</tr>
 						</tbody>
 					</table>
@@ -39,4 +39,4 @@
 			    	</p>
 			</div>
 			</div>
-		<jsp:include page="../fragments/footer.jsp"/>
+		<jsp:include page="../membre/fragments/footer.jsp"/>

@@ -36,7 +36,7 @@ public class StatutController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "back/statut";
+		return "membre/back/statut";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -58,7 +58,7 @@ public class StatutController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return "back/statut";
+			return "membre/back/statut";
 		}
 	}
 

@@ -9,6 +9,9 @@ package fr.dauphine.secondMarket.sm_webapp.utils;
  */
 public class Constantes {
 
+	public static final String ACCES_PUBLIC = "/public/login";
+	public static final String ATT_SESSION_USER = "userBean";
+	
 	public final static String STATUT_REFERENCEE="REFERENCEE";
 	public final static String STATUT_ACCREDITEE="ACCREDITEE";
 	public final static String ROLE_ADMIN="ADMIN";
