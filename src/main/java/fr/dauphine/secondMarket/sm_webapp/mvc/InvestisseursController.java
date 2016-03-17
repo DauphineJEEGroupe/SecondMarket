@@ -24,7 +24,7 @@ import fr.dauphine.secondMarket.sm_webapp.service.UserService;
 
 /**
  * @author gnepa.rene.barou
- *
+ * 
  */
 @Controller
 @RequestMapping(value = "/investisseur")
@@ -34,6 +34,7 @@ public class InvestisseursController {
 			.getLogger(InvestisseursController.class.getCanonicalName());
 	@Autowired
 	UserService serviceUser;
+	
 	@Autowired
 	ContratService serviceContrat;
 
