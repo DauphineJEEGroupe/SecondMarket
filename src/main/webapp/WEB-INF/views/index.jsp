@@ -21,6 +21,7 @@
 					<p>Cette application web est basée sur le framework Spring MVC .</p>
 					<h3>Elle tourne sur:</h3>
 					<img src="<c:url value="/static/resources/gfx/dualbrand_as7eap.png"/>"/>
+<!-- 					<span -->
 				</div>
 
 			</div>
