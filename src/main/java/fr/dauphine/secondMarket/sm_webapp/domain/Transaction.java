@@ -36,6 +36,8 @@ public class Transaction implements Serializable{
 	private Date dateCloture;
 	private int quantite;
 	
+	private boolean isActif;
+	
 	
 	@ManyToOne
 	private Contrat titre;
@@ -235,6 +237,20 @@ public class Transaction implements Serializable{
 	 */
 	public void setVendeur(Investisseur vendeur) {
 		this.vendeur = vendeur;
+	}
+
+	/**
+	 * @return the isActif
+	 */
+	public boolean isActif() {
+		return isActif;
+	}
+
+	/**
+	 * @param isActif the isActif to set
+	 */
+	public void setActif(boolean isActif) {
+		this.isActif = isActif;
 	}
 
 }
