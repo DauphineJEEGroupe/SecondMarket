@@ -69,7 +69,7 @@ public class LoginController {
 			/* Récupération de la session depuis la requête */
 			HttpSession session = request.getSession();
 			session.setAttribute(Constantes.ATT_SESSION_USER, userBean);
-			return "redirect:/user";
+			return "redirect:/";
 		} catch (SmTechException e) {
 			redirectAttributes.addFlashAttribute("erreur",
 					"L'email ou le mot de passe sont incorrects");
