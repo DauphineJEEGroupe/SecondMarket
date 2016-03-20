@@ -54,7 +54,7 @@ public class InvestisseursController {
 			return "membre/front/investisseur/monProfil";
 		} catch (SmDaoException e) {
 			logger.severe(e.getMessage());
-			return "redirect:/login";
+			return "redirect:/public/login";
 		}
 
 	}

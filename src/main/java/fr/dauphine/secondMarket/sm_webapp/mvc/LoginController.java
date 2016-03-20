@@ -21,24 +21,27 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
 import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.service.SecurityService;
 import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
-
+/**
+ * @author gnepa.rene.barou
+ *
+ */
 @Controller
 @RequestMapping(value = "/")
 public class LoginController {
-	
+
 	@Autowired
 	private SecurityService securityService;
 
-//	@Autowired
-//	private UserBean userBean;
+	// @Autowired
+	// private UserBean userBean;
 
 	private static final Logger logger = Logger.getLogger(LoginController.class
 			.getCanonicalName());
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "public/", method = RequestMethod.GET)
 	public String index(Model model) {
 		logger.info("index()");
-		return "index";
+		return "/public/index";
 	}
 
 	@RequestMapping(value = "public/login", method = RequestMethod.GET)
@@ -55,21 +58,28 @@ public class LoginController {
 			@Valid @ModelAttribute("userBean") User login,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
 		logger.info("login(): POST");
-		UserBean userBean=new UserBean();
-		 try {
-			User user = securityService.getAuthenticateUser(
-					login.getEmail(), login.getPass());
+		UserBean userBean = new UserBean();
+		try {
+			User user = securityService.getAuthenticateUser(login.getEmail(),
+					login.getPass());
 			userBean.setEmail(user.getEmail());
 			userBean.setUsername(user.getNom());
 			userBean.setRole(securityService.getRole(user.getRole()));
 			userBean.setConneted(true);
 			userBean.setId(user.getId());
 			logger.info("Connexion de: " + userBean.getEmail() + " / "
-					+ userBean.getPassword()+" is conected: "+userBean.isConneted());
-			/* Récupération de la session depuis la requête */
+					+ userBean.getPassword() + " is conected: "
+					+ userBean.isConneted());
 			HttpSession session = request.getSession();
 			session.setAttribute(Constantes.ATT_SESSION_USER, userBean);
-			return "redirect:/";
+			if (securityService.isAdmin(user)) {
+				return "redirect:/user";
+			} else if (securityService.isInvestisseur(user)) {
+				return "redirect:/investisseur";
+			} else {
+				return "redirect:/membreSociete";
+			}
+
 		} catch (SmTechException e) {
 			redirectAttributes.addFlashAttribute("erreur",
 					"L'email ou le mot de passe sont incorrects");

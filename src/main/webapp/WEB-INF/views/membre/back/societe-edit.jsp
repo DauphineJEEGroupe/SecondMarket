@@ -61,7 +61,7 @@
 		</div>
 		<div id="footer">
 			<p>
-				<a href="<c:url value="/"/>">Home</a> | <a href="<c:url value="/statut"/>">Statut</a> | <a href="<c:url value="/societe"/>">Societe</a><br />
+				<a href="<c:url value="/public/"/>">Home</a> | <a href="<c:url value="/statut"/>">Statut</a> | <a href="<c:url value="/societe"/>">Societe</a><br />
 			</p>
 		</div>
 	</div>

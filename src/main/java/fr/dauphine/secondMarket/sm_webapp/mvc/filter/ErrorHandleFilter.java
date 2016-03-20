@@ -15,7 +15,7 @@ import javax.servlet.ServletResponse;
 
 
 /**
- * @author gb2c7dcn
+ * @author gnepa.rene.barou
  *
  */
 public class ErrorHandleFilter implements Filter {
@@ -34,7 +34,7 @@ public class ErrorHandleFilter implements Filter {
 	public void doFilter(ServletRequest request, 
                ServletResponse response, FilterChain chain)
 		throws IOException, ServletException {
-		logger.info("*****************ErrorHandleFilter doFilter()");
+		logger.info("ErrorHandleFilter doFilter()");
 		try {
 			chain.doFilter(request, response);
 		} catch (Exception ex) {

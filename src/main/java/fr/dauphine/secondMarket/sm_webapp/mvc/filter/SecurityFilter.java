@@ -20,6 +20,8 @@ import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
 
 /**
  * Servlet Filter implementation class SecurityFilter
+ * 
+ * @author gnepa.rene.barou
  */
 @WebFilter(dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD }, description = "authentification filter", urlPatterns = { "/SecurityFilter" }, servletNames = { "jboss-as-kitchensink" })
 public class SecurityFilter implements Filter {
@@ -68,18 +70,18 @@ public class SecurityFilter implements Filter {
 		 * l'utilisateur n'est pas connecté.
 		 */
 		if (session.getAttribute(Constantes.ATT_SESSION_USER) == null) {
-			logger.info("*****************SecurityFilter ( ATT_SESSION_USER ) == null");
+			logger.info("SecurityFilter ( ATT_SESSION_USER ) == null");
 			/* Redirection vers la page publique */
 			response.sendRedirect(request.getContextPath() + Constantes.ACCES_PUBLIC);
 		} else {
 			UserBean userBean = (UserBean) session
 					.getAttribute(Constantes.ATT_SESSION_USER);
 			if (userBean.isConneted()) {
-				logger.info("*****************SecurityFilter userBean.isConneted()");
+				logger.info(" SecurityFilter userBean.isConneted()");
 				/* Affichage de la page restreinte */
 				chain.doFilter(request, response);
 			} else {
-				logger.info("*****************SecurityFilter userBean.isNOTConneted()");
+				logger.info(" SecurityFilter userBean.isNOTConneted()");
 				response.sendRedirect(request.getContextPath() + Constantes.ACCES_PUBLIC);
 			}
 
@@ -91,7 +93,7 @@ public class SecurityFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
-		logger.info("*****************init filter");
+		logger.info("init filter");
 	}
 
 }

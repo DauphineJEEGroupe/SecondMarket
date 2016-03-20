@@ -45,7 +45,7 @@ public class ContratController {
 			return "membre/front/contrat/list";
 		} catch (SmDaoException e) {
 			logger.severe(e.getMessage());
-			return "redirect:/login";
+			return "redirect:/public/login";
 		}
 
 	}
@@ -59,7 +59,7 @@ public class ContratController {
 			return "membre/front/contrat/detail";
 		} catch (SmDaoException e) {
 			logger.severe(e.getMessage());
-			return "redirect:/login";
+			return "redirect:/public/login";
 		}
 
 	}
@@ -73,7 +73,7 @@ public class ContratController {
 			return "membre/front/contrat/modif";
 		} catch (SmDaoException e) {
 			logger.severe(e.getMessage());
-			return "redirect:/login";
+			return "redirect:/public/login";
 		}
 
 	}

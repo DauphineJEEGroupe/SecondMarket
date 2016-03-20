@@ -93,7 +93,7 @@
 			</div>
 			<div id="footer">
 				<p>
-					<a href="<c:url value="/"/>">Home</a> | <a
+					<a href="<c:url value="/public/"/>">Home</a> | <a
 						href="<c:url value="/statut"/>">Statut</a> | <a
 						href="<c:url value="/societe"/>">Societe</a>| <a
 						href="<c:url value="/user"/>">Utilisateur</a><br />

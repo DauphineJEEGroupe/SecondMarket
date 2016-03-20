@@ -50,7 +50,7 @@ public class TransactionController {
 			return "membre/front/transaction/list";
 		} catch (SmDaoException e) {
 			logger.severe(e.getMessage());
-			return "redirect:/login";
+			return "redirect:/public/login";
 		}
 
 	}
