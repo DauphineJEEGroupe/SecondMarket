@@ -24,7 +24,8 @@ public class Statut implements Serializable {
 	private static final long serialVersionUID = 1822754709531299097L;
 
 	@Id
-	@GeneratedValue
+//	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
