@@ -146,16 +146,14 @@
             <div class="col-md-6">
                 <p>Cliquer sur un lien pour acceder à la page:</p>
                 <ul>
-                    <li><strong><a href="<c:url value="/public/login"/>">Connexion</a></strong>
+                    <li><strong><a href="<c:url value="/investisseur/profil"/>">Mon profil investisseur</a></strong>
                     </li>
-                    <li><a href="<c:url value="/user/inscription"/>">Inscription</a></li>
-					<li><a href="<c:url value="/statut"/>">Statut</a></li>
-					<li><a href="<c:url value="/societe"/>">Societe</a></li>
+                    <li><a href="<c:url value="/investisseur/Vente"/>">Créer une offre de vente</a></li>
                 </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
+                
             </div>
             <div class="col-md-6">
-                <img class="img-responsive" src="http://placehold.it/700x450" alt="">
+            	<h2 class="page-header">Liste de mes titres</h2>
             </div>
         </div>
 
