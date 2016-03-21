@@ -68,11 +68,17 @@ public class InvestisseursController {
 	}
 	@RequestMapping(value="/Vente",method = RequestMethod.GET)
 	public String vente(@ModelAttribute("investisseur") Investisseur investisseur, Model model){
-		List<Contrat> titres = serviceContrat
-				.findByInvestisseur(investisseur.getId());
-		model.addAttribute("titres", titres);
-		model.addAttribute("investisseur", investisseur);
-		return "redirect:/public/login"; 
+		try {
+			List<Contrat> titres = serviceContrat
+					.findByInvestisseur(investisseur.getId());
+			model.addAttribute("titres", titres);
+			model.addAttribute("investisseur", investisseur);
+			return "redirect:/public/login"; 
+		} catch (SmDaoException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+			return "/investisseur";
+		}
+		
 	}
 
 }
