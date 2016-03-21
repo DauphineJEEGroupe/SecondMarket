@@ -11,6 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
+<link href="<c:url value="/static/resources/img/dauphin.jpg"/>" rel="shortcut icon">
 
 
 <!-- Bootstrap Core CSS -->

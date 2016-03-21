@@ -4,6 +4,7 @@
 package fr.dauphine.secondMarket.sm_webapp.mvc;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
 import fr.dauphine.secondMarket.sm_webapp.service.UserService;
+import fr.dauphine.secondMarket.sm_webapp.utils.UtilsSession;
 
 /**
  * @author gnepa.rene.barou
@@ -34,26 +36,30 @@ public class InvestisseursController {
 			.getLogger(InvestisseursController.class.getCanonicalName());
 	@Autowired
 	UserService serviceUser;
-	
+
 	@Autowired
 	ContratService serviceContrat;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String displayInvestisseur(HttpServletRequest request,
-			HttpServletResponse response, UserBean userBean, Model model) {
-
-		logger.info("displayInvestisseur()");
+	public String main(HttpServletRequest request,
+			HttpServletResponse response, Model model) {
+		logger.info("main()");
 
 		try {
+			UserBean userBean = UtilsSession.getUserBean(request);
 			Investisseur investisseur = (Investisseur) serviceUser
 					.findById(userBean.getId());
 			List<Contrat> titres = serviceContrat
 					.findByInvestisseur(investisseur.getId());
 			model.addAttribute("titres", titres);
 			model.addAttribute("investisseur", investisseur);
-			return "membre/front/investisseur/monProfil";
+			model.addAttribute("userBean", userBean);
+			return "membre/front/investisseur/main";
 		} catch (SmDaoException e) {
-			logger.severe(e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+			return "redirect:/public/login";
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			return "redirect:/public/login";
 		}
 

@@ -13,10 +13,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import fr.dauphine.secondMarket.sm_webapp.exception.SmException;
 import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
+import fr.dauphine.secondMarket.sm_webapp.utils.UtilsSession;
 
 /**
  * Servlet Filter implementation class SecurityFilter
@@ -56,8 +57,6 @@ public class SecurityFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 
-		/* Récupération de la session depuis la requête */
-		HttpSession session = request.getSession();
 		// /* Non-filtrage des ressources statiques */
 		String chemin = request.getRequestURI().substring(
 				request.getContextPath().length());
@@ -65,17 +64,9 @@ public class SecurityFilter implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
-		/**
-		 * Si l'objet utilisateur n'existe pas dans la session en cours, alors
-		 * l'utilisateur n'est pas connecté.
-		 */
-		if (session.getAttribute(Constantes.ATT_SESSION_USER) == null) {
-			logger.info("SecurityFilter ( ATT_SESSION_USER ) == null");
-			/* Redirection vers la page publique */
-			response.sendRedirect(request.getContextPath() + Constantes.ACCES_PUBLIC);
-		} else {
-			UserBean userBean = (UserBean) session
-					.getAttribute(Constantes.ATT_SESSION_USER);
+		UserBean userBean;
+		try {
+			userBean = UtilsSession.getUserBean(request);
 			if (userBean.isConneted()) {
 				logger.info(" SecurityFilter userBean.isConneted()");
 				/* Affichage de la page restreinte */
@@ -84,7 +75,10 @@ public class SecurityFilter implements Filter {
 				logger.info(" SecurityFilter userBean.isNOTConneted()");
 				response.sendRedirect(request.getContextPath() + Constantes.ACCES_PUBLIC);
 			}
-
+		} catch (SmException e) {
+			logger.severe(e.getMessage());
+			/* Redirection vers la page publique */
+			response.sendRedirect(request.getContextPath() + Constantes.ACCES_PUBLIC);
 		}
 	}
 

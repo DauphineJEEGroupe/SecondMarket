@@ -1,5 +1,6 @@
 package fr.dauphine.secondMarket.sm_webapp.mvc;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,13 +68,12 @@ public class LoginController {
 			userBean.setRole(securityService.getRole(user.getRole()));
 			userBean.setConneted(true);
 			userBean.setId(user.getId());
-			logger.info("Connexion de: " + userBean.getEmail() + " / "
-					+ userBean.getPassword() + " is conected: "
+			logger.info("Connexion de: " + userBean.getEmail() + " is conected: "
 					+ userBean.isConneted());
 			HttpSession session = request.getSession();
 			session.setAttribute(Constantes.ATT_SESSION_USER, userBean);
 			if (securityService.isAdmin(user)) {
-				return "redirect:/user";
+				return "redirect:/admin";
 			} else if (securityService.isInvestisseur(user)) {
 				return "redirect:/investisseur";
 			} else {
@@ -83,9 +83,16 @@ public class LoginController {
 		} catch (SmTechException e) {
 			redirectAttributes.addFlashAttribute("erreur",
 					"L'email ou le mot de passe sont incorrects");
-			logger.severe(e.getMessage());
+			logger.log(Level.SEVERE, e.getMessage(),e.getCause());
 			return "redirect:/public/login";
 		}
+
+	}
+	
+	@RequestMapping(value = "public/logout", method = RequestMethod.GET)
+	public String logout() {
+		logger.info("logout(): GET");
+		return "public/";
 
 	}
 }

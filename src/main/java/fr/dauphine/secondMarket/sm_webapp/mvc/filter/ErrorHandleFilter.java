@@ -4,6 +4,7 @@
 package fr.dauphine.secondMarket.sm_webapp.mvc.filter;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.Filter;
@@ -38,7 +39,7 @@ public class ErrorHandleFilter implements Filter {
 		try {
 			chain.doFilter(request, response);
 		} catch (Exception ex) {
-			logger.severe(ex.getMessage());
+			logger.log(Level.SEVERE, ex.getMessage(),ex.getCause());
 			request.setAttribute("errorMessage", ex);
 			request.getRequestDispatcher("/WEB-INF/views/public/error.jsp")
                                .forward(request, response);
