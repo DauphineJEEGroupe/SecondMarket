@@ -12,7 +12,6 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "codeIsin"))
 public class Contrat implements Serializable{
 
 	/**
@@ -21,7 +20,6 @@ public class Contrat implements Serializable{
 	private static final long serialVersionUID = 984415866120244549L;
 	
 	@Id
-//	@GeneratedValue
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
@@ -31,6 +29,8 @@ public class Contrat implements Serializable{
 	
 	
 	private long valeur;
+	
+	private long nbTitres;
 	
 	@ManyToOne
 	private TypeContrat typeContrat;
@@ -87,6 +87,20 @@ public class Contrat implements Serializable{
 
 	public void setSociete(Societe societe) {
 		this.societe = societe;
+	}
+
+	/**
+	 * @return the nbTitres
+	 */
+	public long getNbTitres() {
+		return nbTitres;
+	}
+
+	/**
+	 * @param nbTitres the nbTitres to set
+	 */
+	public void setNbTitres(long nbTitres) {
+		this.nbTitres = nbTitres;
 	}
 
 }

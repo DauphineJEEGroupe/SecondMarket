@@ -96,7 +96,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	public List<Transaction> findByAcheteur(Long idAcheteur)
 			throws SmDaoException {
 		try {
-			Query query=em.createQuery("SELECT t FROM Transaction t WHERE acheteur.id = :idAcheteur");
+			Query query=em.createQuery("SELECT t FROM Transaction t WHERE t.acheteur.id = :idAcheteur");
 			query.setParameter("idAcheteur", idAcheteur);
 			return query.getResultList();
 			} catch (IllegalArgumentException | PersistenceException e1) {
@@ -112,7 +112,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	public List<Transaction> findByVendeur(Long idVendeur)
 			throws SmDaoException {
 		try {
-			Query query=em.createQuery("SELECT t FROM Transaction t WHERE vendeur.id = :idVendeur");
+			Query query=em.createQuery("SELECT t FROM Transaction t WHERE t.vendeur.id = :idVendeur");
 			query.setParameter("idVendeur", idVendeur);
 			return query.getResultList();
 			} catch (IllegalArgumentException | PersistenceException e1) {

@@ -23,12 +23,6 @@ public class ContratServiceImpl implements ContratService {
 
 	@Autowired
 	private ContratDao daoContrat;
-	/**
-	 * 
-	 */
-	public ContratServiceImpl() {
-		// TODO Auto-generated constructor stub
-	}
 
 	@Override
 	public void create(Contrat newContrat, String mailInvestisseur,
