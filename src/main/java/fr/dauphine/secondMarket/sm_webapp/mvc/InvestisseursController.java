@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
 import fr.dauphine.secondMarket.sm_webapp.domain.Investisseur;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmException;
 import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
 import fr.dauphine.secondMarket.sm_webapp.service.UserService;
@@ -67,16 +68,17 @@ public class InvestisseursController {
 	}
 
 	@RequestMapping(value = "/Vente", method = RequestMethod.GET)
-	public String vente(
-			@ModelAttribute("investisseur") Investisseur investisseur,
+	public String vente(HttpServletRequest request,
+			HttpServletResponse response,
 			Model model) {
 		try {
+			UserBean userBean = UtilsSession.getUserBean(request);
 			List<Contrat> titres = serviceContrat
-					.findByInvestisseur(investisseur.getId());
+					.findByInvestisseur(userBean.getId());
 			model.addAttribute("titres", titres);
-			model.addAttribute("investisseur", investisseur);
-			return "redirect:/public/login";
-		} catch (SmDaoException e) {
+//			model.addAttribute("investisseur", investisseur);
+			return "membre/front/investisseur/list";
+		} catch (SmException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			return "/investisseur";
 		}

@@ -154,12 +154,12 @@
             </div>
             <div class="col-md-6">
             	<h2 class="page-header">Liste de mes titres</h2>
-            					<c:choose>
+            	<c:choose>
 					<c:when test="${titres.size()==0}">
 						<em>No registered titres.</em>
 					</c:when>
 					<c:otherwise>
-						<table class="simpletablestyle">
+						<table class="bootstrap-table">
 							<thead>
 								<tr>
 									<th>codeIsin</th>
