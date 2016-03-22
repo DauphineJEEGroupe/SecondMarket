@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.User;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
 import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.service.SecurityService;
 import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
+import fr.dauphine.secondMarket.sm_webapp.utils.UtilsSession;
 /**
  * @author gnepa.rene.barou
  *
@@ -46,10 +48,23 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "public/login", method = RequestMethod.GET)
-	public String login(Model model) {
+	public String login(HttpServletRequest request,
+			HttpServletResponse response,Model model) {
 		logger.info("login(): GET");
-		model.addAttribute("login", new User());
-		return "public/login";
+		try {
+			UserBean userBean = UtilsSession.getUserBean(request);
+			if (Constantes.ROLE_ADMIN.equals(userBean.getRole())) {
+				return "redirect:/admin";
+			} else if (Constantes.ROLE_INVESTISSEUR.equals(userBean.getRole())) {
+				return "redirect:/investisseur";
+			} else {
+				return "redirect:/membreSociete";
+			}
+		} catch (SmException e) {
+			model.addAttribute("login", new User());
+			return "public/login";
+		}
+		
 
 	}
 
@@ -72,9 +87,9 @@ public class LoginController {
 					+ userBean.isConneted());
 			HttpSession session = request.getSession();
 			session.setAttribute(Constantes.ATT_SESSION_USER, userBean);
-			if (securityService.isAdmin(user)) {
+			if (Constantes.ROLE_ADMIN.equals(userBean.getRole())) {
 				return "redirect:/admin";
-			} else if (securityService.isInvestisseur(user)) {
+			} else if (Constantes.ROLE_INVESTISSEUR.equals(userBean.getRole())) {
 				return "redirect:/investisseur";
 			} else {
 				return "redirect:/membreSociete";

@@ -51,7 +51,7 @@ public class ContratController {
 	}
 
 	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-	public String detail(@PathVariable Integer id, Model model) {
+	public String detail(@PathVariable Long id, Model model) {
 
 		try {
 			Contrat titre = serviceContrat.findById(id);
@@ -65,7 +65,7 @@ public class ContratController {
 	}
 
 	@RequestMapping(value = "/modif/{id}", method = RequestMethod.GET)
-	public String modifier(@PathVariable Integer id, Model model) {
+	public String modifier(@PathVariable Long id, Model model) {
 
 		try {
 			Contrat titre = serviceContrat.findById(id);

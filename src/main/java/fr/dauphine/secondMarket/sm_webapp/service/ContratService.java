@@ -19,7 +19,7 @@ public interface ContratService {
 			final String typeContrat, final String siren)
 			throws SmDaoException, SmTechException;
 
-	void delete(int id) throws SmDaoException;
+	void delete(Long id) throws SmDaoException;
 
 	List<Contrat> findAll() throws SmDaoException;
 
@@ -27,5 +27,5 @@ public interface ContratService {
 
 	void update(Contrat contratToUpdate) throws SmDaoException;
 
-	Contrat findById(int id) throws SmDaoException;
+	Contrat findById(Long id) throws SmDaoException;
 }

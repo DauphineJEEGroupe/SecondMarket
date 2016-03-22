@@ -7,17 +7,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.repo.ContratDao;
-
+@Repository
+@Transactional
 public class ContratDaoImpl implements ContratDao {
 	@Autowired
 	private EntityManager em;
@@ -29,7 +33,7 @@ public class ContratDaoImpl implements ContratDao {
 	}
 
 	@Override
-	public Contrat findById(int id) throws SmDaoException {
+	public Contrat findById(Long id) throws SmDaoException {
 		try {
 			return em.find(Contrat.class, id);
 		} catch (IllegalArgumentException e) {
@@ -118,10 +122,16 @@ public class ContratDaoImpl implements ContratDao {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Contrat> findByUser(Long idUser) throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+		Query query=em.createQuery("SELECT c FROM Contrat c WHERE c.proprietaire.id = :idUser");
+		query.setParameter("idUser", idUser);
+		return query.getResultList();
+		} catch (IllegalArgumentException | PersistenceException e1) {
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
 	}
 
 }

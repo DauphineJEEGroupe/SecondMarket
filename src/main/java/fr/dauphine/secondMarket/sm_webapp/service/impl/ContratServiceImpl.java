@@ -5,11 +5,13 @@ package fr.dauphine.secondMarket.sm_webapp.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
+import fr.dauphine.secondMarket.sm_webapp.repo.ContratDao;
 import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
 
 /**
@@ -19,6 +21,8 @@ import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
 @Service
 public class ContratServiceImpl implements ContratService {
 
+	@Autowired
+	private ContratDao daoContrat;
 	/**
 	 * 
 	 */
@@ -35,7 +39,7 @@ public class ContratServiceImpl implements ContratService {
 	}
 
 	@Override
-	public void delete(int id) throws SmDaoException {
+	public void delete(Long id) throws SmDaoException {
 		// TODO Auto-generated method stub
 
 	}
@@ -49,8 +53,7 @@ public class ContratServiceImpl implements ContratService {
 	@Override
 	public List<Contrat> findByInvestisseur(Long idInvestisseur)
 			throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
+		return daoContrat.findByUser(idInvestisseur);
 	}
 
 	@Override
@@ -60,9 +63,9 @@ public class ContratServiceImpl implements ContratService {
 	}
 
 	@Override
-	public Contrat findById(int id) throws SmDaoException {
+	public Contrat findById(Long id) throws SmDaoException {
 		// TODO Auto-generated method stub
-		return null;
+		return daoContrat.findById(id);
 	}
 
 }

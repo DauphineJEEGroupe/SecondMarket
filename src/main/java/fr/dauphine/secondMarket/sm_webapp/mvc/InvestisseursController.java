@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
 import fr.dauphine.secondMarket.sm_webapp.domain.Investisseur;
-import fr.dauphine.secondMarket.sm_webapp.domain.User;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
@@ -66,19 +65,22 @@ public class InvestisseursController {
 		}
 
 	}
-	@RequestMapping(value="/Vente",method = RequestMethod.GET)
-	public String vente(@ModelAttribute("investisseur") Investisseur investisseur, Model model){
+
+	@RequestMapping(value = "/Vente", method = RequestMethod.GET)
+	public String vente(
+			@ModelAttribute("investisseur") Investisseur investisseur,
+			Model model) {
 		try {
 			List<Contrat> titres = serviceContrat
 					.findByInvestisseur(investisseur.getId());
 			model.addAttribute("titres", titres);
 			model.addAttribute("investisseur", investisseur);
-			return "redirect:/public/login"; 
+			return "redirect:/public/login";
 		} catch (SmDaoException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			return "/investisseur";
 		}
-		
+
 	}
 
 }

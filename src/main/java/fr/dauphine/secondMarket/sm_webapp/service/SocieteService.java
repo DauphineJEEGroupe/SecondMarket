@@ -17,14 +17,14 @@ public interface SocieteService {
 	
 	void create(Societe newSociete) throws SmDaoException, SmTechException;
 
-	void delete(int id) throws SmDaoException;
+	void delete(Long id) throws SmDaoException;
 
 	List<Societe> findAll() throws SmDaoException;
 
 	void update(Societe societeToUpdate) throws SmDaoException;
 
-	Societe findById(int id) throws SmDaoException;
+	Societe findById(Long id) throws SmDaoException;
 
-	void accredit(int id) throws SmDaoException;
+	void accredit(Long id) throws SmDaoException;
 
 }

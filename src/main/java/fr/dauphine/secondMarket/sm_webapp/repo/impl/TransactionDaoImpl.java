@@ -76,7 +76,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	@Override
 	public List<Transaction> findByTitre(Long idTitre) throws SmDaoException {
 		try {
-		Query query=em.createQuery("SELECT t FROM Transaction t WHERE titre.id = :idTitre");
+		Query query=em.createQuery("SELECT t FROM Transaction t WHERE t.titre.id = :idTitre");
 		query.setParameter("idTitre", idTitre);
 		return query.getResultList();
 		} catch (IllegalArgumentException | PersistenceException e1) {

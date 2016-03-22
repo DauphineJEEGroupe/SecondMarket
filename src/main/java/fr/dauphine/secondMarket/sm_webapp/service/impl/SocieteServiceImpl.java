@@ -40,7 +40,7 @@ public class SocieteServiceImpl implements SocieteService {
 	}
 
 	@Override
-	public void delete(int id) throws SmDaoException {
+	public void delete(Long id) throws SmDaoException {
 		Societe societe = findById(id);
 		if (null != societe)
 			societeDao.delete(societe);
@@ -62,12 +62,12 @@ public class SocieteServiceImpl implements SocieteService {
 	}
 
 	@Override
-	public Societe findById(int id) throws SmDaoException {
+	public Societe findById(Long id) throws SmDaoException {
 		return societeDao.findById(id);
 	}
 
 	@Override
-	public void accredit(int id) throws SmDaoException {
+	public void accredit(Long id) throws SmDaoException {
 		Societe societeToUpdate = societeDao.findById(id);
 		if (null != societeToUpdate) {
 			Statut statut = statutDao.findByCode(Constantes.STATUT_ACCREDITEE);

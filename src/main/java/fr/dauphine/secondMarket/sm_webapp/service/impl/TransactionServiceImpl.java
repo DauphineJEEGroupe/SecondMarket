@@ -9,12 +9,16 @@ import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
 import fr.dauphine.secondMarket.sm_webapp.domain.Transaction;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.repo.TransactionDao;
+import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
 import fr.dauphine.secondMarket.sm_webapp.service.TransactionService;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	private TransactionDao daoTransaction;
+	
+	@Autowired
+	ContratService serviceContrat;
 
 
 	@Override
@@ -69,8 +73,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public Contrat findByTitreForSale(Long idTitre) throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
+		return serviceContrat.findById(idTitre);
 	}
 
 	@Override

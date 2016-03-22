@@ -7,7 +7,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 
 public interface ContratDao {
 
-	Contrat findById(int id) throws SmDaoException;
+	Contrat findById(Long id) throws SmDaoException;
 
 	Contrat findByCodeIsin(String codeIsin) throws SmDaoException;
 

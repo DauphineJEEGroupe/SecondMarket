@@ -48,7 +48,7 @@ public class SocieteDaoImpl implements SocieteDao {
 	 * .Long)
 	 */
 	@Override
-	public Societe findById(int id) throws SmDaoException {
+	public Societe findById(Long id) throws SmDaoException {
 		try {
 			return em.find(Societe.class, id);
 		} catch (IllegalArgumentException e) {

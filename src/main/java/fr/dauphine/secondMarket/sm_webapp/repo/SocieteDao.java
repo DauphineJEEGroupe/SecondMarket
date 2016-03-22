@@ -14,7 +14,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
  */
 public interface SocieteDao {
 
-	Societe findById(int id) throws SmDaoException;
+	Societe findById(Long id) throws SmDaoException;
 
 	Societe findBySiren(String siren) throws SmDaoException;
 

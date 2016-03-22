@@ -35,7 +35,6 @@ public class ErrorHandleFilter implements Filter {
 	public void doFilter(ServletRequest request, 
                ServletResponse response, FilterChain chain)
 		throws IOException, ServletException {
-		logger.info("ErrorHandleFilter doFilter()");
 		try {
 			chain.doFilter(request, response);
 		} catch (Exception ex) {

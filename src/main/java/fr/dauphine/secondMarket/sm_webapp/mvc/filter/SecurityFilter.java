@@ -30,8 +30,6 @@ public class SecurityFilter implements Filter {
 	private static final Logger logger = Logger.getLogger(SecurityFilter.class
 			.getCanonicalName());
 
-//	@Autowired
-//	private UserBean userBean;
 
 	/**
 	 * Default constructor.
@@ -52,7 +50,6 @@ public class SecurityFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
-		logger.info("*****************SecurityFilter doFilter()");
 		/* Cast des objets request et response */
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
@@ -68,8 +65,6 @@ public class SecurityFilter implements Filter {
 		try {
 			userBean = UtilsSession.getUserBean(request);
 			if (userBean.isConneted()) {
-				logger.info(" SecurityFilter userBean.isConneted()");
-				/* Affichage de la page restreinte */
 				chain.doFilter(request, response);
 			} else {
 				logger.info(" SecurityFilter userBean.isNOTConneted()");
@@ -77,7 +72,6 @@ public class SecurityFilter implements Filter {
 			}
 		} catch (SmException e) {
 			logger.severe(e.getMessage());
-			/* Redirection vers la page publique */
 			response.sendRedirect(request.getContextPath() + Constantes.ACCES_PUBLIC);
 		}
 	}

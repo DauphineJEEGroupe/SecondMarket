@@ -84,7 +84,7 @@ public class SocieteController {
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public String editSocietePage(@PathVariable Integer id, Model model,
+	public String editSocietePage(@PathVariable Long id, Model model,
 			final RedirectAttributes redirectAttributes) {
 		try {
 			Societe societeToUpdate = societeService.findById(id);
@@ -120,7 +120,7 @@ public class SocieteController {
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public String deleteSociete(@PathVariable Integer id) {
+	public String deleteSociete(@PathVariable Long id) {
 
 		try {
 			societeService.delete(id);
@@ -133,7 +133,7 @@ public class SocieteController {
 	}
 
 	@RequestMapping(value = "/accredit/{id}", method = RequestMethod.GET)
-	public String accreditSociete(@PathVariable Integer id) {
+	public String accreditSociete(@PathVariable Long id) {
 
 		try {
 			societeService.accredit(id);

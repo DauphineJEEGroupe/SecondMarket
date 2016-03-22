@@ -9,11 +9,11 @@ public interface SecurityService {
 
 	boolean isActif(User user);
 
-	boolean isAdmin(User user);
+	boolean isAdmin(int role);
 
-	boolean isInvestisseur(User user);
+	boolean isInvestisseur(int role);
 
-	boolean isMembreSociete(User user);
+	boolean isMembreSociete(int role);
 
 	String getRole(int role);
 	

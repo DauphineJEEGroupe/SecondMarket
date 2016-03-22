@@ -34,18 +34,18 @@ public class SecurityServiceImpl implements SecurityService {
 	}
 
 	@Override
-	public boolean isAdmin(User user) {
-		return Constantes.ROLE_ADMIN.equals(getRole(user.getRole()));
+	public boolean isAdmin(int role) {
+		return Constantes.ROLE_ADMIN.equals(getRole(role));
 	}
 
 	@Override
-	public boolean isInvestisseur(User user) {
-		return Constantes.ROLE_INVESTISSEUR.equals(getRole(user.getRole()));
+	public boolean isInvestisseur(int role) {
+		return Constantes.ROLE_INVESTISSEUR.equals(getRole(role));
 	}
 
 	@Override
-	public boolean isMembreSociete(User user) {
-		return Constantes.ROLE_MEMBRE_SOCIETE.equals(getRole(user.getRole()));
+	public boolean isMembreSociete(int role) {
+		return Constantes.ROLE_MEMBRE_SOCIETE.equals(getRole(role));
 	}
 
 	@Override

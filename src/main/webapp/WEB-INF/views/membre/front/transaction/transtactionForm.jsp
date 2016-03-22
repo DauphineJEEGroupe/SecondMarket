@@ -119,7 +119,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Accueil investisseur - ${sessionScope.userBean.username}
+                    Creer une transaction
                 </h1>
             </div>
              
@@ -146,42 +146,16 @@
             <div class="col-md-6">
                 <p>Cliquer sur un lien pour acceder à la page:</p>
                 <ul>
-                    <li><strong><a href="<c:url value="/investisseur/profil"/>">Mon profil investisseur</a></strong>
+                    <li><strong><a href="<c:url value="/public/login"/>">Connexion</a></strong>
                     </li>
-                    <li><a href="<c:url value="/investisseur/Vente"/>">Créer une offre de vente</a></li>
+                    <li><a href="<c:url value="/user/inscription"/>">Inscription</a></li>
+					<li><a href="<c:url value="/statut"/>">Statut</a></li>
+					<li><a href="<c:url value="/societe"/>">Societe</a></li>
                 </ul>
-                
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
             </div>
             <div class="col-md-6">
-            	<h2 class="page-header">Liste de mes titres</h2>
-            					<c:choose>
-					<c:when test="${titres.size()==0}">
-						<em>No registered titres.</em>
-					</c:when>
-					<c:otherwise>
-						<table class="simpletablestyle">
-							<thead>
-								<tr>
-									<th>codeIsin</th>
-									<th>societe</th>
-									<th>typeContrat</th>
-									<th>valeur </th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${titres}" var="titre">
-									<tr>
-										<td>${titre.codeIsin}</td>
-										<td>${titre.societe.nom}</td>
-										<td>${titre.typeContrat.code}</td>
-										<td>${titre.valeur}</td>
-										<td><a href="<c:url value="/transaction/vendre/${titre.id}"/>">Vendre</a></td>
-								</c:forEach>
-							</tbody>
-						</table>
-					</c:otherwise>
-				</c:choose>
+                <img class="img-responsive" src="http://placehold.it/700x450" alt="">
             </div>
         </div>
 
