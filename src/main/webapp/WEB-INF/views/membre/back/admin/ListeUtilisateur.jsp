@@ -98,34 +98,22 @@
                 <!-- Date/Time -->
                 
 
-               <div class="well">
+           <div class="well">
                     <h4>Les demandes d'autorisation</h4>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="validerInvistisseur.html"> Name1</a>
-                                </li>
-                                <li><a href="validerInvistisseur.html"> Name2</a>
-                                </li>
-                                <li><a href="validerInvistisseur.html">Name3</a>
-                                </li>
-                                <li><a href="validerInvistisseur.html">Name4</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="validerInvistisseur.html">Name5</a>
-                                </li>
-                                <li><a href="validerInvistisseur.html">Name6</a>
-                                </li>
-                                <li><a href="validerInvistisseur.html">Name7</a>
-                                </li>
-                                <li><a href="validerInvistisseur.html">Name8</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                 
+                      <TABLE BORDER WIDTH="80%">
+	<TR>
+		<TH>Nom Utilisateur</TH> <TH> Prénom</TH> <TH>Date de naissance</TH><TH>Email</TH><TH>Profession</TH><TH>Tél</TH><TH>Valider Investisseur</TH>
+	</TR>
+	<TR>
+		<TD width=33%>A</TD> <TD width=33%>B</TD> <TD width=33%>C</TD><TD width=33%>C</TD><TD width=33%>A</TD><TD width=33%>A</TD><TD width=33%><a href="validerInvistisseur.html">Valider</a></TD>
+	</TR>
+	<TR>
+		<TD>D</TD> <TD>E</TD> <TD>F</TD><TD>C</TD><TD>A</TD><TD>A</TD><TD><a href="validerInvistisseur.html">Valider</a></TD>
+	</TR>
+</TABLE>
+                 
+                    
                     <!-- /.row -->
                 </div>
 

@@ -97,34 +97,23 @@
                 <!-- Date/Time -->
                 
 
+  
                <div class="well">
-                    <h4>Les investisseurs</h4>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="#"> Name1</a>
-                                </li>
-                                <li><a href="#"> Name2</a>
-                                </li>
-                                <li><a href="#">Name3</a>
-                                </li>
-                                <li><a href="#">Name4</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Name5</a>
-                                </li>
-                                <li><a href="#">Name6</a>
-                                </li>
-                                <li><a href="#">Name7</a>
-                                </li>
-                                <li><a href="#">Name8</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h4>Les demandes d'autorisation</h4>
+                 
+                      <TABLE BORDER WIDTH="80%">
+    <TR>
+        <TH>Nom Utilisateur</TH> <TH> Prénom</TH> <TH>Date de naissance</TH><TH>Email</TH><TH>Profession</TH><TH>Tél</TH><TH>Profile Investisseur</TH>
+    </TR>
+    <TR>
+        <TD width=33%>A</TD> <TD width=33%>B</TD> <TD width=33%>C</TD><TD width=53%>C</TD><TD width=33%>A</TD><TD width=33%>A</TD><TD width=33%><a href="profilInvestisseur.html">Consulter Profile</a></TD>
+    </TR>
+    <TR>
+        <TD>D</TD> <TD>E</TD> <TD>F</TD><TD>C</TD><TD>A</TD><TD>A</TD><TD width=53%><a href="profilInvestisseur.html">Consulter Profile</a></TD>
+    </TR>
+</TABLE>
+                 
+                    
                     <!-- /.row -->
                 </div>
 
