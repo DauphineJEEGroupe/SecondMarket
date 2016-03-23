@@ -57,7 +57,8 @@ public class SecurityFilter implements Filter {
 		// /* Non-filtrage des ressources statiques */
 		String chemin = request.getRequestURI().substring(
 				request.getContextPath().length());
-		if (chemin.startsWith("/public/")) {
+		logger.info(" *******SecurityFilter chemin: "+chemin);
+		if (chemin.startsWith("/public/") || chemin.startsWith("/static/resources/")) {
 			chain.doFilter(request, response);
 			return;
 		}

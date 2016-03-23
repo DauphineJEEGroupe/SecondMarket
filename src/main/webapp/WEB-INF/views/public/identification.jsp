@@ -48,7 +48,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="acceuil.jsp">accueil</a>
+                        <a href="accueil.jsp">accueil</a>
                     </li>
                     <li>
                         <a href="services.html">Mon Profil</a>

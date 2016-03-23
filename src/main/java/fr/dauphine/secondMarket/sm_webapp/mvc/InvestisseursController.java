@@ -56,7 +56,7 @@ public class InvestisseursController {
 			model.addAttribute("titres", titres);
 			model.addAttribute("investisseur", investisseur);
 			model.addAttribute("userBean", userBean);
-			return "membre/front/investisseur/main";
+			return "membre/front/investisseur/profilInvestisseur";
 		} catch (SmDaoException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			return "redirect:/public/login";

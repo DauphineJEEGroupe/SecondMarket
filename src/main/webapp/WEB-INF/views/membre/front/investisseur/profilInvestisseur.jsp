@@ -1,32 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<html>
 
 <head>
+<title>Marché Secondaire | Paris-Dauphine</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href="<c:url value="/static/resources/img/dauphin.jpg"/>" rel="shortcut icon">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>site ecommece</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/static/resources/css/bootstrap.min.css"/>" />
+<!-- Custom CSS -->
+<!-- <link rel="stylesheet" type="text/css" -->
+<%-- 	href="<c:url value="/static/resources/css/screen.css"/>" /> --%>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/static/resources/css/modern-business.css"/>" />
+<!-- Custom Fonts -->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/static/resources/css/font-awesome.min.css"/>" />
 </head>
 
 <body>
@@ -42,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Nom de site( a proposer)</a>
+                <a class="navbar-brand" href="<c:url value="/public/"/>">Marché Secondaire</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -84,7 +82,7 @@
         </div>
         <!-- /.row --
 
-        <!-- Contact Form -->
+        <!-- Contact Form --> 
         <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
         <div class="row">
 
@@ -94,27 +92,42 @@
                         <h4> Informations Investisseur</h4>
                     </div>
                   <div class="controls" style="margin-left: 5px;">
-                            <label class="control-label" >Nom : <c:out value="${ }"/></label>
+                            <label class="control-label" >Nom : ${investisseur.nom}</label>
                             </BR>
-                            <label class="control-label">PrÃ©nom : <c:out value="${}"/></label></BR>
-                            <label class="control-label">Date de naissance : <c:out value="${ }"/></label></BR>
-                            <label class="control-label">Email : <c:out value="${ }"/></label></BR>
-                            <label class="control-label">Profession : <c:out value="${ }"/></label></BR>
-                            <label class="control-label">TÃ©l : <c:out value="${ }"/></label></BR>
-                            <label class="control-label">Adresse : <c:out value="${ }"/></label></BR>
-                            <label class="control-label">Liste de mes titres: <c:out value="${ }"/></label>
+                            <label class="control-label">Prénom : ${investisseur.prenom}</label></BR>
+                            <label class="control-label">Email : ${investisseur.email}</label></BR>
+                            <label class="control-label">Tél : ${investisseur.phoneNumber}</label></BR>
+                            <label class="control-label">Liste de mes titres: </label>
+                            
+                            <c:choose>
+					<c:when test="${titres.size()==0}">
+						<em>No registered titres.</em>
+					</c:when>
+					<c:otherwise>
+						<table BORDER WIDTH="50%">
+							<thead>
+								<tr>
+									<th>codeIsin</th>
+									<th>societe</th>
+									<th>typeContrat</th>
+									<th>valeur </th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${titres}" var="titre">
+									<tr>
+										<td>${titre.codeIsin}</td>
+										<td>${titre.societe.nom}</td>
+										<td>${titre.typeContrat.code}</td>
+										<td>${titre.valeur}</td>
+										<td><a href="<c:url value="/transaction/vendre/${titre.id}"/>">Vendre</a></td>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:otherwise>
+				</c:choose>
 
-<TABLE BORDER WIDTH="50%">
-	<TR>
-		<TH>Nom Titre</TH> <TH> Type</TH> <TH>QuantitÃ©</TH><TH>Prix marchÃ©</TH><TH>Informations du Titre</TH>
-	</TR>
-	<TR>
-		<TD>A</TD> <TD>B</TD> <TD>C</TD><TD>C</TD><TD>information</TD>
-	</TR>
-	<TR>
-		<TD>D</TD> <TD>E</TD> <TD>F</TD><TD>C</TD><TD>information</TD>
-	</TR>
-</TABLE>
 
 
 

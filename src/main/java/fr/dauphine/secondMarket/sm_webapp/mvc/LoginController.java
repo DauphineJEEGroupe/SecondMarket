@@ -44,7 +44,7 @@ public class LoginController {
 	@RequestMapping(value = "public/", method = RequestMethod.GET)
 	public String index(Model model) {
 		logger.info("index()");
-		return "/public/index";
+		return "public/accueil";
 	}
 
 	@RequestMapping(value = "public/login", method = RequestMethod.GET)

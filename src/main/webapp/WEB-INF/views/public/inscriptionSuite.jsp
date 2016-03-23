@@ -60,7 +60,7 @@
                 <h1 class="page-header">Votre profile Investisseur
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="acceuil.jsp">accueil</a>
+                    <li><a href="accueil.jsp">accueil</a>
                     </li>
                     <li class="active">Profile investisseur</li>
                 </ol>

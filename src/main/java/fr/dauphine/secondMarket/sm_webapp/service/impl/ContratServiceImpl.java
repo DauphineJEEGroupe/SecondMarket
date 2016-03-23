@@ -9,13 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
-import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
-import fr.dauphine.secondMarket.sm_webapp.domain.Statut;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
 import fr.dauphine.secondMarket.sm_webapp.repo.ContratDao;
 import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
-import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
 
 /**
  * @author gnepa.rene.barou
@@ -32,14 +29,14 @@ public class ContratServiceImpl implements ContratService {
 			String typeContrat, String siren) throws SmDaoException,
 			SmTechException {
 
-		if (null == daoContrat.findBySiren(newContrat.getSiren())) {
-			Statut statut = statutDao.findByCode(Constantes.STATUT_REFERENCEE);
-			newContrat.setStatut(statut);
-			daoContrat.register(newContrat);
-		} else {
-			throw new SmTechException("La société avec le siren: "
-					+ newContrat.getSiren() + " existe deja");
-		}
+//		if (null == daoContrat.findBySiren(newContrat.getSiren())) {
+//			Statut statut = statutDao.findByCode(Constantes.STATUT_REFERENCEE);
+//			newContrat.setStatut(statut);
+//			daoContrat.register(newContrat);
+//		} else {
+//			throw new SmTechException("La société avec le siren: "
+//					+ newContrat.getSiren() + " existe deja");
+//		}
 
 	}
 
@@ -64,7 +61,7 @@ public class ContratServiceImpl implements ContratService {
 
 	@Override
 	public void update(Contrat contratToUpdate) throws SmDaoException {
-		Contrat contrat = daoContrat.findBySiren(contratToUpdate.getSiren());
+		Contrat contrat = daoContrat.findByUserAndCodeIsin(contratToUpdate.getProprietaire().getId(), contratToUpdate.getCodeIsin());
 		if (null == contrat || contrat.getId() == contratToUpdate.getId()) {
 			daoContrat.update(contratToUpdate);
 		}
