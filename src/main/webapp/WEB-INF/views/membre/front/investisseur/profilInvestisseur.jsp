@@ -3,7 +3,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
+<<<<<<< HEAD
 
+=======
+>>>>>>> b61e7b07d50467a94ff94eb8bf8c3852c19f16dd
 <head>
 <title>Marché Secondaire | Paris-Dauphine</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
