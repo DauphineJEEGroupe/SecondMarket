@@ -3,6 +3,7 @@
         id bigint not null auto_increment,
         codeIsin varchar(255),
         valeur bigint not null,
+        nbTitres bigint,
         proprietaire_id bigint,
         societe_id bigint,
         typeContrat_id bigint,

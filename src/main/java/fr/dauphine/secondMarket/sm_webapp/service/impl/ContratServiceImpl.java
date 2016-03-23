@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
+import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
+import fr.dauphine.secondMarket.sm_webapp.domain.Statut;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
 import fr.dauphine.secondMarket.sm_webapp.repo.ContratDao;
 import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
+import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
 
 /**
  * @author gnepa.rene.barou
@@ -28,21 +31,30 @@ public class ContratServiceImpl implements ContratService {
 	public void create(Contrat newContrat, String mailInvestisseur,
 			String typeContrat, String siren) throws SmDaoException,
 			SmTechException {
-		// TODO Auto-generated method stub
+
+		if (null == daoContrat.findBySiren(newContrat.getSiren())) {
+			Statut statut = statutDao.findByCode(Constantes.STATUT_REFERENCEE);
+			newContrat.setStatut(statut);
+			daoContrat.register(newContrat);
+		} else {
+			throw new SmTechException("La société avec le siren: "
+					+ newContrat.getSiren() + " existe deja");
+		}
 
 	}
 
 	@Override
 	public void delete(Long id) throws SmDaoException {
-		// TODO Auto-generated method stub
+		Contrat contrat = findById(id);
+		if (null != contrat)
+			daoContrat.delete(contrat);
 
 	}
 
 	@Override
 	public List<Contrat> findAll() throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return daoContrat.findAllOrderedByCodeIsin();
+		}
 
 	@Override
 	public List<Contrat> findByInvestisseur(Long idInvestisseur)
@@ -52,14 +64,16 @@ public class ContratServiceImpl implements ContratService {
 
 	@Override
 	public void update(Contrat contratToUpdate) throws SmDaoException {
-		// TODO Auto-generated method stub
+		Contrat contrat = daoContrat.findBySiren(contratToUpdate.getSiren());
+		if (null == contrat || contrat.getId() == contratToUpdate.getId()) {
+			daoContrat.update(contratToUpdate);
+		}
 
 	}
 
 	@Override
 	public Contrat findById(Long id) throws SmDaoException {
-		// TODO Auto-generated method stub
 		return daoContrat.findById(id);
-	}
+		}
 
 }

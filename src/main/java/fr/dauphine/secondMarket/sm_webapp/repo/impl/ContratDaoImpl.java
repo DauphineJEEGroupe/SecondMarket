@@ -134,4 +134,17 @@ public class ContratDaoImpl implements ContratDao {
 		}
 	}
 
+	@Override
+	public Contrat findByUserAndCodeIsin(Long idUser, String codeIsin)
+			throws SmDaoException {
+		try {
+			Query query=em.createQuery("SELECT c FROM Contrat c WHERE c.proprietaire.id = :idUser AND c.codeIsin = :codeIsin");
+			query.setParameter("idUser", idUser);
+			query.setParameter("codeIsin", codeIsin);
+			return (Contrat) query.getSingleResult();
+			} catch (IllegalArgumentException | PersistenceException e1) {
+				throw new SmDaoException(e1.getMessage(), e1);
+			}
+	}
+
 }

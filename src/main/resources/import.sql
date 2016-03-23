@@ -20,6 +20,5 @@ insert into typetransaction ( code) values ('VENTE');
 insert into Societe (nom, siren, ville, pays, statut_id) values ('Societe1','siren1','ville1','pays1',1);
 insert into Societe (nom, siren, ville, pays, statut_id) values ('Societe2','siren2','ville2','pays2',1);
 
-insert into contrat (codeIsin, typeContrat_id, societe_id, valeur) values ('FR0000130809SOC',1,1,5500);
-insert into contrat (codeIsin, typeContrat_id, societe_id, valeur) values ('FR0000140809SOC',1,2,5500);
-update contrat set proprietaire_id=2 where typeContrat_id=1;
+insert into contrat (codeIsin, typeContrat_id, societe_id, proprietaire_id,valeur,nbTitres) values ('FR0000130809SOC',1,1,2,5500,200);
+insert into contrat (codeIsin, typeContrat_id, societe_id, proprietaire_id,valeur,nbTitres) values ('FR0000140809SOC',1,2,2,5500,100);

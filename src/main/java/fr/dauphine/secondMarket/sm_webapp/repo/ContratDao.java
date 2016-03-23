@@ -10,6 +10,8 @@ public interface ContratDao {
 	Contrat findById(Long id) throws SmDaoException;
 
 	Contrat findByCodeIsin(String codeIsin) throws SmDaoException;
+	
+	Contrat findByUserAndCodeIsin(Long idUser, String codeIsin) throws SmDaoException;
 
 	List<Contrat> findByValeur(Long valeur) throws SmDaoException;
 	
