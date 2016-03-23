@@ -45,22 +45,19 @@
                 <a class="navbar-brand" href="index.html">Start Bootstrap</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="acceuil.jsp">accueil</a>
                     </li>
                     <li>
-                        <a href="AccréditationSociété.html">Accréditer Société</a>
+                      <a href="<c:url value="/investisseur/Vente"/>">Cr�er offre </a>
                     </li>
                      <li>
-                        <a href="ListeUtilisateur.html">Autoriser utilisateur</a>
+                        <a href="Ajoutertitre.html">Ajouter titre</a>
                     </li>
-                   <li>
-                        <a href="profilAdminRecherche.html">Rechercher</a>
-                    </li>
-                    <li>
-                        <a href="about.html"> Se deconnecter</a>
+                     <li>
+                        <a href="s.html">Mes Transactions</a>
                     </li>
                   
                 </ul>

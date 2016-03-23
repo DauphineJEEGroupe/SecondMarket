@@ -50,8 +50,9 @@
                     <li>
                         <a href="about.html">accueil</a>
                     </li>
-                    <li>
-                        <a href="listeTitres.html">CrÃ©er Offre</a>
+                   
+                     <li>
+                        <a href="<c:url value="/investisseur/Vente"/>">Créer offre </a>
                     </li>
                      <li>
                         <a href="Ajoutertitre.html">Ajouter titre</a>

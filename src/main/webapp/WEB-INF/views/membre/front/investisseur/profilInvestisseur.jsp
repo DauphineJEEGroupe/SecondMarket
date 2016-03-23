@@ -51,7 +51,7 @@
                         <a href="acceuil.jsp">accueil</a>
                     </li>
                     <li>
-                        <a href="listeTitres.html">CrÃ©er Offre</a>
+                       <a href="<c:url value="/investisseur/Vente"/>">Créer offre </a>
                     </li>
                      <li>
                         <a href="Ajoutertitre.html">Ajouter titre</a>

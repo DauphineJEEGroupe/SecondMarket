@@ -15,7 +15,7 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 
-	<mvc:resources mapping="/static/**" location="/"/>
+	<mvc:resources mapping="/static/**" location="//" />
 
 	<mvc:default-servlet-handler />
 

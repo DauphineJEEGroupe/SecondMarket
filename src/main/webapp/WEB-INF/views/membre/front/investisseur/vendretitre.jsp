@@ -48,12 +48,17 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about.html">accueil</a>
+                        <a href="acceuil.jsp">accueil</a>
                     </li>
                     <li>
-                        <a href="services.html">Mon Profil</a>
+                       <a href="<c:url value="/investisseur/Vente"/>">Créer offre </a>
                     </li>
-                    
+                     <li>
+                        <a href="Ajoutertitre.html">Ajouter titre</a>
+                    </li>
+                     <li>
+                        <a href="s.html">Mes Transactions</a>
+                    </li>
                   
                 </ul>
             </div>

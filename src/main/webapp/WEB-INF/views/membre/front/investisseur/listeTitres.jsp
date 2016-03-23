@@ -49,7 +49,7 @@
                         <a href="about.html">accueil</a>
                     </li>
                     <li>
-                        <a href="listeTitres.html">Créer Offre</a>
+                        <a href="listeTitres.html">Creer Offre</a>
                     </li>
                      <li>
                         <a href="Ajoutertitre.html">Ajouter titre</a>
