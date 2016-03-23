@@ -42,7 +42,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Nom de site( a proposer)</a>
+                <a class="navbar-brand" href="<c:url value="/public/"/>">Marché Secondaire</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
         
