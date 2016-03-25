@@ -82,6 +82,8 @@ public class ModeNegociationDaoImpl implements ModeNegociationDao {
 			criteria.select(modeNegociationRoot).orderBy(
 					builder.asc(modeNegociationRoot.get("code")));
 			return em.createQuery(criteria).getResultList();
+		} catch (NoResultException e) {
+			return null;
 		} catch (IllegalArgumentException | PersistenceException e) {
 			throw new SmDaoException(e.getMessage(), e);
 		}

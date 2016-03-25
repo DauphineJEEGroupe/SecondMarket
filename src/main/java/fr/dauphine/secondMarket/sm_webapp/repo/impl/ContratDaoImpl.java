@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.repo.ContratDao;
+
 @Repository
 @Transactional
 public class ContratDaoImpl implements ContratDao {
@@ -126,9 +127,10 @@ public class ContratDaoImpl implements ContratDao {
 	@Override
 	public List<Contrat> findByUser(Long idUser) throws SmDaoException {
 		try {
-		Query query=em.createQuery("SELECT c FROM Contrat c WHERE c.proprietaire.id = :idUser");
-		query.setParameter("idUser", idUser);
-		return query.getResultList();
+			Query query = em
+					.createQuery("SELECT c FROM Contrat c WHERE c.proprietaire.id = :idUser");
+			query.setParameter("idUser", idUser);
+			return query.getResultList();
 		} catch (IllegalArgumentException | PersistenceException e1) {
 			throw new SmDaoException(e1.getMessage(), e1);
 		}
@@ -137,14 +139,19 @@ public class ContratDaoImpl implements ContratDao {
 	@Override
 	public Contrat findByUserAndCodeIsin(Long idUser, String codeIsin)
 			throws SmDaoException {
+		Contrat result;
 		try {
-			Query query=em.createQuery("SELECT c FROM Contrat c WHERE c.proprietaire.id = :idUser AND c.codeIsin = :codeIsin");
+			Query query = em
+					.createQuery("SELECT c FROM Contrat c WHERE c.proprietaire.id = :idUser AND c.codeIsin = :codeIsin");
 			query.setParameter("idUser", idUser);
 			query.setParameter("codeIsin", codeIsin);
 			return (Contrat) query.getSingleResult();
-			} catch (IllegalArgumentException | PersistenceException e1) {
-				throw new SmDaoException(e1.getMessage(), e1);
-			}
+		} catch (NoResultException e) {
+			result = null;
+			return result;
+		} catch (IllegalArgumentException | PersistenceException e1) {
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
 	}
 
 }

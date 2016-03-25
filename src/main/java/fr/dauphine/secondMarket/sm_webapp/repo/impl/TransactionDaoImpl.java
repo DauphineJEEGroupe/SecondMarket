@@ -43,7 +43,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	 * @see fr.dauphine.secondMarket.sm_webapp.repo.TransactionDao#findById(int)
 	 */
 	@Override
-	public Transaction findById(int id) throws SmDaoException {
+	public Transaction findById(Long id) throws SmDaoException {
 		try {
 			return em.find(Transaction.class, id);
 		} catch (IllegalArgumentException e) {
@@ -158,6 +158,26 @@ public class TransactionDaoImpl implements TransactionDao {
 		} catch (IllegalArgumentException | TransactionRequiredException e) {
 			throw new SmDaoException(e.getMessage(), e);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Transaction> findAllActifOrderedByDate() throws SmDaoException {
+		Query query=em.createQuery("SELECT t FROM Transaction t WHERE t.isActif = true order by dateDebut desc");
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Transaction> findBySociete(Long idSociete)
+			throws SmDaoException {
+		try {
+			Query query=em.createQuery("SELECT t FROM Transaction t WHERE t.titre.societe.id = :idSociete");
+			query.setParameter("idSociete", idSociete);
+			return query.getResultList();
+			} catch (IllegalArgumentException | PersistenceException e1) {
+				throw new SmDaoException(e1.getMessage(), e1);
+			}
 	}
 
 	

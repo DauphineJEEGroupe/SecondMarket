@@ -25,4 +25,13 @@ public class Constantes {
 	public final static String TYPE_USER_EMPLOYER="EMP";
 	public final static String TYPE_USER_INVESTISSEUR="INV";
 	public final static String TYPE_USER_MEMBRE_SOCIETE="MS";
+	
+	public final static String CODE_TRANSACTION_ANNULEE="ANNULEE";
+	public final static String CODE_TRANSACTION_FERMEE="FERMEE";
+	public final static String CODE_TRANSACTION_OUVERTE="OUVERTE";
+	public final static String CODE_NEGOCIATION_IMMEDIAT="IMMEDIAT";
+	public final static String CODE_NEGOCIATION_ENCHERE="ENCHERE";
+	
+	public final static String CODE_TRANSACTION_VENTE="VENTE";
+	public final static String CODE_TRANSACTION_ACHAT="ACHAT";
 }

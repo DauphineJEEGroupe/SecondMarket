@@ -14,11 +14,15 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
  */
 public interface TransactionDao {
 	
-	Transaction findById(int id) throws SmDaoException;
+	Transaction findById(Long id) throws SmDaoException;
 
-	List<Transaction> findAllOrderedByDate() throws SmDaoException;
+	List<Transaction> findAllOrderedByDate() throws SmDaoException; 
+	
+	List<Transaction> findAllActifOrderedByDate() throws SmDaoException;
 	
 	List<Transaction> findByTitre(Long idTitre) throws SmDaoException;
+	
+	List<Transaction> findBySociete(Long idSociete) throws SmDaoException;
 	
 	List<Transaction> findByAcheteur(Long idAcheteur) throws SmDaoException;
 	
@@ -28,5 +32,5 @@ public interface TransactionDao {
 
 	void delete(Transaction transaction) throws SmDaoException;
 
-	void update(Transaction transaction) throws SmDaoException;
+	void update(Transaction transaction) throws SmDaoException; 
 }

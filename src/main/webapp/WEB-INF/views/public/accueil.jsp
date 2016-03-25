@@ -38,28 +38,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Projet SecondMarket</a>
+                <a class="navbar-brand" href="<c:url value="/public/"/>">Projet SecondMarket</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="identification.html">Mon compte</a>
+                        <a href="<c:url value="/public/login"/>">Mon compte</a>
                     </li>
                     <li>
-                        <a href="inscription.html">Inscription</a>
+                        <a href="<c:url value="/user/inscription"/>">Inscription</a>
                     </li>
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">Achat/vente <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="identification.html">Achat titres</a>
+                                <a href="<c:url value="/investisseur"/>">Achat titres</a>
                             </li>
                             <li>
-                                <a href="identification.html">Vente titre</a>
+                                <a href="<c:url value="/investisseur"/>">Vente titre</a>
                             </li>
                             <li>
-                                <a href="identification.html">listes des sociétés</a>
+                                <a href="<c:url value="/investisseur"/>">listes des sociétés</a>
                             </li>
                            
                         </ul>
@@ -138,4 +138,30 @@
         </div>
         <!-- /.row -->
 
-        
+        </div>
+        <!-- /.container -->
+    
+    
+	<spring:url value="/static/resources/js/jquery.js" var="jqueryJs" />
+	<spring:url value="/static/resources/js/bootstrap.min.js" var="bootstrapMinJs" />
+
+
+
+    <!-- jQuery -->
+    <script src="${jqueryJs}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="${bootstrapMinJs}"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+</body>
+
+</html>
+
+</html>

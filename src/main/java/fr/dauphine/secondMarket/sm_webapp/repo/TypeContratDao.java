@@ -14,11 +14,11 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
  */
 public interface TypeContratDao {
 
-	public TypeContrat findById(Long id) throws SmDaoException;
+	 TypeContrat findById(Long id) throws SmDaoException;
 
-    public TypeContrat findByCode(String code) throws SmDaoException;
+     TypeContrat findByCode(String code) throws SmDaoException;
 
-    public List<TypeContrat> findAllOrderedByCode() throws SmDaoException;
+     List<TypeContrat> findAllOrderedByCode() throws SmDaoException;
 
-    public void register(TypeContrat typeContrat) throws SmDaoException;
+     void register(TypeContrat typeContrat) throws SmDaoException;
 }

@@ -135,12 +135,18 @@
 
     </div>
     <!-- /.container -->
+    
+    
+	<spring:url value="/static/resources/js/jquery.js" var="jqueryJs" />
+	<spring:url value="/static/resources/js/bootstrap.min.js" var="bootstrapMinJs" />
+
+
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="${jqueryJs}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="${bootstrapMinJs}"></script>
 
 </body>
 

@@ -15,8 +15,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
  */
 public interface ContratService {
 
-	void create(Contrat newContrat, final String mailInvestisseur,
-			final String typeContrat, final String siren)
+	void create(Contrat newContrat)
 			throws SmDaoException, SmTechException;
 
 	void delete(Long id) throws SmDaoException;

@@ -16,59 +16,50 @@ import fr.dauphine.secondMarket.sm_webapp.service.TransactionService;
 public class TransactionServiceImpl implements TransactionService {
 	@Autowired
 	private TransactionDao daoTransaction;
-	
+
 	@Autowired
 	ContratService serviceContrat;
 
-
 	@Override
 	public List<Transaction> findAll() throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
+		return daoTransaction.findAllOrderedByDate();
 	}
 
 	@Override
-	public List<Transaction> findByInvestisseur(Long idInvestisseur)
+	public List<Transaction> findByAcheteur(Long idAcheteur)
 			throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
+		return daoTransaction.findByAcheteur(idAcheteur);
 	}
 
 	@Override
 	public void update(Transaction transactionToUpdate) throws SmDaoException {
-		// TODO Auto-generated method stub
-		
+		Transaction transaction = findById(transactionToUpdate.getId());
+		if (null != transaction)
+			daoTransaction.update(transactionToUpdate);
+
 	}
 
 	@Override
 	public List<Transaction> findAllTransactionActif() throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
+		return daoTransaction.findAllActifOrderedByDate();
 	}
 
 	@Override
 	public Transaction findById(Long id) throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
+		return daoTransaction.findById(id);
 	}
 
 	@Override
 	public List<Transaction> findByTitre(Long idTitre) throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Transaction> findBySociete(Long idSociete)
-			throws SmDaoException {
-		// TODO Auto-generated method stub
-		return null;
+		return  daoTransaction.findByTitre(idTitre);
 	}
 
 	@Override
 	public void delete(Long id) throws SmDaoException {
-		// TODO Auto-generated method stub
-		
+		Transaction transaction = findById(id);
+		if (null != transaction)
+			daoTransaction.delete(transaction);
+
 	}
 
 	@Override
@@ -77,10 +68,22 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public void create(Transaction transaction, Long idInvestisseur,
-			Long prixInitial, Long prixFinal) throws SmDaoException {
-		// TODO Auto-generated method stub
-		
+	public void create(Transaction transaction) throws SmDaoException {
+
+		daoTransaction.register(transaction);
+
+	}
+
+	@Override
+	public List<Transaction> findBySociete(Long idSociete)
+			throws SmDaoException {
+		return daoTransaction.findBySociete(idSociete);
+	}
+
+	@Override
+	public List<Transaction> findByVendeur(Long idVendeur)
+			throws SmDaoException {
+		return daoTransaction.findByVendeur(idVendeur);
 	}
 
 }

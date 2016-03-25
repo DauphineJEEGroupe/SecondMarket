@@ -62,7 +62,7 @@ public class LoginController {
 			}
 		} catch (SmException e) {
 			model.addAttribute("login", new User());
-			return "public/login";
+			return "public/identification";
 		}
 		
 

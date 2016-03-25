@@ -45,17 +45,17 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="about.html">accueil</a>
+                        <a href="<c:url value="/public/"/>">accueil</a>
                     </li>
                    
                      <li>
                         <a href="<c:url value="/investisseur/Vente"/>">Cr�er offre </a>
                     </li>
                      <li>
-                        <a href="Ajoutertitre.html">Ajouter titre</a>
+                        <a href="<c:url value="/investisseur/Titre/ajout"/>">Ajouter titre</a>
                     </li>
                      <li>
-                        <a href="s.html">Mes Transactions</a>
+                        <a href="<c:url value="/investisseur/transaction"/>">Mes Transactions</a>
                     </li>
                   
                 </ul>
@@ -74,63 +74,80 @@
                 <h1 class="page-header">Ajouter titre
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="">accueil</a>
+                    <li><a href="<c:url value="/public/"/>">accueil</a>
                     </li>
-                    <li class="active">Profile investisseur</li>
+                    <li ><a href="<c:url value="/investisseur"/>">Profile investisseur</a></li>
                     <li class="active">Ajouter titre</li>
                 </ol>
             </div>
         </div>
-        <!-- /.row --
-
-        <!-- Contact Form -->
-        <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-<form name="mon-formulaire1" action="page-envoi.html" method="get">
-
-<p>
-   Nom du titre :<br />
-   <input type="text" name="prenom" value="" />
-</p>
-<p>
-   Quantité :<br />
-   <input type="text" name="prenom" value="" />
-</p>
-
-<p>
-   Type de contrat<br />
-   <select name="titre">
-      <option value="stock">Stock Option</option>
-      <option value="titre" selected="selected">Titre </option>
-      <option value="action">Action</option>
-   </select>
-</p>
-
-<p>
-   Information complémentaire :<br />
-   <textarea name="le-message" rows="6" cols="40">Vous pouvez saisir ici un message.</textarea>
-</p>
-<p>
-<a href="profilInvestisseur.html" class="btn btn-primary">Ajouter</a>
-
-</p>
-</form>
-        <!-- /.row -->
-
-        <hr>
-
+        <div class="row">
+        <p> <span class="message">${message}</span> </p>
+        <form:form commandName="newTitre" id="reg">
+					<h2>Ajout d'un nouveau titre</h2>
+					<table>
+						<tbody>
+						<form:hidden path="proprietaire.id" />
+							<tr>
+								<td><form:label path="codeIsin">Code Isin:</form:label></td>
+								<td><form:input path="codeIsin" /></td>
+								<td><form:errors class="invalid" path="codeIsin" /></td>
+							</tr>
+							<tr>
+								<td><form:label path="valeur">valeur:</form:label></td>
+								<td> <input type="number" class="form-control" name="valeur" id="valeur"  required
+								data-validation-required-message="Veuillez saisir un nombre"></td>
+								<td><form:errors class="invalid" path="valeur" /></td>
+							</tr>
+							<tr>
+								<td><form:label path="nbTitres">nbTitres:</form:label></td>
+								<td><input type="number" class="form-control" name="nbTitres" id="nbTitres" required
+								data-validation-required-message="Veuillez saisir un nombre"></td>
+								<td><form:errors class="invalid" path="nbTitres" /></td>
+							</tr>
+							<tr>
+								<td>Type Contrat :</td>
+								<td><form:select path="typeContrat.id">
+					  				<form:option value="NONE" label="--- Select ---" />
+					  				<form:options items="${typeContrats}" itemValue="id" itemLabel="code"/>
+				       				</form:select>
+                                </td>
+							</tr>
+							<tr>
+							<td>Societe :</td>
+								<td>
+									<form:select path="societe.id">
+									      <form:option value="NONE" label="--Please Select"/>
+									      <form:options items="${societes}" itemValue="id" itemLabel="nom"/>
+									 </form:select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table>
+						<tr>
+							<td><input type="submit" value="Enregistrer" class="register" />
+							</td>
+						</tr>
+					</table>
+				</form:form>
+	
+	        <hr>
+	</div>
     </div>
-    <!-- /.container -->
+     <!-- /.container -->
+    
+    
+	<spring:url value="/static/resources/js/jquery.js" var="jqueryJs" />
+	<spring:url value="/static/resources/js/bootstrap.min.js" var="bootstrapMinJs" />
+
+
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="${jqueryJs}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
+    <script src="${bootstrapMinJs}"></script>
 
 </body>
 

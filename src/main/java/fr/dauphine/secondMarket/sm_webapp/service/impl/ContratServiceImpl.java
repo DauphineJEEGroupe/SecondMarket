@@ -25,18 +25,15 @@ public class ContratServiceImpl implements ContratService {
 	private ContratDao daoContrat;
 
 	@Override
-	public void create(Contrat newContrat, String mailInvestisseur,
-			String typeContrat, String siren) throws SmDaoException,
+	public void create(Contrat newContrat) throws SmDaoException,
 			SmTechException {
 
-//		if (null == daoContrat.findBySiren(newContrat.getSiren())) {
-//			Statut statut = statutDao.findByCode(Constantes.STATUT_REFERENCEE);
-//			newContrat.setStatut(statut);
-//			daoContrat.register(newContrat);
-//		} else {
-//			throw new SmTechException("La société avec le siren: "
-//					+ newContrat.getSiren() + " existe deja");
-//		}
+		if (null == daoContrat.findByUserAndCodeIsin(newContrat.getProprietaire().getId(), newContrat.getCodeIsin())) {
+			daoContrat.register(newContrat);
+		} else {
+			throw new SmTechException("Le titre: "
+					+ newContrat.getCodeIsin() + " existe deja");
+		}
 
 	}
 

@@ -15,7 +15,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
  */
 public interface TransactionService {
 
-	void create(Transaction transaction, final Long idInvestisseur, final Long prixInitial, final Long prixFinal) throws SmDaoException;
+	void create(Transaction transaction) throws SmDaoException;
 	
 	List<Transaction> findAll() throws SmDaoException;
 	
@@ -23,7 +23,9 @@ public interface TransactionService {
 
 	Transaction findById(Long id) throws SmDaoException;
 
-	List<Transaction> findByInvestisseur(Long idInvestisseur) throws SmDaoException;
+	List<Transaction> findByAcheteur(Long idAcheteur) throws SmDaoException;
+	
+	List<Transaction> findByVendeur(Long idVendeur) throws SmDaoException;
 	
 	List<Transaction> findByTitre(Long idTitre) throws SmDaoException;
 	

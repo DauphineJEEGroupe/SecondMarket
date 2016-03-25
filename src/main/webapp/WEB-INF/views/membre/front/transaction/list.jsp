@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
+
 <head>
 <title>Marché Secondaire | Paris-Dauphine</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,7 +26,6 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/static/resources/css/font-awesome.min.css"/>" />
 </head>
-
 <body>
 
     <!-- Navigation -->
@@ -45,13 +45,25 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="<c:url value="/public/"/>">accueil</a>
+                        <a href="<c:url value="/public/login"/>">Mon compte</a>
                     </li>
-                     <li>
-                        <a href="<c:url value="/investisseur/Titre/ajout"/>">Ajouter titre</a>
+                    <li>
+                        <a href="<c:url value="/user/inscription"/>">Inscription</a>
                     </li>
-                     <li>
-                        <a href="<c:url value="/transaction/list"/>">Mes Transactions</a>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown">Achat/vente <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="<c:url value="/investisseur"/>">Achat titres</a>
+                            </li>
+                            <li>
+                                <a href="<c:url value="/investisseur"/>">Vente titre</a>
+                            </li>
+                            <li>
+                                <a href="<c:url value="/investisseur"/>">listes des sociétés</a>
+                            </li>
+                           
+                        </ul>
                     </li>
                   
                 </ul>
@@ -61,89 +73,56 @@
         <!-- /.container -->
     </nav>
 
+
     <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
+        <!-- Marketing Icons Section -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Profil investisseur
+                <h1 class="page-header">
+                    Liste des Transactions - ${sessionScope.userBean.username}
                 </h1>
-                <ol class="breadcrumb">
-                    <li><a href="<c:url value="/public/"/>">accueil</a>
-                    </li>
-                    <li class="active">Profil investisseur</li>
-                </ol>
             </div>
-        </div>
-        <!-- /.row --
-
-        <!-- Contact Form --> 
-        <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-        <div class="row">
-
+             
             <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4> Informations Investisseur</h4>
-                    </div>
-                  <div class="controls" style="margin-left: 5px;">
-                            <label class="control-label" >Nom : ${investisseur.nom}</label>
-                            </BR>
-                            <label class="control-label">Prénom : ${investisseur.prenom}</label></BR>
-                            <label class="control-label">Email : ${investisseur.email}</label></BR>
-                            <label class="control-label">Tél : ${investisseur.phoneNumber}</label></BR>
-                            <label class="control-label">Liste de mes titres: </label>
-                            
-                            <c:choose>
-					<c:when test="${titres.size()==0}">
-						<em>No registered titres.</em>
+                <c:choose>
+					<c:when test="${transactions.size()==0}">
+						<em>No registered transactions.</em>
 					</c:when>
 					<c:otherwise>
-						<table BORDER WIDTH="50%">
+						<table class="bootstrap-table">
 							<thead>
 								<tr>
-									<th>codeIsin</th>
-									<th>societe</th>
-									<th>typeContrat</th>
-									<th>valeur </th>
+									<th>Société</th>
+									<th>Type Transaction</th>
+									<th>Etat Transaction</th>
+									<th>Mode Négociation </th>
+									<th>Prix </th>
 									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${titres}" var="titre">
+								<c:forEach items="${transactions}" var="transaction">
 									<tr>
-										<td>${titre.codeIsin}</td>
-										<td>${titre.societe.nom}</td>
-										<td>${titre.typeContrat.code}</td>
-										<td>${titre.valeur}</td>
-										<td><a href="<c:url value="/transaction/vendre/${titre.id}"/>">Vendre</a></td>
+										<td>${transaction.societe.nom}</td>
+										<td>${transaction.typeTransaction.code}</td>
+										<td>${transaction.etatTransaction.code}</td>
+										<td>${transaction.modeNegociation.code}</td>
+										<td>${transaction.prixCloture}</td>
+										<td><a href="<c:url value="/transaction/detail/${transaction.id}"/>">Détail</a></td>
 								</c:forEach>
 							</tbody>
 						</table>
 					</c:otherwise>
 				</c:choose>
-
-
-
-
-
-
-                            </BR>
-
-
-
-                    </div>  
-
-
-
-                </div>
             </div>
-
+          
         </div>
         <!-- /.row -->
 
         <hr>
+
     </div>
     <!-- /.container -->
     
@@ -158,6 +137,13 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="${bootstrapMinJs}"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
 
 </body>
 
