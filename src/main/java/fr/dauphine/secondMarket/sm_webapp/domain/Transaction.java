@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * @author gnepa.rene.barou
  *
@@ -26,16 +28,22 @@ public class Transaction implements Serializable{
 
 
 	@Id
-//	@GeneratedValue
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	
 	private Long prixOuverture;
+	
 	private Long prixCloture;
+	
 	private Long prixTransaction;
+	
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dateDebut;
+	
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dateCloture;
+	
 	private int quantite;
 	
 	private boolean isActif;

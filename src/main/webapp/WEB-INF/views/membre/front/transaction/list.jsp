@@ -105,7 +105,7 @@
 							<tbody>
 								<c:forEach items="${transactions}" var="transaction">
 									<tr>
-										<td>${transaction.societe.nom}</td>
+										<td>${transaction.titre.societe.nom}</td>
 										<td>${transaction.typeTransaction.code}</td>
 										<td>${transaction.etatTransaction.code}</td>
 										<td>${transaction.modeNegociation.code}</td>

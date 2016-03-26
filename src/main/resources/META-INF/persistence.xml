@@ -8,7 +8,7 @@
       <properties>
       		<property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/myEntityManagerFactory" />
          	<property name="jboss.entity.manager.jndi.name" value="java:/myEntityManager"/>
-            <property name="hibernate.show_sql" value="true"/>
+<!--             <property name="hibernate.show_sql" value="true"/> -->
             <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml"/>
         </properties>
    </persistence-unit>

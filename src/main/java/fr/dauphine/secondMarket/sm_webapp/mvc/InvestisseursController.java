@@ -29,6 +29,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmException;
 import fr.dauphine.secondMarket.sm_webapp.mvc.bean.UserBean;
 import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
 import fr.dauphine.secondMarket.sm_webapp.service.SocieteService;
+import fr.dauphine.secondMarket.sm_webapp.service.TransactionService;
 import fr.dauphine.secondMarket.sm_webapp.service.TypeContratService;
 import fr.dauphine.secondMarket.sm_webapp.service.UserService;
 import fr.dauphine.secondMarket.sm_webapp.utils.UtilsSession;
@@ -51,6 +52,8 @@ public class InvestisseursController {
 	ContratService serviceContrat;
 	@Autowired
 	TypeContratService serviceTypeContrat;
+	@Autowired
+	TransactionService serviceTransaction;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String main(HttpServletRequest request,
@@ -59,12 +62,12 @@ public class InvestisseursController {
 
 		try {
 			UserBean userBean = UtilsSession.getUserBean(request);
-			Investisseur investisseur = (Investisseur) serviceUser
-					.findById(userBean.getId());
-			List<Contrat> titres = serviceContrat
-					.findByInvestisseur(investisseur.getId());
-			model.addAttribute("titres", titres);
-			model.addAttribute("investisseur", investisseur);
+			model.addAttribute("titres", serviceContrat
+					.findByInvestisseur(userBean.getId()));
+			
+			model.addAttribute("investisseur", (Investisseur) serviceUser
+					.findById(userBean.getId()));
+			model.addAttribute("transactions",serviceTransaction.findByVendeur(userBean.getId()));
 			model.addAttribute("userBean", userBean);
 			return "membre/front/investisseur/profilInvestisseur";
 		} catch (SmDaoException e) {
@@ -79,38 +82,37 @@ public class InvestisseursController {
 
 	@RequestMapping(value = "/Vente", method = RequestMethod.GET)
 	public String vente(HttpServletRequest request,
-			HttpServletResponse response,
-			Model model) {
+			HttpServletResponse response, Model model) {
 		try {
 			UserBean userBean = UtilsSession.getUserBean(request);
-			List<Contrat> titres = serviceContrat
-					.findByInvestisseur(userBean.getId());
+			List<Contrat> titres = serviceContrat.findByInvestisseur(userBean
+					.getId());
 			model.addAttribute("titres", titres);
-			return "membre/front/investisseur/list";
+			return "membre/front/investisseur/listeTitres";
 		} catch (SmException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			return "/investisseur";
 		}
 
 	}
-	
+
 	@RequestMapping(value = "/Titre/ajout", method = RequestMethod.GET)
 	public String ajoutTitre(HttpServletRequest request,
-			HttpServletResponse response,
-			Model model) {
+			HttpServletResponse response, Model model) {
 		try {
 			UserBean userBean = UtilsSession.getUserBean(request);
 			Investisseur investisseur = (Investisseur) serviceUser
 					.findById(userBean.getId());
-			Contrat newTitre=new Contrat();
+			Contrat newTitre = new Contrat();
 			newTitre.setProprietaire(investisseur);
 			newTitre.setValeur(0L);
 			newTitre.setNbTitres(0);
 			newTitre.setSociete(new Societe());
 			newTitre.setTypeContrat(new TypeContrat());
-			model.addAttribute("typeContrats", serviceTypeContrat.findAllOrderedByCode());
+			model.addAttribute("typeContrats",
+					serviceTypeContrat.findAllOrderedByCode());
 			model.addAttribute("societes", serviceSociete.findAll());
-			model.addAttribute("newTitre",newTitre );
+			model.addAttribute("newTitre", newTitre);
 			model.addAttribute("userBean", userBean);
 			return "membre/front/investisseur/Ajoutertitre";
 		} catch (SmException e) {
@@ -119,8 +121,8 @@ public class InvestisseursController {
 		}
 
 	}
-	
-	@RequestMapping(value = "/Titre/ajout",method = RequestMethod.POST)
+
+	@RequestMapping(value = "/Titre/ajout", method = RequestMethod.POST)
 	public String ajoutTitre(
 			@Valid @ModelAttribute("newTitre") Contrat newTitre,
 			BindingResult result, Model model,
@@ -129,9 +131,12 @@ public class InvestisseursController {
 
 		if (!result.hasErrors()) {
 			try {
-				TypeContrat tc=serviceTypeContrat.findById(newTitre.getTypeContrat().getId());
-				Investisseur inv=(Investisseur) serviceUser.findById(newTitre.getProprietaire().getId());
-				Societe sc=serviceSociete.findById(newTitre.getSociete().getId());
+				TypeContrat tc = serviceTypeContrat.findById(newTitre
+						.getTypeContrat().getId());
+				Investisseur inv = (Investisseur) serviceUser.findById(newTitre
+						.getProprietaire().getId());
+				Societe sc = serviceSociete.findById(newTitre.getSociete()
+						.getId());
 				newTitre.setProprietaire(inv);
 				newTitre.setSociete(sc);
 				newTitre.setTypeContrat(tc);
@@ -141,14 +146,14 @@ public class InvestisseursController {
 			} catch (SmException e) {
 				message = "Erreur d'enregistrement du Titre: "
 						+ newTitre.getCodeIsin();
-				logger.log(Level.SEVERE, e.getMessage(),e.getCause());
+				logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			}
 
 		} else {
 			message = "Erreur d'enregistrement du Titre: "
-						+ newTitre.getCodeIsin();
+					+ newTitre.getCodeIsin();
 			logger.log(Level.SEVERE, message);
-			
+
 		}
 		redirectAttributes.addFlashAttribute("message", message);
 		return "redirect:/investisseur";

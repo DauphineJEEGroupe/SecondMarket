@@ -21,6 +21,8 @@ public interface SocieteDao {
 	List<Societe> findByName(String name) throws SmDaoException;
 
 	List<Societe> findAllOrderedByName() throws SmDaoException;
+	
+	List<Societe> search(String fullText) throws SmDaoException;
 
 	void register(Societe societe) throws SmDaoException;
 

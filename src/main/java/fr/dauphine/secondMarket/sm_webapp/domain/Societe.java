@@ -38,11 +38,9 @@ public class Societe implements Serializable {
 	@Size(min = 1, max = 25)
 	private String siren;
 
-	@NotNull
 	@Size(min = 1, max = 25)
 	private String ville;
 
-	@NotNull
 	@Size(min = 1, max = 25)
 	private String pays;
 

@@ -23,7 +23,5 @@ public interface UserService {
 	User findById(Long id) throws SmDaoException;
 
 	User findByMail(String email) throws SmDaoException;
-
 	
-
 }

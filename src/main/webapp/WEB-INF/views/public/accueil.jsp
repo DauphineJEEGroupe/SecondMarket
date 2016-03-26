@@ -47,7 +47,7 @@
                         <a href="<c:url value="/public/login"/>">Mon compte</a>
                     </li>
                     <li>
-                        <a href="<c:url value="/user/inscription"/>">Inscription</a>
+                        <a href="<c:url value="/public/inscription"/>">Inscription</a>
                     </li>
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">Achat/vente <b class="caret"></b></a>
@@ -59,7 +59,7 @@
                                 <a href="<c:url value="/investisseur"/>">Vente titre</a>
                             </li>
                             <li>
-                                <a href="<c:url value="/investisseur"/>">listes des sociétés</a>
+                                <a href="<c:url value="/societe/list"/>">listes des sociétés</a>
                             </li>
                            
                         </ul>

@@ -14,7 +14,6 @@
 	rel="shortcut icon">
 
 
-<!-- Bootstrap Core CSS -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/static/resources/css/bootstrap.min.css"/>" />
 <!-- Custom CSS -->
@@ -48,9 +47,12 @@
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="<c:url value="/public/"/>">accueil</a></li>
+
+					<li><a href="<c:url value="/investisseur/Vente"/>">Créer
+							offre </a></li>
 					<li><a href="<c:url value="/investisseur/Titre/ajout"/>">Ajouter
 							titre</a></li>
-					<li><a href="<c:url value="/transaction/list"/>">Mes
+					<li><a href="<c:url value="/investisseur/transaction"/>">Mes
 							Transactions</a></li>
 					<li class="dropdown"><a href="" class="dropdown-toggle"
 						data-toggle="dropdown">Achat/vente <b class="caret"></b></a>
@@ -63,6 +65,7 @@
 									sociétés</a></li>
 
 						</ul></li>
+
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
@@ -72,114 +75,64 @@
 
 	<!-- Page Content -->
 	<div class="container">
-
 		<!-- Page Heading/Breadcrumbs -->
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Profil investisseur</h1>
+				<h1 class="page-header">Investisseur sociétés</h1>
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/public/"/>">accueil</a></li>
-					<li class="active">Profil investisseur</li>
+					<li class="active">sociétés</li>
 				</ol>
 			</div>
 		</div>
-		<!-- /.row --
-
-        <!-- Contact Form -->
-		<!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
 		<div class="row">
-
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4>Informations Investisseur</h4>
+			<div class="col-md-6"></div>
+			<div class="col-md-6">
+				<form:form commandName="societe" class="form-inline" action="/societe/search">
+					<div class="form-group">
+						<input type="hidden" id="siren" name="siren" value="siren">
+						<input type="text" class="form-control" id="nom" name="nom"  minlength=3 placeholder="Société par nom ou siren (3 lettres min)">
 					</div>
-					<div class="controls" style="margin-left: 5px;">
-						<label class="control-label">Nom : ${investisseur.nom}</label> <br>
-						<label class="control-label">Prénom :
-							${investisseur.prenom}</label> <br> <label class="control-label">Email
-							: ${investisseur.email}</label><br> <label class="control-label">Tél
-							: ${investisseur.phoneNumber}</label> <br>
-					</div>
-				</div>
+					<input type="submit" value="Rechercher" class="btn btn-default" />
+<!-- 					<button type="submit" class="btn btn-default">Rechercher</button> -->
+				</form:form>
 			</div>
 		</div>
 		<div class="row">
-
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4>Liste de mes titres</h4>
+						<h4>Societes</h4>
 					</div>
 					<br>
 					<c:choose>
-						<c:when test="${titres.size()==0}">
-							<em>No registered titres.</em>
+						<c:when test="${societes.size()==0}">
+							<p> <em>Aucune société de trouvée.</em></p>
 						</c:when>
 						<c:otherwise>
-							<table class="table">
+							<table class="table table-striped">
 								<thead>
 									<tr>
-										<th>codeIsin</th>
-										<th>societe</th>
-										<th>typeContrat</th>
-										<th>valeur</th>
+										<th>Id</th>
+										<th>Nom</th>
+										<th>Siren</th>
+										<th>Ville</th>
+										<th>Pays</th>
+										<th>Statut</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${titres}" var="titre">
+									<c:forEach items="${societes}" var="societe">
 										<tr>
-											<td>${titre.codeIsin}</td>
-											<td>${titre.societe.nom}</td>
-											<td>${titre.typeContrat.code}</td>
-											<td>${titre.valeur}</td>
+											<td>${societe.id}</td>
+											<td>${societe.nom}</td>
+											<td>${societe.siren}</td>
+											<td>${societe.ville}</td>
+											<td>${societe.pays}</td>
+											<td>${societe.statut.code}</td>
 											<td><a
-												href="<c:url value="/transaction/vendre/${titre.id}"/>">Vendre</a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4>Liste de mes Transactions</h4>
-					</div>
-
-					<c:choose>
-						<c:when test="${transactions.size()==0}">
-							<em>No registered transactions.</em>
-						</c:when>
-						<c:otherwise>
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Société</th>
-										<th>Type Transaction</th>
-										<th>Etat Transaction</th>
-										<th>Mode Négociation</th>
-										<th>Prix</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${transactions}" var="transaction">
-										<tr>
-											<td>${transaction.titre.societe.nom}</td>
-											<td>${transaction.typeTransaction.code}</td>
-											<td>${transaction.etatTransaction.code}</td>
-											<td>${transaction.modeNegociation.code}</td>
-											<td>${transaction.prixCloture}</td>
-											<td><a
-												href="<c:url value="/transaction/detail/${transaction.id}"/>">Détail</a></td>
-										</tr>
+												href="<c:url value="/societe/edit/${societe.id}"/>">Modifié</a></td>
 									</c:forEach>
 								</tbody>
 							</table>
@@ -189,7 +142,6 @@
 			</div>
 		</div>
 
-		<hr>
 	</div>
 	<!-- /.container -->
 
@@ -206,6 +158,9 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="${bootstrapMinJs}"></script>
 
+
 </body>
+
+</html>
 
 </html>

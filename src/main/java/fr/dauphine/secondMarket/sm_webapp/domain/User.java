@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -45,6 +46,9 @@ public class User implements Serializable {
 
 	@Column(name = "motdepasse", nullable = false, length = 20)
 	private String pass;
+	
+	@Transient
+	private String pass2;
 
 	@NotNull
 	@Size(min = 1, max = 25)
@@ -170,6 +174,20 @@ public class User implements Serializable {
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	/**
+	 * @return the pass2
+	 */
+	public String getPass2() {
+		return pass2;
+	}
+
+	/**
+	 * @param pass2 the pass2 to set
+	 */
+	public void setPass2(String pass2) {
+		this.pass2 = pass2;
 	}
 
 }

@@ -77,4 +77,9 @@ public class SocieteServiceImpl implements SocieteService {
 
 	}
 
+	@Override
+	public List<Societe> search(String fullText) throws SmDaoException {
+		return societeDao.search(fullText);
+	}
+
 }

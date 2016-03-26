@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
 import fr.dauphine.secondMarket.sm_webapp.repo.ContratDao;
 import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
@@ -69,5 +70,16 @@ public class ContratServiceImpl implements ContratService {
 	public Contrat findById(Long id) throws SmDaoException {
 		return daoContrat.findById(id);
 		}
+
+	@Override
+	public boolean hasEnoughTitreToSale(Long idTitre, Integer nbTitreToSale)
+			throws SmException {
+		Contrat titre=findById(idTitre);
+		if(nbTitreToSale>titre.getNbTitres()){
+			throw new SmTechException("Pas assez de titre pour la transaction");
+		}
+		return true;
+	}
+	
 
 }

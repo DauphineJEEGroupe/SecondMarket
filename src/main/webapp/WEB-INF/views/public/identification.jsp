@@ -10,7 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<link href="<c:url value="/static/resources/img/dauphin.jpg"/>" rel="shortcut icon">
+<link href="<c:url value="/static/resources/img/dauphin.jpg"/>"
+	rel="shortcut icon">
 
 
 <!-- Bootstrap Core CSS -->
@@ -28,102 +29,98 @@
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<c:url value="/public/"/>">Marché Secondaire</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="<c:url value="/public/"/>">accueil</a>
-                    </li>
-                    <li>
-                        <a href="<c:url value="/user/inscription"/>">Inscription</a>
-                    </li>
-                    
-                  
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<c:url value="/public/"/>">Marché
+					Secondaire</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="<c:url value="/public/"/>">accueil</a></li>
+					<li><a href="<c:url value="/public/inscription"/>">Inscription</a>
+					</li>
 
-    <!-- Page Content -->
-    <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Authentification
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="<c:url value="/public/"/>">accueil</a>
-                    </li>
-                    <li class="active">Authentification</li>
-                </ol>
-            </div>
-        </div>
-        <!-- /.row --
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container">
+
+		<!-- Page Heading/Breadcrumbs -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Authentification</h1>
+				<ol class="breadcrumb">
+					<li><a href="<c:url value="/public/"/>">accueil</a></li>
+					<li class="active">Authentification</li>
+				</ol>
+			</div>
+		</div>
+		<!-- /.row --
 
         <!-- Contact Form -->
-        <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-        <div class="row">
-            <div class="col-md-5">
-                <form:form commandName="login" id="reg">
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <form:label path="email" >Adresse mail:</form:label>
-                            <form:input path="email" required="required" class="form-control"/>
-                            <form:errors class="invalid" path="email"/>
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <form:label path="pass">Mot de passe:</form:label>
-                            <form:password path="pass" required="required" class="form-control"/>
-                            <form:errors class="pass" path="email"/>
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    
-                       
-                    <div id="success"></div>
-                    <input type="submit" value="Valider" class="register"/>
-                </form:form>
-            </div>
+		<!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+		<div class="row">
+			<div class="col-md-5">
+				<form:form commandName="login" id="reg">
+					<div class="form-group">
+						<form:label path="email">Adresse mail:</form:label>
+						<form:input path="email" required="required" class="form-control" />
+						<form:errors class="invalid" path="email" />
+						<p class="help-block"></p>
+					</div>
 
-        </div>
-        <!-- /.row -->
+					<div class="form-group">
+						<form:label path="pass">Mot de passe:</form:label>
+						<form:password path="pass" required="required"
+							class="form-control" />
+						<form:errors class="pass" path="email" />
+						<p class="help-block"></p>
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox"> Remember me</label>
+					</div>
 
-        <hr>
+					<input type="submit" value="Valider" class="btn btn-default" />
+				</form:form>
+			</div>
 
-    </div>
-    <!-- /.container -->
-    
-    
+		</div>
+		<!-- /.row -->
+
+		<hr>
+
+	</div>
+	<!-- /.container -->
+
+
 	<spring:url value="/static/resources/js/jquery.js" var="jqueryJs" />
-	<spring:url value="/static/resources/js/bootstrap.min.js" var="bootstrapMinJs" />
+	<spring:url value="/static/resources/js/bootstrap.min.js"
+		var="bootstrapMinJs" />
 
 
 
-    <!-- jQuery -->
-    <script src="${jqueryJs}"></script>
+	<!-- jQuery -->
+	<script src="${jqueryJs}"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="${bootstrapMinJs}"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="${bootstrapMinJs}"></script>
 
 
 </body>

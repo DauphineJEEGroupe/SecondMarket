@@ -20,6 +20,8 @@ public interface SocieteService {
 	void delete(Long id) throws SmDaoException;
 
 	List<Societe> findAll() throws SmDaoException;
+	
+	List<Societe> search(String fullText) throws SmDaoException;
 
 	void update(Societe societeToUpdate) throws SmDaoException;
 

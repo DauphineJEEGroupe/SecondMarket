@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -163,6 +164,19 @@ public class SocieteDaoImpl implements SocieteDao {
 			throw new SmDaoException(e1.getMessage(), e1);
 		}
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Societe> search(String fullText) throws SmDaoException {
+		try {
+			Query query = em
+					.createQuery("SELECT s FROM Societe s WHERE UPPER(s.nom) LIKE :fullText OR  UPPER(s.siren) LIKE :fullText ORDER BY s.nom");
+			query.setParameter("fullText", "%" + fullText.toUpperCase() + "%");
+			return query.getResultList();
+		} catch (IllegalArgumentException | PersistenceException e1) {
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
 	}
 
 }

@@ -64,10 +64,10 @@ public class TransactionController {
 
 	@Autowired
 	EtatTransactionService serviceEtatTransaction;
-	
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listAchats(HttpServletRequest request,
-			HttpServletResponse response,Model model) {
+			HttpServletResponse response, Model model) {
 
 		try {
 			UserBean userBean = UtilsSession.getUserBean(request);
@@ -168,37 +168,58 @@ public class TransactionController {
 	public String vendre(
 			@Valid @ModelAttribute("newtransaction") Transaction newtransaction,
 			BindingResult result, final RedirectAttributes redirectAttributes) {
-
+		Transaction transaction=new Transaction();
 		try {
-			newtransaction.setActif(true);
-			newtransaction.setDateDebut(new Date());
-			newtransaction.setEtatTransaction(serviceEtatTransaction
+			serviceContrat.hasEnoughTitreToSale(newtransaction.getTitre()
+					.getId(), newtransaction.getQuantite());
+			transaction.setActif(true);
+			transaction.setDateDebut(new Date());
+			//TODO jodaTime pour ajout 1j a getDateDebut
+//			transaction.setDateCloture(newtransaction.getDateCloture().after(newtransaction.getDateDebut())? newtransaction.getDateCloture() : newtransaction.getDateDebut());
+			transaction.setDateCloture(newtransaction.getDateCloture());
+			transaction.setQuantite(newtransaction.getQuantite());
+			transaction.setEtatTransaction(serviceEtatTransaction
 					.findByCode(Constantes.CODE_TRANSACTION_OUVERTE));
-			newtransaction.setModeNegociation(serviceModeNegociation
+			transaction.setModeNegociation(serviceModeNegociation
 					.findById(newtransaction.getModeNegociation().getId()));
+			transaction.setPrixOuverture(newtransaction.getPrixOuverture());
 			if (Constantes.CODE_NEGOCIATION_IMMEDIAT
 					.equalsIgnoreCase(newtransaction.getModeNegociation()
 							.getCode())
 					|| newtransaction.getPrixCloture() < newtransaction
 							.getPrixOuverture()) {
-				newtransaction
+				transaction
 						.setPrixCloture(newtransaction.getPrixOuverture());
+			}else{
+				transaction.setPrixCloture(newtransaction.getPrixCloture());
 			}
-			newtransaction.setTitre(serviceContrat.findById(newtransaction.getTitre().getId()));
-			newtransaction.setTypeTransaction(serviceTypeTransaction.findByCode(Constantes.CODE_TRANSACTION_VENTE));
-			newtransaction.setVendeur((Investisseur) serviceUser
-					.findById(newtransaction.getVendeur().getId()));
-			serviceTransaction.create(newtransaction);
+			Contrat titre = serviceContrat.findById(newtransaction.getTitre()
+					.getId());
+			transaction.setTitre(titre);
+			transaction.setTypeTransaction(serviceTypeTransaction
+					.findByCode(Constantes.CODE_TRANSACTION_VENTE));
+
+			Investisseur vendeur = (Investisseur) serviceUser
+					.findById(newtransaction.getVendeur().getId());
+			transaction.setVendeur(vendeur);
+			
+			serviceTransaction.create(transaction);
+
+			titre.setNbTitres(titre.getNbTitres()
+					- transaction.getQuantite());
+			serviceContrat.update(titre);
+
 			String message = "Transaction effectuée avec succes";
 			redirectAttributes.addFlashAttribute("message", message);
-			return "redirect:/achat";
-		} catch (SmDaoException e) {
+			return "redirect:/investisseur";
+		} catch (SmException e) {
 			String erreur = "Echec de la transaction: "
 					+ newtransaction.getId();
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			redirectAttributes.addFlashAttribute("erreur", erreur);
-			return "redirect:/achat";
+			return "redirect:/investisseur";
 		}
 
 	}
+
 }

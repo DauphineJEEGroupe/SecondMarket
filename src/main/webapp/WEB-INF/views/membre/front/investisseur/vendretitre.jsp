@@ -66,7 +66,7 @@
 		<!-- Page Heading/Breadcrumbs -->
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Inscription Investisseur</h1>
+				<h1 class="page-header">Vente de titre</h1>
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/public/"/>">accueil</a></li>
 					<li><a href="<c:url value="/investisseur"/>">Profile
@@ -80,83 +80,101 @@
         <!-- Contact Form -->
 		<!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
 		<div class="row">
-			<div class="col-md-5">
-				<p>
-					<span class="message">${message}</span>
-				</p>
-				<form:form commandName="newtransaction" id="reg">
-				<h3>Titre <em> ${newtransaction.titre.codeIsin}</em> de la société <em>${newtransaction.titre.societe.nom}</em></h3>
-				<form:hidden path="vendeur.id" />
-				<form:hidden path="titre.id" />
-					<div class="control-group form-group">
-						<div class="controls">
-							<form:label path="quantite">Nombre de titre:</form:label>
-							<input type="number" class="form-control" name="quantite" id="quantite"  required >
-							<form:errors class="invalid" path="quantite" />
-							<p class="help-block"></p>
-						</div>
+<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Vendre un titre</h4>
 					</div>
-					<div class="control-group form-group">
-						<div class="controls">
-							<form:label path="prixOuverture">Prix initial unitaire:</form:label>
-							<input type="number" class="form-control" name="prixOuverture" id="prixOuverture"  required >
-							<form:errors class="invalid" path="prixOuverture" />
-							<p class="help-block"></p>
+					<br>
+					<p>
+						<span class="message">${message}</span>
+					</p>
+					<form:form commandName="newtransaction" id="reg">
+						<p>
+							Titre <Strong> ${newtransaction.titre.codeIsin}</Strong> de la
+							société <Strong>${newtransaction.titre.societe.nom}</Strong>
+						</p>
+						<form:hidden path="vendeur.id" />
+						<form:hidden path="titre.id" />
+						<div class="control-group form-group">
+							<div class="controls">
+								<form:label path="quantite">Nombre de titre:</form:label>
+								<input type="number" class="form-control" name="quantite"
+									id="quantite" required>
+								<form:errors class="invalid" path="quantite" />
+								<p class="help-block"></p>
+							</div>
 						</div>
-					</div>
-					<div class="control-group form-group">
-						<div class="controls">
-							<form:label path="prixCloture">Prix final unitaire:</form:label>
-							<input type="number" class="form-control" name="prixCloture" id="prixCloture"  required >
-							<form:errors class="invalid" path="prixCloture" />
-							<p class="help-block"></p>
+						<div class="control-group form-group">
+							<div class="controls">
+								<form:label path="prixOuverture">Prix initial unitaire:</form:label>
+								<input type="number" class="form-control" name="prixOuverture"
+									id="prixOuverture" required>
+								<form:errors class="invalid" path="prixOuverture" />
+								<p class="help-block"></p>
+							</div>
 						</div>
-					</div>
+						<div class="control-group form-group">
+							<div class="controls">
+								<form:label path="prixCloture">Prix final unitaire:</form:label>
+								<input type="number" class="form-control" name="prixCloture"
+									id="prixCloture" required>
+								<form:errors class="invalid" path="prixCloture" />
+								<p class="help-block"></p>
+							</div>
+						</div>
 
-					<div class="control-group form-group">
-						<div class="controls">
-							
-							<form:select path="modeNegociation.id">
-									      <form:option value="NONE" label="Mode de Négociation"/>
-									      <form:options items="${modeNegociations}" itemValue="id" itemLabel="code"/>
-							 </form:select>
-							<p class="help-block"></p>
+						<div class="control-group form-group">
+							<div class="controls">
+
+								<form:select path="modeNegociation.id">
+									<form:option value="NONE" label="Mode de Négociation" />
+									<form:options items="${modeNegociations}" itemValue="id"
+										itemLabel="code" />
+								</form:select>
+								<p class="help-block"></p>
+							</div>
 						</div>
-					</div>
-					<div class="control-group form-group">
-						<div class="controls">
-							<form:label path="prixCloture">Echéance:</form:label>
-							<input type="date" class="form-control" name="prixCloture" id="prixCloture" required
-								data-validation-required-message="Veuillez saisir une date">
-							<form:errors class="invalid" path="prixCloture" />
-							<p class="help-block"></p>
+						<div class="control-group form-group">
+							<div class="controls">
+								<form:label path="dateCloture">Echéance:</form:label>
+								<form:input path="dateCloture" />
+								<!-- 							<input type="date" class="form-control" name="dateCloture" id="dateCloture" required -->
+								<!-- 								data-validation-required-message="Veuillez saisir une date"> -->
+								<form:errors class="invalid" path="dateCloture" />
+								<p class="help-block"></p>
+							</div>
 						</div>
-					</div>
-					<input type="submit" value="Enregistrer" class="register" />
-<!-- 					<button type="submit" class="btn btn-primary">vendre</button> -->
-				</form:form>
+						<input type="submit" value="Enregistrer" class="register" />
+						<!-- 					<button type="submit" class="btn btn-primary">vendre</button> -->
+					</form:form>
+				</div>
 			</div>
-
+			<div class="col-md-3"></div>
 		</div>
-		<!-- /.row -->
-
-		<hr>
-
 	</div>
-	 <!-- /.container -->
-    
-    
+	<!-- /.container -->
+
+
 	<spring:url value="/static/resources/js/jquery.js" var="jqueryJs" />
-	<spring:url value="/static/resources/js/bootstrap.min.js" var="bootstrapMinJs" />
+	<spring:url value="/static/resources/js/bootstrap.min.js"
+		var="bootstrapMinJs" />
 
 
 
-    <!-- jQuery -->
-    <script src="${jqueryJs}"></script>
+	<!-- jQuery -->
+	<script src="${jqueryJs}"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="${bootstrapMinJs}"></script>
-
+	<!-- Bootstrap Core JavaScript -->
+	<script src="${bootstrapMinJs}"></script>
+	<script>
+		$(function() {
+			$("#dateCloture").datepicker({
+				dateFormat : 'dd/MM/yyyy'
+			});
+		});
+	</script>
 </body>
 
 </html>

@@ -7,6 +7,7 @@ import java.util.List;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
 
 /**
@@ -15,8 +16,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
  */
 public interface ContratService {
 
-	void create(Contrat newContrat)
-			throws SmDaoException, SmTechException;
+	void create(Contrat newContrat) throws SmDaoException, SmTechException;
 
 	void delete(Long id) throws SmDaoException;
 
@@ -27,4 +27,7 @@ public interface ContratService {
 	void update(Contrat contratToUpdate) throws SmDaoException;
 
 	Contrat findById(Long id) throws SmDaoException;
+
+	boolean hasEnoughTitreToSale(Long idTitre, Integer nbTitreToSale)
+			throws SmException;
 }

@@ -36,17 +36,47 @@ public class SocieteController {
 	
 	private static Logger logger=Logger.getLogger(SocieteController.class.getCanonicalName());
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String displaySortedSocietes(Model model) {
+//	@RequestMapping(method = RequestMethod.GET)
+//	public String displaySortedSocietes(Model model) {
+//		List<Societe> societes = new ArrayList<Societe>();
+//		try {
+//			societes = societeService.findAll();
+//		} catch (SmDaoException e) {
+//			logger.severe(e.getMessage());
+//		}
+//		model.addAttribute("newSociete", new Societe());
+//		model.addAttribute("societes", societes);
+//		return "membre/front/investisseur/listeSociete";
+//	}
+	
+	@RequestMapping(value = "/search",method = RequestMethod.POST)
+	public String search(@ModelAttribute("societe") Societe societe,Model model) {
+		List<Societe> societes = new ArrayList<Societe>();
+		try {
+			societes = societeService.search(societe.getNom());
+			model.addAttribute("societes", societes);
+			model.addAttribute("societe", new Societe());
+			return "membre/front/investisseur/listeSociete";
+		} catch (SmDaoException e) {
+			logger.severe(e.getMessage());
+			return "redirect:/societe/list";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list(Model model) {
 		List<Societe> societes = new ArrayList<Societe>();
 		try {
 			societes = societeService.findAll();
+			model.addAttribute("societes", societes);
+			model.addAttribute("societe", new Societe());
+			return "membre/front/investisseur/listeSociete";
 		} catch (SmDaoException e) {
-			logger.severe("--------------ERROR---------"+e.getMessage());
+			logger.severe(e.getMessage());
+			return "redirect:/";
 		}
-		model.addAttribute("newSociete", new Societe());
-		model.addAttribute("societes", societes);
-		return "membre/back/societe";
+		
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
