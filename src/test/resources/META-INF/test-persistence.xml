@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
-	<persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>fr.dauphine.secondMarket.sm_webapp.domain.Member</class>
-        <properties>
-	        <property name="hibernate.hbm2ddl.auto" value="create-drop" />
-        	<property name="hibernate.show_sql" value="true" />
+<!-- <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0"> -->
+<!-- 	<persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL"> -->
+<!--         <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+<!-- 		<class>fr.dauphine.secondMarket.sm_webapp.domain.Statut</class> -->
+<!--         <properties> -->
+<!-- 	        <property name="hibernate.hbm2ddl.auto" value="create-drop" /> -->
+<!--         	<property name="hibernate.show_sql" value="true" /> -->
+<!--         </properties> -->
+<!-- 	</persistence-unit> -->
+<!-- </persistence> -->
+
+<persistence version="2.0"
+   xmlns="http://java.sun.com/xml/ns/persistence" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+   <persistence-unit name="secondMarketPU" transaction-type="JTA">
+      <jta-data-source>java:jboss/datasources/SecondMarketDS</jta-data-source>
+      <properties>
+      		<property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/myEntityManagerFactory" />
+         	<property name="jboss.entity.manager.jndi.name" value="java:/myEntityManager"/>
+<!--             <property name="hibernate.show_sql" value="true"/> -->
+            <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml"/>
         </properties>
-	</persistence-unit>
+   </persistence-unit>
 </persistence>

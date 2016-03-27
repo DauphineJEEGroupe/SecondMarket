@@ -6,6 +6,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+<!-- Tous les controlleurs sont automatiquement détectés grâce à l'annotation @Controller.
+  On définit ici dans quel package le post processor doit chercher ces beans annotés.	-->
 	<context:component-scan base-package="fr.dauphine.secondMarket.sm_webapp.mvc"/>
 
 	<mvc:annotation-driven />

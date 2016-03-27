@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
+
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserBean implements Serializable {
@@ -15,18 +17,23 @@ public class UserBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 4089290088450930030L;
 
-	/** The username. */
 	private String username;
+	
 	private String email;
+	
 	private long id;
+	
 	private String typeUser;
+	
 	private String phoneNumber;
-	/** The password. */
+	
 	private String password;
 
 	private String role;
 
 	private boolean isConneted;
+	
+	private boolean isAdmin;
 
 	public UserBean() {
 	}
@@ -37,9 +44,10 @@ public class UserBean implements Serializable {
 		this.password = null;
 		this.role = null;
 		this.isConneted = false;
+		this.setAdmin(false);
 
 	}
-
+	
 	public void logout() {
 		isConneted = false;
 	}
@@ -102,6 +110,11 @@ public class UserBean implements Serializable {
 	 */
 	public void setRole(final String role) {
 		this.role = role;
+		if(Constantes.ROLE_ADMIN.equals(getRole())){
+			this.setAdmin(true);
+		}else{
+			this.setAdmin(false);
+		}
 	}
 
 	/**
@@ -162,6 +175,20 @@ public class UserBean implements Serializable {
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	/**
+	 * @return the isAdmin
+	 */
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	/**
+	 * @param isAdmin the isAdmin to set
+	 */
+	public void setAdmin(boolean isAdmin) {
+//		this.isAdmin = isAdmin;
 	}
 
 }

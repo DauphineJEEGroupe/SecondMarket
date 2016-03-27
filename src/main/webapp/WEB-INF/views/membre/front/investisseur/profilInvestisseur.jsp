@@ -55,7 +55,7 @@
 					<li class="dropdown"><a href="" class="dropdown-toggle"
 						data-toggle="dropdown">Achat/vente <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/investisseur"/>">Achat
+							<li><a href="<c:url value="/transaction/achat"/>">Achat
 									titres</a></li>
 							<li><a href="<c:url value="/investisseur"/>">Vente titre</a>
 							</li>
@@ -146,7 +146,6 @@
 			</div>
 		</div>
 		<div class="row">
-
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -166,6 +165,8 @@
 										<th>Etat Transaction</th>
 										<th>Mode Négociation</th>
 										<th>Prix</th>
+										<th>Date de cloture </th>
+										<th>Acheteur</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -177,6 +178,8 @@
 											<td>${transaction.etatTransaction.code}</td>
 											<td>${transaction.modeNegociation.code}</td>
 											<td>${transaction.prixCloture}</td>
+											<td>${transaction.dateCloture}</td>
+											<td>${transaction.acheteur.nom}</td>
 											<td><a
 												href="<c:url value="/transaction/detail/${transaction.id}"/>">Détail</a></td>
 										</tr>

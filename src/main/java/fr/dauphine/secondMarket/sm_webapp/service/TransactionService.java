@@ -6,6 +6,7 @@ package fr.dauphine.secondMarket.sm_webapp.service;
 import java.util.List;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
+import fr.dauphine.secondMarket.sm_webapp.domain.Investisseur;
 import fr.dauphine.secondMarket.sm_webapp.domain.Transaction;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 
@@ -35,6 +36,7 @@ public interface TransactionService {
 
 	void update(Transaction transactionToUpdate) throws SmDaoException;
 
+	void achat(Transaction transaction) throws SmDaoException;
 	
 	void delete(Long id) throws SmDaoException;
 }

@@ -66,7 +66,7 @@ public class TransactionController {
 	EtatTransactionService serviceEtatTransaction;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String listAchats(HttpServletRequest request,
+	public String mesTransactions(HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 
 		try {
@@ -98,8 +98,23 @@ public class TransactionController {
 		}
 
 	}
+	@RequestMapping(value = "/societe/{id}", method = RequestMethod.GET)
+	public String listBySociete(@PathVariable Long id, Model model,
+			final RedirectAttributes redirectAttributes) {
 
-	@RequestMapping(value = "/achat/detail/{id}", method = RequestMethod.GET)
+		try {
+			List<Transaction> transactions = serviceTransaction.findBySociete(id);
+			model.addAttribute("transactions", transactions);
+			return "membre/front/transaction/list";
+		} catch (SmDaoException e) {
+//			String erreur = "Aucune transaction de trouver pour l'id: " + id;
+			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+			return "/investisseur";
+		}
+
+	}
+
+	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable Long id, Model model,
 			final RedirectAttributes redirectAttributes) {
 
@@ -115,25 +130,45 @@ public class TransactionController {
 		}
 
 	}
-
-	@RequestMapping(value = "/achat", method = RequestMethod.POST)
-	public String achat(
-			@Valid @ModelAttribute("transaction") Transaction transaction,
-			BindingResult result, final RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "/achat/{id}", method = RequestMethod.GET)
+	public String achat(HttpServletRequest request,
+			HttpServletResponse response,@PathVariable Long id, Model model,
+			final RedirectAttributes redirectAttributes) {
 
 		try {
-			serviceTransaction.update(transaction);
-			String message = "Transaction effectuée avec succes";
-			redirectAttributes.addFlashAttribute("message", message);
-			return "redirect:/achat";
-		} catch (SmDaoException e) {
-			String erreur = "Echec de la transaction: " + transaction.getId();
+			
+			UserBean userBean = UtilsSession.getUserBean(request);
+			Transaction transaction = serviceTransaction.findById(id);
+			transaction.setAcheteur((Investisseur) serviceUser.findById(userBean.getId()));
+			
+			serviceTransaction.achat(transaction);
+			return "redirect:/investisseur";
+		} catch (SmException e) {
+			String erreur = "Aucune transaction de trouver pour l'id: " + id;
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			redirectAttributes.addFlashAttribute("erreur", erreur);
 			return "redirect:/achat";
 		}
 
 	}
+//	@RequestMapping(value = "/achat/{id}", method = RequestMethod.POST)
+//	public String achat(
+//			@Valid @ModelAttribute("transaction") Transaction transaction,
+//			BindingResult result, final RedirectAttributes redirectAttributes) {
+//
+//		try {
+//			serviceTransaction.update(transaction);
+//			String message = "Transaction effectuée avec succes";
+//			redirectAttributes.addFlashAttribute("message", message);
+//			return "redirect:/achat";
+//		} catch (SmDaoException e) {
+//			String erreur = "Echec de la transaction: " + transaction.getId();
+//			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
+//			redirectAttributes.addFlashAttribute("erreur", erreur);
+//			return "redirect:/achat";
+//		}
+//
+//	}
 
 	@RequestMapping(value = "/vendre/{id}", method = RequestMethod.GET)
 	public String vendre(HttpServletRequest request,
@@ -193,6 +228,7 @@ public class TransactionController {
 			}else{
 				transaction.setPrixCloture(newtransaction.getPrixCloture());
 			}
+			transaction.setPrixTransaction(transaction.getPrixCloture()*transaction.getQuantite());
 			Contrat titre = serviceContrat.findById(newtransaction.getTitre()
 					.getId());
 			transaction.setTitre(titre);

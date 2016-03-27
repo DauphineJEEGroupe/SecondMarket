@@ -1,5 +1,6 @@
 package fr.dauphine.secondMarket.sm_webapp.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,9 @@ import fr.dauphine.secondMarket.sm_webapp.domain.Transaction;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.repo.TransactionDao;
 import fr.dauphine.secondMarket.sm_webapp.service.ContratService;
+import fr.dauphine.secondMarket.sm_webapp.service.EtatTransactionService;
 import fr.dauphine.secondMarket.sm_webapp.service.TransactionService;
+import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -19,6 +22,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	ContratService serviceContrat;
+	
+	@Autowired
+	EtatTransactionService serviceEtatTransaction;
 
 	@Override
 	public List<Transaction> findAll() throws SmDaoException {
@@ -84,6 +90,24 @@ public class TransactionServiceImpl implements TransactionService {
 	public List<Transaction> findByVendeur(Long idVendeur)
 			throws SmDaoException {
 		return daoTransaction.findByVendeur(idVendeur);
+	}
+
+	@Override
+	public void achat(Transaction transaction)
+			throws SmDaoException {
+		if(transaction.getAcheteur().getId().equals(transaction.getVendeur().getId())){
+			throw new SmDaoException("Erreur: l'acheteur est le vendeur!");
+		}
+		if(!transaction.getEtatTransaction().getCode().equalsIgnoreCase(Constantes.CODE_TRANSACTION_OUVERTE)){
+			throw new SmDaoException("Erreur: La vente est deja close!");
+		}
+		if(transaction.getModeNegociation().getCode().equalsIgnoreCase(Constantes.CODE_NEGOCIATION_IMMEDIAT)){
+			transaction.setDateCloture(new Date());
+			transaction.setEtatTransaction(serviceEtatTransaction.findByCode(Constantes.CODE_TRANSACTION_FERMEE));
+		}
+		transaction.setPrixTransaction(transaction.getPrixCloture()*transaction.getQuantite());
+		update(transaction);
+		
 	}
 
 }

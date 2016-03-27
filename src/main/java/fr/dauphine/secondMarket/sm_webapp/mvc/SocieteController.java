@@ -46,7 +46,7 @@ public class SocieteController {
 //		}
 //		model.addAttribute("newSociete", new Societe());
 //		model.addAttribute("societes", societes);
-//		return "membre/front/investisseur/listeSociete";
+//		return "membre/front/societe/listeSociete";
 //	}
 	
 	@RequestMapping(value = "/search",method = RequestMethod.POST)
@@ -56,7 +56,22 @@ public class SocieteController {
 			societes = societeService.search(societe.getNom());
 			model.addAttribute("societes", societes);
 			model.addAttribute("societe", new Societe());
-			return "membre/front/investisseur/listeSociete";
+			return "membre/front/societe/listeSociete";
+		} catch (SmDaoException e) {
+			logger.severe(e.getMessage());
+			return "redirect:/societe/list";
+		}
+		
+	}
+	@RequestMapping(value = "/detail/{id}",method = RequestMethod.GET)
+	public String detail(@PathVariable Long id,Model model) {
+		List<Societe> societes = new ArrayList<Societe>();
+		try {
+			Societe societeDetail = societeService.findById(id);
+			societes = societeService.findAll();
+			model.addAttribute("societes", societes);
+			model.addAttribute("societeDetail", societeDetail);
+			return "membre/front/societe/listeSociete";
 		} catch (SmDaoException e) {
 			logger.severe(e.getMessage());
 			return "redirect:/societe/list";
@@ -71,7 +86,7 @@ public class SocieteController {
 			societes = societeService.findAll();
 			model.addAttribute("societes", societes);
 			model.addAttribute("societe", new Societe());
-			return "membre/front/investisseur/listeSociete";
+			return "membre/front/societe/listeSociete";
 		} catch (SmDaoException e) {
 			logger.severe(e.getMessage());
 			return "redirect:/";

@@ -78,7 +78,7 @@
 		<!-- Page Heading/Breadcrumbs -->
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Investisseur sociétés</h1>
+				<h1 class="page-header">Sociétés</h1>
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/public/"/>">accueil</a></li>
 					<li class="active">sociétés</li>
@@ -88,59 +88,97 @@
 		<div class="row">
 			<div class="col-md-6"></div>
 			<div class="col-md-6">
-				<form:form commandName="societe" class="form-inline" action="/societe/search">
+				<form:form commandName="societe" class="form-inline"
+					action="/societe/search">
 					<div class="form-group">
 						<input type="hidden" id="siren" name="siren" value="siren">
-						<input type="text" class="form-control" id="nom" name="nom"  minlength=3 placeholder="Société par nom ou siren (3 lettres min)">
+						<input type="text" class="form-control" id="nom" name="nom"
+							minlength=3
+							placeholder="Société par nom ou siren (3 lettres min)">
 					</div>
 					<input type="submit" value="Rechercher" class="btn btn-default" />
-<!-- 					<button type="submit" class="btn btn-default">Rechercher</button> -->
+					<!-- 					<button type="submit" class="btn btn-default">Rechercher</button> -->
 				</form:form>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4>Societes</h4>
-					</div>
-					<br>
-					<c:choose>
-						<c:when test="${societes.size()==0}">
-							<p> <em>Aucune société de trouvée.</em></p>
-						</c:when>
-						<c:otherwise>
+		<c:choose>
+			<c:when test="${null==societeDetail}">
+			</c:when>
+			<c:otherwise>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4>Détail de la société:  ${societeDetail.nom}</h4>
+							</div>
+							<br>
 							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>Id</th>
-										<th>Nom</th>
-										<th>Siren</th>
-										<th>Ville</th>
-										<th>Pays</th>
-										<th>Statut</th>
-										<th>Action</th>
-									</tr>
-								</thead>
 								<tbody>
-									<c:forEach items="${societes}" var="societe">
 										<tr>
-											<td>${societe.id}</td>
-											<td>${societe.nom}</td>
-											<td>${societe.siren}</td>
-											<td>${societe.ville}</td>
-											<td>${societe.pays}</td>
-											<td>${societe.statut.code}</td>
-											<td><a
-												href="<c:url value="/societe/edit/${societe.id}"/>">Modifié</a></td>
-									</c:forEach>
+											<td><strong>Siren</strong> </td><td>${societeDetail.siren}</td>
+										</tr><tr>
+											<td><strong>Adresse</strong> </td><td>${societeDetail.ville} - ${societeDetail.pays}</td>
+										</tr><tr>
+											<td>
+												<a href="<c:url value="/transaction/societe/${societeDetail.id}"/>">Voir les titres en vente pour cette société</a>
+											</td>
+										</tr>
 								</tbody>
 							</table>
-						</c:otherwise>
-					</c:choose>
+						</div>
+					</div>
 				</div>
+			</c:otherwise>
+		</c:choose>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Liste des sociétés</h4>
+				</div>
+				<br>
+				<c:choose>
+					<c:when test="${societes.size()==0}">
+						<p>
+							<em>Aucune société de trouvée.</em>
+						</p>
+					</c:when>
+					<c:otherwise>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Nom</th>
+									<th>Siren</th>
+									<th>Ville</th>
+									<th>Pays</th>
+									<th>Statut</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${societes}" var="societe">
+									<tr>
+										<td>${societe.id}</td>
+										<td>${societe.nom}</td>
+										<td>${societe.siren}</td>
+										<td>${societe.ville}</td>
+										<td>${societe.pays}</td>
+										<td>${societe.statut.code}</td>
+										<td>
+											<%-- 												<c:when test="${sessionScope.userBean.isConneted}"> --%>
+											<%-- 													<a href="<c:url value="/societe/edit/${societe.id}"/>">Modifié</a> /  --%>
+											<%-- 												</c:when> --%> <a
+											href="<c:url value="/societe/detail/${societe.id}"/>">Détail</a>
+										</td>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
+	</div>
 
 	</div>
 	<!-- /.container -->
