@@ -3,62 +3,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
-<head>
-<title>Marché Secondaire | Paris-Dauphine</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<link href="<c:url value="/static/resources/img/dauphin.jpg"/>"
-	rel="shortcut icon">
-
-
-<!-- Bootstrap Core CSS -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/static/resources/css/bootstrap.min.css"/>" />
-<!-- Custom CSS -->
-<!-- <link rel="stylesheet" type="text/css" -->
-<%-- 	href="<c:url value="/static/resources/css/screen.css"/>" /> --%>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/static/resources/css/modern-business.css"/>" />
-<!-- Custom Fonts -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/static/resources/css/font-awesome.min.css"/>" />
-</head>
+<jsp:include page="../../fragments/header.jsp"/>
 
 <body>
 
 	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="<c:url value="/public/"/>">Marché
-					Secondaire</a>
-			</div>
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<c:url value="/public/"/>">accueil</a></li>
-					<li><a href="<c:url value="/investisseur/Titre/ajout"/>">Ajouter
-							titre</a></li>
-					<li><a href="<c:url value="/transaction/list"/>">Mes
-							Transactions</a></li>
-
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
+<jsp:include page="../../fragments/includeNav.jsp"/>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -80,8 +30,7 @@
         <!-- Contact Form -->
 		<!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
 		<div class="row">
-<div class="col-md-3"></div>
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4>Vendre un titre</h4>
@@ -90,34 +39,35 @@
 					<p>
 						<span class="message">${message}</span>
 					</p>
-					<form:form commandName="newtransaction" id="reg">
+					<form:form commandName="newtransaction" id="reg" class="form-horizontal">
 						<p>
 							Titre <Strong> ${newtransaction.titre.codeIsin}</Strong> de la
 							société <Strong>${newtransaction.titre.societe.nom}</Strong>
 						</p>
 						<form:hidden path="vendeur.id" />
 						<form:hidden path="titre.id" />
-						<div class="control-group form-group">
-							<div class="controls">
-								<form:label path="quantite">Nombre de titre:</form:label>
+						<div class="form-group">
+							
+								<form:label path="quantite" class="control-label col-sm-4">Nombre de titre:</form:label>
+								<div class="col-sm-6">
 								<input type="number" class="form-control" name="quantite"
 									id="quantite" required>
 								<form:errors class="invalid" path="quantite" />
 								<p class="help-block"></p>
 							</div>
 						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<form:label path="prixOuverture">Prix initial unitaire:</form:label>
+						<div class="form-group">
+								<form:label path="prixOuverture" class="control-label col-sm-4">Prix initial unitaire:</form:label>
+								<div class="col-sm-6">
 								<input type="number" class="form-control" name="prixOuverture"
 									id="prixOuverture" required>
 								<form:errors class="invalid" path="prixOuverture" />
 								<p class="help-block"></p>
 							</div>
 						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<form:label path="prixCloture">Prix final unitaire:</form:label>
+						<div class="form-group">
+								<form:label path="prixCloture" class="control-label col-sm-4">Prix final unitaire:</form:label>
+								<div class="col-sm-6">
 								<input type="number" class="form-control" name="prixCloture"
 									id="prixCloture" required>
 								<form:errors class="invalid" path="prixCloture" />
@@ -125,33 +75,32 @@
 							</div>
 						</div>
 
-						<div class="control-group form-group">
-							<div class="controls">
-
-								<form:select path="modeNegociation.id">
-									<form:option value="NONE" label="Mode de Négociation" />
+						<div class="form-group">
+								<form:label path="modeNegociation.id" class="control-label col-sm-4">Mode de Négociation:</form:label>
+								<div class="col-sm-6">
+								<form:select path="modeNegociation.id" class="form-control">
+									<form:option value="" label="Mode de Négociation" />
 									<form:options items="${modeNegociations}" itemValue="id"
-										itemLabel="code" />
+										itemLabel="code" required="required"/>
 								</form:select>
 								<p class="help-block"></p>
 							</div>
 						</div>
-						<div class="control-group form-group">
-							<div class="controls">
-								<form:label path="dateCloture">Echéance:</form:label>
-								<form:input path="dateCloture" />
+						<div class="form-group">
+								<form:label path="dateCloture" class="control-label col-sm-4">Echéance:</form:label>
+								<div class="col-sm-6">
+								<form:input path="dateCloture"  required="required" placeholder="dd/mm/yyyy"/>
 								<!-- 							<input type="date" class="form-control" name="dateCloture" id="dateCloture" required -->
 								<!-- 								data-validation-required-message="Veuillez saisir une date"> -->
 								<form:errors class="invalid" path="dateCloture" />
 								<p class="help-block"></p>
 							</div>
 						</div>
-						<input type="submit" value="Enregistrer" class="register" />
+						<input type="submit" value="Enregistrer" class="btn btn-default" />
 						<!-- 					<button type="submit" class="btn btn-primary">vendre</button> -->
 					</form:form>
 				</div>
 			</div>
-			<div class="col-md-3"></div>
 		</div>
 	</div>
 	<!-- /.container -->

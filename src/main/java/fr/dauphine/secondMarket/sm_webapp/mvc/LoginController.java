@@ -40,17 +40,18 @@ public class LoginController {
 
 	private static final Logger logger = Logger.getLogger(LoginController.class
 			.getCanonicalName());
-
-	@RequestMapping(value = "public/", method = RequestMethod.GET)
+	@RequestMapping( method = RequestMethod.GET)
 	public String index(Model model) {
-		logger.info("index()");
-		return "public/accueil";
+		return "public/index";
+	}
+	@RequestMapping(value = "accueil/", method = RequestMethod.GET)
+	public String accueil(Model model) {
+		return "membre/accueil";
 	}
 
 	@RequestMapping(value = "public/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request,
 			HttpServletResponse response,Model model) {
-		logger.info("login(): GET");
 		try {
 			UserBean userBean = UtilsSession.getUserBean(request);
 			if (Constantes.ROLE_ADMIN.equals(userBean.getRole())) {
@@ -105,9 +106,16 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "public/logout", method = RequestMethod.GET)
-	public String logout() {
-		logger.info("logout(): GET");
-		return "public/";
+	public String logout(HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			UserBean userBean=UtilsSession.getUserBean(request);
+			userBean.logout();
+			UtilsSession.getSession(request).invalidate();
+		} catch (SmException e) {
+			logger.log(Level.SEVERE, e.getMessage(),e.getCause());
+		}
+		return "redirect:/";
 
 	}
 }

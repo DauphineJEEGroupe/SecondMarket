@@ -57,7 +57,7 @@ public class SecurityFilter implements Filter {
 		// /* Non-filtrage des ressources statiques */
 		String chemin = request.getRequestURI().substring(
 				request.getContextPath().length());
-		if (chemin.startsWith("/public/") || chemin.startsWith("/static/resources/")) {
+		if (chemin.trim().equalsIgnoreCase("/") || chemin.startsWith("/public/") || chemin.startsWith("/static/resources/")) {
 			chain.doFilter(request, response);
 			return;
 		}
@@ -67,7 +67,6 @@ public class SecurityFilter implements Filter {
 			if (userBean.isConneted()) {
 				chain.doFilter(request, response);
 			} else {
-				logger.info(" SecurityFilter userBean.isNOTConneted()");
 				response.sendRedirect(request.getContextPath() + Constantes.ACCES_PUBLIC);
 			}
 		} catch (SmException e) {

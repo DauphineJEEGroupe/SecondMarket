@@ -3,6 +3,7 @@
  */
 package fr.dauphine.secondMarket.sm_webapp.mvc;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -68,13 +69,14 @@ public class TransactionController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String mesTransactions(HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-
+		List<Transaction> transactions = new ArrayList<Transaction>();
 		try {
 			UserBean userBean = UtilsSession.getUserBean(request);
-			List<Transaction> transactions = serviceTransaction
+			transactions = serviceTransaction
 					.findByVendeur(userBean.getId());
 			model.addAttribute("transactions", transactions);
 			model.addAttribute("userBean", userBean);
+			model.addAttribute("search", new Transaction());
 			return "membre/front/transaction/list";
 		} catch (SmException e) {
 			logger.severe(e.getMessage());
@@ -82,15 +84,29 @@ public class TransactionController {
 		}
 
 	}
-
+	@RequestMapping(value = "/search",method = RequestMethod.POST)
+	public String search(@ModelAttribute("search") Transaction search,Model model) {
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		try {
+			transactions = serviceTransaction.search(search.getTitre().getCodeIsin());
+			model.addAttribute("transactions", transactions);
+			model.addAttribute("search", new Transaction());
+			return "membre/front/transaction/list";
+		} catch (SmDaoException e) {
+			logger.severe(e.getMessage());
+			return "redirect:/investisseur";
+		}
+		
+	}
 	@RequestMapping(value = "/achat", method = RequestMethod.GET)
 	public String listAchats(Model model,
 			@ModelAttribute("userBean") UserBean userBean) {
-
+		List<Transaction> transactions = new ArrayList<Transaction>();
 		try {
-			List<Transaction> transactions = serviceTransaction
+			transactions = serviceTransaction
 					.findAllTransactionActif();
 			model.addAttribute("transactions", transactions);
+			model.addAttribute("search", new Transaction());
 			return "membre/front/transaction/list";
 		} catch (SmDaoException e) {
 			logger.severe(e.getMessage());
@@ -105,9 +121,9 @@ public class TransactionController {
 		try {
 			List<Transaction> transactions = serviceTransaction.findBySociete(id);
 			model.addAttribute("transactions", transactions);
+			model.addAttribute("search", new Transaction());
 			return "membre/front/transaction/list";
 		} catch (SmDaoException e) {
-//			String erreur = "Aucune transaction de trouver pour l'id: " + id;
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			return "/investisseur";
 		}
@@ -121,7 +137,12 @@ public class TransactionController {
 		try {
 			Transaction transaction = serviceTransaction.findById(id);
 			model.addAttribute("transaction", transaction);
-			return "membre/front/transaction/detail";
+			if(Constantes.CODE_NEGOCIATION_ENCHERE.equalsIgnoreCase(transaction.getModeNegociation().getCode())){
+				return "membre/front/transaction/detail-enchere";
+			}else{
+				return "membre/front/transaction/detail";
+			}
+			
 		} catch (SmDaoException e) {
 			String erreur = "Aucune transaction de trouver pour l'id: " + id;
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
@@ -130,24 +151,24 @@ public class TransactionController {
 		}
 
 	}
-	@RequestMapping(value = "/achat/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/achat", method = RequestMethod.POST)
 	public String achat(HttpServletRequest request,
-			HttpServletResponse response,@PathVariable Long id, Model model,
+			HttpServletResponse response,@ModelAttribute("transaction") Transaction transaction, Model model,
 			final RedirectAttributes redirectAttributes) {
 
 		try {
 			
 			UserBean userBean = UtilsSession.getUserBean(request);
-			Transaction transaction = serviceTransaction.findById(id);
-			transaction.setAcheteur((Investisseur) serviceUser.findById(userBean.getId()));
-			
-			serviceTransaction.achat(transaction);
+			Transaction achat = serviceTransaction.findById(transaction.getId());
+			achat.setAcheteur((Investisseur) serviceUser.findById(userBean.getId()));
+			achat.setPrixCloture(transaction.getPrixCloture());
+			serviceTransaction.achat(achat);
 			return "redirect:/investisseur";
 		} catch (SmException e) {
-			String erreur = "Aucune transaction de trouver pour l'id: " + id;
+			String erreur = "Aucune transaction de trouver pour l'id: " + transaction.getId();
 			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 			redirectAttributes.addFlashAttribute("erreur", erreur);
-			return "redirect:/achat";
+			return "membre/front/transaction/list";
 		}
 
 	}

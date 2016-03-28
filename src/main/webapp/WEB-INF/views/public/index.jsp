@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
 <html>
 
 <head>
@@ -39,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<c:url value="/public/"/>">Marché Secondaire</a>
+                <a class="navbar-brand" href="<c:url value="/public/"/>">Projet SecondMarket</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -48,7 +47,7 @@
                         <a href="<c:url value="/public/login"/>">Mon compte</a>
                     </li>
                     <li>
-                        <a href="<c:url value="/user/inscription"/>">Inscription</a>
+                        <a href="<c:url value="/public/inscription"/>">Inscription</a>
                     </li>
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">Achat/vente <b class="caret"></b></a>
@@ -60,7 +59,7 @@
                                 <a href="<c:url value="/investisseur"/>">Vente titre</a>
                             </li>
                             <li>
-                                <a href="<c:url value="/investisseur"/>">listes des sociétés</a>
+                                <a href="<c:url value="/societe/list"/>">listes des sociétés</a>
                             </li>
                            
                         </ul>
@@ -84,21 +83,19 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
+                <div class="fill" style="background-image:url('<c:url value="/static/resources/img/bourse1.jpg"/>');"></div>
                 <div class="carousel-caption">
-                    <h2>Caption 1</h2>
+<!--                     <h2>Caption 1</h2> -->
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
+                <div class="fill" style="background-image:url('<c:url value="/static/resources/img/bourse2.jpg"/>');"></div>
                 <div class="carousel-caption">
-                    <h2>Caption 2</h2>
                 </div>
             </div>
             <div class="item">
-                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
+                <div class="fill" style="background-image:url('<c:url value="/static/resources/img/bourse3.jpg"/>');"></div>
                 <div class="carousel-caption">
-                    <h2>Caption 3</h2>
                 </div>
             </div>
         </div>
@@ -119,17 +116,18 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Bienvenue sur Dauphine Second Market!
+                    Acceuil
                 </h1>
             </div>
              
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-check"></i> Informations sur le site</h4>
+                        <h4><i class="fa fa-fw fa-check"></i> UE Serveurs d'Application, Université Paris-Dauphine 2015-2016</h4>
                     </div>
                     <div class="panel-body">
-                        <p>Cette application web est basée sur le framework Spring MVC .</p>
+                        <p>Ce site internet est le travail du projet demandé pour l'UE Serveurs d'Application.
+                        Ce travail a été réalisé par le groupe suivant : Barou René, Maghrad Badr, Goupil Aymeric, Tebib Oualid</p>
                         
                     </div>
                 </div>
@@ -138,42 +136,8 @@
         </div>
         <!-- /.row -->
 
-        <!-- Features Section -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="page-header">Acces rapide.</h2>
-            </div>
-            <div class="col-md-6">
-                <p>Cliquer sur un lien pour acceder à la page:</p>
-                <ul>
-                    <li><strong><a href="<c:url value="/public/login"/>">Connexion</a></strong>
-                    </li>
-                    <li><a href="<c:url value="/user/inscription"/>">Inscription</a></li>
-					<li><a href="<c:url value="/statut"/>">Statut</a></li>
-					<li><a href="<c:url value="/societe"/>">Societe</a></li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
-            </div>
-            <div class="col-md-6">
-                <img class="img-responsive" src="http://placehold.it/700x450" alt="">
-            </div>
         </div>
-
-   <div class="well">
-            <div class="row">
-                <div class="col-md-8">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias, expedita, saepe, vero rerum deleniti beatae veniam harum neque nemo praesentium cum alias asperiores commodi.</p>
-                </div>
-                <div class="col-md-4">
-                    <a class="btn btn-lg btn-default btn-block" href="#">Call to Action</a>
-                </div>
-            </div>
-        </div>
-
-        <hr>
-
-    </div>
-    <!-- /.container -->
+        <!-- /.container -->
     
     
 	<spring:url value="/static/resources/js/jquery.js" var="jqueryJs" />

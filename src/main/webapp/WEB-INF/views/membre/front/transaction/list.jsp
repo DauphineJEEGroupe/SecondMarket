@@ -3,88 +3,41 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
+<jsp:include page="../../fragments/header.jsp"/>
 
-<head>
-<title>Marché Secondaire | Paris-Dauphine</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<link href="<c:url value="/static/resources/img/dauphin.jpg"/>" rel="shortcut icon">
-
-
-<!-- Bootstrap Core CSS -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/static/resources/css/bootstrap.min.css"/>" />
-<!-- Custom CSS -->
-<!-- <link rel="stylesheet" type="text/css" -->
-<%-- 	href="<c:url value="/static/resources/css/screen.css"/>" /> --%>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/static/resources/css/modern-business.css"/>" />
-<!-- Custom Fonts -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/static/resources/css/font-awesome.min.css"/>" />
-</head>
 <body>
 
-    <!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="<c:url value="/public/"/>">Marché
-					Secondaire</a>
-			</div>
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<c:url value="/public/"/>">accueil</a></li>
-					<li><a href="<c:url value="/investisseur/Titre/ajout"/>">Ajouter
-							titre</a></li>
-					<li><a href="<c:url value="/transaction/list"/>">Mes
-							Transactions</a></li>
-					<li class="dropdown"><a href="" class="dropdown-toggle"
-						data-toggle="dropdown">Achat/vente <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/investisseur"/>">Achat
-									titres</a></li>
-							<li><a href="<c:url value="/investisseur"/>">Vente titre</a>
-							</li>
-							<li><a href="<c:url value="/societe/list"/>">listes des
-									sociétés</a></li>
-
-						</ul></li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
-
+	<!-- Navigation -->
+<jsp:include page="../../fragments/includeNav.jsp"/>
 
     <!-- Page Content -->
     <div class="container">
 <!-- Page Heading/Breadcrumbs -->
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Profil investisseur</h1>
+				<h1 class="page-header">Transaction</h1>
 				<ol class="breadcrumb">
 					<li><a href="<c:url value="/public/"/>">accueil</a></li>
-					<li><a href="<c:url value="/investisseur"/>">Profil investisseur</a> </li>
 					<li class="active">Transactions</li>
 				</ol>
 			</div>
 		</div>
-        <!-- Marketing Icons Section -->
-        		<div class="row">
+       <div class="row">
+			<div class="col-md-6"></div>
+			<div class="col-md-6">
+				<form:form commandName="search" class="form-inline" action="/transaction/search">
+					<div class="form-group">
+     					 <label class="sr-only" for="titre.codeIsin">Rechercher:</label>
+						<form:input path="titre.codeIsin" class="form-control" minlength="3" placeholder="(3 lettres min)"/>
+					</div>
+					<input type="submit" value="Rechercher" class="btn btn-default" />
+					<div class="form-group">
+				      <span class="help-block">Recherche d'une transaction par le code Isin du titre / nom de société.</span>
+				    </div>
+				</form:form>
+			</div>
+		</div>
+        <div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -103,7 +56,6 @@
 									<th>Vendeur</th>
 									<th>Etat Transaction</th>
 									<th>Mode Négociation </th>
-									<th>Acheteur</th>
 									<th>Prix </th>
 									<th>Date de cloture </th>
 									<th>Action</th>
@@ -116,10 +68,9 @@
 										<td>${transaction.vendeur.nom}</td>
 										<td>${transaction.etatTransaction.code}</td>
 										<td>${transaction.modeNegociation.code}</td>
-										<td>${transaction.acheteur.nom}</td>
-										<td>${transaction.prixCloture}</td>
+										<td>${transaction.prixTransaction}</td>
 										<td>${transaction.dateCloture}</td>
-										<td><a href="<c:url value="/transaction/achat/${transaction.id}"/>">Acheter</a></td>
+										<td><a href="<c:url value="/transaction/detail/${transaction.id}"/>">Détail</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>

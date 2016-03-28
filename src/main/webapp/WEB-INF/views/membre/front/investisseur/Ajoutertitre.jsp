@@ -3,65 +3,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
-<head>
-<title>Marché Secondaire | Paris-Dauphine</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<link href="<c:url value="/static/resources/img/dauphin.jpg"/>"
-	rel="shortcut icon">
-
-
-<!-- Bootstrap Core CSS -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/static/resources/css/bootstrap.min.css"/>" />
-<!-- Custom CSS -->
-<!-- <link rel="stylesheet" type="text/css" -->
-<%-- 	href="<c:url value="/static/resources/css/screen.css"/>" /> --%>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/static/resources/css/modern-business.css"/>" />
-<!-- Custom Fonts -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/static/resources/css/font-awesome.min.css"/>" />
-</head>
+<jsp:include page="../../fragments/header.jsp"/>
 
 <body>
 
 	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="<c:url value="/public/"/>">Marché
-					Secondaire</a>
-			</div>
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<c:url value="/public/"/>">accueil</a></li>
-
-					<li><a href="<c:url value="/investisseur/Vente"/>">Créer
-							offre </a></li>
-					<li><a href="<c:url value="/investisseur/Titre/ajout"/>">Ajouter
-							titre</a></li>
-					<li><a href="<c:url value="/investisseur/transaction"/>">Mes
-							Transactions</a></li>
-
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
+<jsp:include page="../../fragments/includeNav.jsp"/>
 
 	<!-- Page Content -->
 	<div class="container">

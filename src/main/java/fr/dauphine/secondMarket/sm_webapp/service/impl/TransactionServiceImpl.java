@@ -110,4 +110,10 @@ public class TransactionServiceImpl implements TransactionService {
 		
 	}
 
+	@Override
+	public List<Transaction> search(String fullText) throws SmDaoException {
+		
+		return daoTransaction.search(fullText);
+	}
+
 }

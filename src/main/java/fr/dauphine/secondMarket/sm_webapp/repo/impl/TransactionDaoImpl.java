@@ -180,6 +180,20 @@ public class TransactionDaoImpl implements TransactionDao {
 			}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Transaction> search(String fullText) throws SmDaoException {
+		try {
+			Query query = em
+					.createQuery("SELECT t FROM Transaction t WHERE UPPER(t.titre.codeIsin) LIKE :codeIsin OR  UPPER(t.titre.societe.nom) LIKE :societe ORDER BY t.dateCloture desc");
+			query.setParameter("codeIsin", "%" + fullText.toUpperCase() + "%");
+			query.setParameter("societe", "%" + fullText.toUpperCase() + "%");
+			return query.getResultList();
+		} catch (IllegalArgumentException | PersistenceException e1) {
+			throw new SmDaoException(e1.getMessage(), e1);
+		}
+	}
+
 	
 
 }

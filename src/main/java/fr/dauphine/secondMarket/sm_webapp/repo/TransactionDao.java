@@ -28,6 +28,8 @@ public interface TransactionDao {
 	
 	List<Transaction> findByVendeur(Long idVendeur) throws SmDaoException;
 
+	List<Transaction> search(String fullText ) throws SmDaoException;
+	
 	void register(Transaction transaction) throws SmDaoException;
 
 	void delete(Transaction transaction) throws SmDaoException;

@@ -49,7 +49,7 @@ public class UserBean implements Serializable {
 	}
 	
 	public void logout() {
-		isConneted = false;
+		reinitialiser();
 	}
 
 	/**
