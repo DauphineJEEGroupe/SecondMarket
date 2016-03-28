@@ -20,5 +20,7 @@ hibernate-jpa-2.0-api
 springframework
 
 
+Projet disponible sur GitHub "https://github.com/DauphineJEEGroupe/SecondMarket"
+
 
 
