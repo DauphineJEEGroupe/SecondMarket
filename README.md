@@ -18,6 +18,7 @@ Wildlfy Application Server	8.2.1.Final
 Java 1.7
 hibernate-jpa-2.0-api
 springframework
+MySQL 5
 
 
 Projet disponible sur GitHub "https://github.com/DauphineJEEGroupe/SecondMarket"

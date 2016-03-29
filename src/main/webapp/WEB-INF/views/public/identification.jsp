@@ -40,14 +40,14 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<c:url value="/public/"/>">Marché
+				<a class="navbar-brand" href="<c:url value="/"/>">Marché
 					Secondaire</a>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<c:url value="/public/"/>">accueil</a></li>
+					<li><a href="<c:url value="/"/>">accueil</a></li>
 					<li><a href="<c:url value="/public/inscription"/>">Inscription</a>
 					</li>
 
@@ -67,7 +67,7 @@
 			<div class="col-lg-12">
 				<h1 class="page-header">Authentification</h1>
 				<ol class="breadcrumb">
-					<li><a href="<c:url value="/public/"/>">accueil</a></li>
+					<li><a href="<c:url value="/"/>">accueil</a></li>
 					<li class="active">Authentification</li>
 				</ol>
 			</div>

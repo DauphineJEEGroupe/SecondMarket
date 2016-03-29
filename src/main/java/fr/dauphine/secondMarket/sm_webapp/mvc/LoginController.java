@@ -44,6 +44,10 @@ public class LoginController {
 	public String index(Model model) {
 		return "public/index";
 	}
+	@RequestMapping(value = "public/", method = RequestMethod.GET)
+	public String publicIndex(Model model) {
+		return "public/index";
+	}
 	@RequestMapping(value = "accueil/", method = RequestMethod.GET)
 	public String accueil(Model model) {
 		return "membre/accueil";
