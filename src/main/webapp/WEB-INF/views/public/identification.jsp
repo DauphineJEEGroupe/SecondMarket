@@ -72,13 +72,11 @@
 				</ol>
 			</div>
 		</div>
-		<!-- /.row --
-
-        <!-- Contact Form -->
-		<!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+<%-- 							${erreur} --%>
 		<div class="row">
 			<div class="col-md-5">
-				<form:form commandName="login" id="reg">
+				<form:form commandName="login" id="reg"  >
+			
 					<div class="form-group">
 						<form:label path="email">Adresse mail:</form:label>
 						<form:input path="email" required="required" class="form-control" />

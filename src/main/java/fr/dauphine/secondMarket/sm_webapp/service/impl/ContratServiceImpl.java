@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Contrat;
+import fr.dauphine.secondMarket.sm_webapp.domain.Investisseur;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
@@ -72,7 +73,7 @@ public class ContratServiceImpl implements ContratService {
 		}
 
 	@Override
-	public boolean hasEnoughTitreToSale(Long idTitre, Integer nbTitreToSale)
+	public boolean hasEnoughTitreToSale(Long idTitre, Long nbTitreToSale)
 			throws SmException {
 		Contrat titre=findById(idTitre);
 		if(nbTitreToSale>titre.getNbTitres()){
@@ -80,6 +81,38 @@ public class ContratServiceImpl implements ContratService {
 		}
 		return true;
 	}
-	
+
+	@Override
+	public void vendre(Contrat titreAvendre, Long nbTitre) throws SmDaoException {
+		long nbTitreRestant=titreAvendre.getNbTitres() - nbTitre;
+		titreAvendre.setNbTitres(nbTitreRestant);
+		daoContrat.update(titreAvendre);
+	}
+
+	@Override
+	public void vendu(Contrat titreVendu,Investisseur acheteur, Long nbTitre) throws SmDaoException {
+		Contrat newTitre=daoContrat.findByUserAndCodeIsin(acheteur.getId(), titreVendu.getCodeIsin()); 
+		if(null==newTitre){
+			newTitre=clone(titreVendu);
+			newTitre.setProprietaire(acheteur);
+			newTitre.setNbTitres(nbTitre);
+			daoContrat.register(newTitre);
+		}else{
+			newTitre.setNbTitres(nbTitre+newTitre.getNbTitres());
+			daoContrat.update(newTitre);
+		}
+		
+		
+	}
+	private Contrat clone(Contrat clonable){
+		Contrat titre=new Contrat();
+		titre.setCodeIsin(clonable.getCodeIsin());
+		titre.setNbTitres(clonable.getNbTitres());
+		titre.setProprietaire(clonable.getProprietaire());
+		titre.setSociete(clonable.getSociete());
+		titre.setTypeContrat(clonable.getTypeContrat());
+		titre.setValeur(clonable.getValeur());
+		return titre;
+	}
 
 }

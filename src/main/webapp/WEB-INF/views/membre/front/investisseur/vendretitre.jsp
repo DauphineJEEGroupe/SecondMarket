@@ -50,7 +50,7 @@
 							
 								<form:label path="quantite" class="control-label col-sm-4">Nombre de titre:</form:label>
 								<div class="col-sm-6">
-								<input type="number" class="form-control" name="quantite"
+								<input type="number" class="form-control" name="quantite"  value="${newtransaction.titre.nbTitres}"
 									id="quantite" required>
 								<form:errors class="invalid" path="quantite" />
 								<p class="help-block"></p>
@@ -59,8 +59,8 @@
 						<div class="form-group">
 								<form:label path="prixOuverture" class="control-label col-sm-4">Prix initial unitaire:</form:label>
 								<div class="col-sm-6">
-								<input type="number" class="form-control" name="prixOuverture"
-									id="prixOuverture" required>
+								<input type="number" class="form-control" name="prixOuverture" 
+									id="prixOuverture" required   value="${newtransaction.titre.valeur}">
 								<form:errors class="invalid" path="prixOuverture" />
 								<p class="help-block"></p>
 							</div>
@@ -69,7 +69,7 @@
 								<form:label path="prixCloture" class="control-label col-sm-4">Prix final unitaire:</form:label>
 								<div class="col-sm-6">
 								<input type="number" class="form-control" name="prixCloture"
-									id="prixCloture" required>
+									id="prixCloture" required  value="${newtransaction.titre.valeur}">
 								<form:errors class="invalid" path="prixCloture" />
 								<p class="help-block"></p>
 							</div>
@@ -78,10 +78,10 @@
 						<div class="form-group">
 								<form:label path="modeNegociation.id" class="control-label col-sm-4">Mode de Négociation:</form:label>
 								<div class="col-sm-6">
-								<form:select path="modeNegociation.id" class="form-control">
+								<form:select path="modeNegociation.id" class="form-control" required="required">
 									<form:option value="" label="Mode de Négociation" />
 									<form:options items="${modeNegociations}" itemValue="id"
-										itemLabel="code" required="required"/>
+										itemLabel="code" />
 								</form:select>
 								<p class="help-block"></p>
 							</div>
@@ -89,7 +89,7 @@
 						<div class="form-group">
 								<form:label path="dateCloture" class="control-label col-sm-4">Echéance:</form:label>
 								<div class="col-sm-6">
-								<form:input path="dateCloture"  required="required" placeholder="dd/mm/yyyy"/>
+								<form:input path="dateCloture"  required="required" placeholder="dd/mm/yyyy" />
 								<!-- 							<input type="date" class="form-control" name="dateCloture" id="dateCloture" required -->
 								<!-- 								data-validation-required-message="Veuillez saisir une date"> -->
 								<form:errors class="invalid" path="dateCloture" />

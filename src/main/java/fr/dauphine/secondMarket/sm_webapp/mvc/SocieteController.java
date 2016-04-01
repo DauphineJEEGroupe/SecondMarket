@@ -5,6 +5,7 @@ package fr.dauphine.secondMarket.sm_webapp.mvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.validation.Valid;
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.dauphine.secondMarket.sm_webapp.domain.Societe;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
-import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
+import fr.dauphine.secondMarket.sm_webapp.exception.SmException;
 import fr.dauphine.secondMarket.sm_webapp.service.SocieteService;
 
 /**
@@ -36,18 +37,6 @@ public class SocieteController {
 	
 	private static Logger logger=Logger.getLogger(SocieteController.class.getCanonicalName());
 
-//	@RequestMapping(method = RequestMethod.GET)
-//	public String displaySortedSocietes(Model model) {
-//		List<Societe> societes = new ArrayList<Societe>();
-//		try {
-//			societes = societeService.findAll();
-//		} catch (SmDaoException e) {
-//			logger.severe(e.getMessage());
-//		}
-//		model.addAttribute("newSociete", new Societe());
-//		model.addAttribute("societes", societes);
-//		return "membre/front/societe/listeSociete";
-//	}
 	
 	@RequestMapping(value = "/search",method = RequestMethod.POST)
 	public String search(@ModelAttribute("societe") Societe societe,Model model) {
@@ -106,15 +95,10 @@ public class SocieteController {
 				societeService.create(newSociete);
 				message = "Enregistrement avec succès de la société: "
 						+ newSociete.getNom();
-			} catch (SmDaoException e) {
-				// TODO Auto-generated catch block
+			} catch (SmException e) {
 				message = "Erreur d'enregistrement de la société: "
 						+ newSociete.getNom();
-				System.out.println("--------------ERROR---------"+e.getMessage());
-				e.printStackTrace();
-			}catch (SmTechException e1){
-				message = e1.getMessage();
-				System.out.println("--------------ERROR---------"+e1.getMessage());
+				logger.log(Level.SEVERE,e.getMessage(),e.getCause());
 			}
 			
 
@@ -181,7 +165,7 @@ public class SocieteController {
 	public String accreditSociete(@PathVariable Long id) {
 
 		try {
-			societeService.accredit(id);
+			societeService.accredit(societeService.findById(id));
 		} catch (SmDaoException e) {
 			// TODO logger SmDaoException
 			System.out.println("--------------ERROR---------"+e.getMessage());

@@ -92,7 +92,7 @@
                 <h1 class="page-header">Profil administrateur
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="AcceuilAdmin.jsp">Acceuil</a>
+                    <li><a href="acceuil.jsp">Acceuil</a>
                     </li>
                     <li class="active">profil admin</li>
                     <li class="active">Recherche</li>

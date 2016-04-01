@@ -27,6 +27,6 @@ public interface SocieteService {
 
 	Societe findById(Long id) throws SmDaoException;
 
-	void accredit(Long id) throws SmDaoException;
+	void accredit(Societe societe) throws SmDaoException;
 
 }

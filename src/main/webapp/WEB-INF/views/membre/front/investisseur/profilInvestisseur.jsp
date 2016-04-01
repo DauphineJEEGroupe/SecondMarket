@@ -31,7 +31,10 @@
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4>Informations Investisseur</h4>
+						<h4>
+						Informations Investisseur 
+						
+						</h4>
 					</div>
 					<div class="controls" style="margin-left: 5px;">
 						<div class="row">

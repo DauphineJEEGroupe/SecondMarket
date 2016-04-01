@@ -22,6 +22,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmException;
 import fr.dauphine.secondMarket.sm_webapp.service.UserService;
 import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
+import fr.dauphine.secondMarket.sm_webapp.utils.Utils;
 
 @Controller
 public class UserController {
@@ -95,21 +96,25 @@ public class UserController {
 		logger.info("registerNewInvestisseur()");
 		if (result.hasErrors()) {
 			model.addAttribute("newInvestisseur", newInvestisseur);
-			logger.severe("result.hasErrors()");
+			model.addAttribute("erreur", Utils.errorsStringBuilder(result).toString());
+			logger.severe(Utils.errorsStringBuilder(result).toString());
 			return "/public/inscription";
 		}
 		
-		if (!newInvestisseur.getPass().equalsIgnoreCase(
-				newInvestisseur.getPass2())) {
+		try {
+			Utils.validationEmail(newInvestisseur.getEmail());
+			Utils.validationMotsDePasse(newInvestisseur.getPass(), newInvestisseur.getPass2());
+			Utils.validationNom(newInvestisseur.getNom());
+		} catch (SmException e1) {
 			model.addAttribute("newInvestisseur", newInvestisseur);
+			model.addAttribute("erreur", Utils.errorStringBuilder(e1.getMessage()).toString());
+			logger.severe(Utils.errorStringBuilder(e1.getMessage()).toString());
 			return "/public/inscription";
 		}
-		
 
 		try {
-			validationEmail(newInvestisseur.getEmail());
-			validationMotsDePasse(newInvestisseur.getPass(), newInvestisseur.getPass2());
-			validationNom(newInvestisseur.getNom());
+			
+			
 			Investisseur newUser = new Investisseur();
 			newUser.setNom(newInvestisseur.getNom());
 			newUser.setPhoneNumber(newInvestisseur.getPhoneNumber());
@@ -121,63 +126,14 @@ public class UserController {
 			newUser.setProfilInvestisseur("");
 			
 			userService.create(newUser);
+			
+			redirectAttributes.addFlashAttribute("message", Utils.msgStringBuilder("Succès d'enregistrement").toString());
 		} catch (SmException e) {
 			logger.severe(e.getMessage());
-			redirectAttributes.addFlashAttribute("erreur", e.getMessage());
+			redirectAttributes.addFlashAttribute("erreur", Utils.errorStringBuilder("Erreur d'enregistrement").toString());
 		}
 
 		return "redirect:/public/login";
 
 	}
-	
-
-	private void validationEmail( String email ) throws SmException {
-	    if ( email != null ) {
-	        if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-	            throw new SmException( "Merci de saisir une adresse mail valide." );
-	        }
-	    } else {
-	        throw new SmException( "Merci de saisir une adresse mail." );
-	    }
-	}
-
-	private void validationMotsDePasse( String motDePasse, String confirmation ) throws SmException {
-	    if ( motDePasse != null && confirmation != null ) {
-	        if ( !motDePasse.equals( confirmation ) ) {
-	            throw new SmException( "Les mots de passe entrés sont différents, merci de les saisir à nouveau." );
-	        } else if ( motDePasse.length() < 3 ) {
-	            throw new SmException( "Les mots de passe doivent contenir au moins 3 caractères." );
-	        }
-	    } else {
-	        throw new SmException( "Merci de saisir et confirmer votre mot de passe." );
-	    }
-	}
-
-	private void validationNom( String nom ) throws SmException {
-	    if ( nom != null && nom.length() < 3 ) {
-	        throw new SmException( "Le nom d'utilisateur doit contenir au moins 3 caractères." );
-	    }
-	}
-
-	/*
-	 * Ajoute un message correspondant au champ spécifié à la map des erreurs.
-	 */
-//	private void setErreur( String champ, String message ) {
-//	    erreurs.put( champ, message );
-//	}
-
-	/*
-	 * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
-	 * sinon.
-	 */
-	// private static String getValeurChamp( HttpServletRequest request, String
-	// nomChamp ) {
-	// String valeur = request.getParameter( nomChamp );
-	// if ( valeur == null || valeur.trim().length() == 0 ) {
-	// return null;
-	// } else {
-	// return valeur.trim();
-	// }
-	// }
-
 }

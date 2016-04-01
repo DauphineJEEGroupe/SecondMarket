@@ -172,7 +172,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	public List<Transaction> findBySociete(Long idSociete)
 			throws SmDaoException {
 		try {
-			Query query=em.createQuery("SELECT t FROM Transaction t WHERE t.titre.societe.id = :idSociete");
+			Query query=em.createQuery("SELECT t FROM Transaction t WHERE t.titre.societe.id = :idSociete  AND t.isActif=true");
 			query.setParameter("idSociete", idSociete);
 			return query.getResultList();
 			} catch (IllegalArgumentException | PersistenceException e1) {
@@ -185,7 +185,7 @@ public class TransactionDaoImpl implements TransactionDao {
 	public List<Transaction> search(String fullText) throws SmDaoException {
 		try {
 			Query query = em
-					.createQuery("SELECT t FROM Transaction t WHERE UPPER(t.titre.codeIsin) LIKE :codeIsin OR  UPPER(t.titre.societe.nom) LIKE :societe ORDER BY t.dateCloture desc");
+					.createQuery("SELECT t FROM Transaction t WHERE UPPER(t.titre.codeIsin) LIKE :codeIsin OR  UPPER(t.titre.societe.nom) LIKE :societe AND t.isActif=true ORDER BY t.dateCloture desc");
 			query.setParameter("codeIsin", "%" + fullText.toUpperCase() + "%");
 			query.setParameter("societe", "%" + fullText.toUpperCase() + "%");
 			return query.getResultList();

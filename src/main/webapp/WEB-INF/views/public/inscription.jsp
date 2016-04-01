@@ -71,7 +71,8 @@
 				</ol>
 			</div>
 		</div>
-
+${message}
+${erreur}
 		<div class="row">
 			<div class="col-md-5">
 			<h4>Ajout d'un nouvel utilisateur</h4>

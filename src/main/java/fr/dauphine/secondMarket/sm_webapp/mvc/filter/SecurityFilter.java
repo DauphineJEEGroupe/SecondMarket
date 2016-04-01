@@ -1,6 +1,7 @@
 package fr.dauphine.secondMarket.sm_webapp.mvc.filter;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.DispatcherType;
@@ -65,12 +66,14 @@ public class SecurityFilter implements Filter {
 		try {
 			userBean = UtilsSession.getUserBean(request);
 			if (userBean.isConneted()) {
+				UtilsSession.getSession(request).setAttribute(Constantes.ATT_SESSION_USER, userBean);
 				chain.doFilter(request, response);
 			} else {
+				logger.info("NOT userBean.isConneted()");
 				response.sendRedirect(request.getContextPath() + Constantes.ACCES_PUBLIC);
 			}
 		} catch (SmException e) {
-			logger.severe(e.getMessage());
+			logger.log(Level.SEVERE,e.getMessage(),e.getCause());
 			response.sendRedirect(request.getContextPath() + Constantes.ACCES_PUBLIC);
 		}
 	}

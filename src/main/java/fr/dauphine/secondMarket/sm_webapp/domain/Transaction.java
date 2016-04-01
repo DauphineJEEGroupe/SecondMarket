@@ -44,7 +44,7 @@ public class Transaction implements Serializable{
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dateCloture;
 	
-	private int quantite;
+	private Long quantite;
 	
 	private boolean isActif;
 	
@@ -168,14 +168,14 @@ public class Transaction implements Serializable{
 	/**
 	 * @return the quantite
 	 */
-	public int getQuantite() {
+	public Long getQuantite() {
 		return quantite;
 	}
 
 	/**
 	 * @param quantite the quantite to set
 	 */
-	public void setQuantite(int quantite) {
+	public void setQuantite(Long quantite) {
 		this.quantite = quantite;
 	}
 
@@ -261,6 +261,22 @@ public class Transaction implements Serializable{
 	 */
 	public void setActif(boolean isActif) {
 		this.isActif = isActif;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Transaction [prixTransaction=");
+		builder.append(prixTransaction);
+		builder.append(", dateCloture=");
+		builder.append(dateCloture);
+		builder.append(", isActif=");
+		builder.append(isActif);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

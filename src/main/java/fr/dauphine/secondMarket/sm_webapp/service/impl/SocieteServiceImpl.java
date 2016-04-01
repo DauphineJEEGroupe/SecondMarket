@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.dauphine.secondMarket.sm_webapp.domain.MembreSociete;
 import fr.dauphine.secondMarket.sm_webapp.domain.Societe;
 import fr.dauphine.secondMarket.sm_webapp.domain.Statut;
 import fr.dauphine.secondMarket.sm_webapp.exception.SmDaoException;
@@ -12,6 +13,7 @@ import fr.dauphine.secondMarket.sm_webapp.exception.SmTechException;
 import fr.dauphine.secondMarket.sm_webapp.repo.SocieteDao;
 import fr.dauphine.secondMarket.sm_webapp.repo.StatutDao;
 import fr.dauphine.secondMarket.sm_webapp.service.SocieteService;
+import fr.dauphine.secondMarket.sm_webapp.service.UserService;
 import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
 
 @Service
@@ -20,6 +22,9 @@ public class SocieteServiceImpl implements SocieteService {
 	private SocieteDao societeDao;
 	@Autowired
 	private StatutDao statutDao;
+	
+	@Autowired
+	private UserService userService;
 
 	public SocieteServiceImpl() {
 	}
@@ -67,14 +72,17 @@ public class SocieteServiceImpl implements SocieteService {
 	}
 
 	@Override
-	public void accredit(Long id) throws SmDaoException {
-		Societe societeToUpdate = societeDao.findById(id);
-		if (null != societeToUpdate) {
-			Statut statut = statutDao.findByCode(Constantes.STATUT_ACCREDITEE);
-			societeToUpdate.setStatut(statut);
-			societeDao.update(societeToUpdate);
+	public void accredit(Societe societe) throws SmDaoException {
+		MembreSociete newUser =societe.getRepresentant();
+		try {
+			userService.create(newUser);
+		} catch (SmTechException e) {
+			throw new SmDaoException(e.getMessage(), e.getCause());
 		}
-
+			Statut statut = statutDao.findByCode(Constantes.STATUT_ACCREDITEE);
+			societe.setStatut(statut);
+			societe.setRepresentant(newUser);
+			societeDao.update(societe);
 	}
 
 	@Override

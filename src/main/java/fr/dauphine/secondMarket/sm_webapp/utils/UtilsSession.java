@@ -27,10 +27,10 @@ public class UtilsSession {
 		if (session.getAttribute(Constantes.ATT_SESSION_USER) == null) {
 			throw new SmException("Utilisateur non connecté");
 		} else {
-			UserBean user=(UserBean) session
+			UserBean userBean=(UserBean) session
 					.getAttribute(Constantes.ATT_SESSION_USER);
-			session.setAttribute(Constantes.ATT_SESSION_USER, user);
-			return user;
+			session.setAttribute(Constantes.ATT_SESSION_USER, userBean);
+			return userBean;
 			}
 	}
 	

@@ -1,4 +1,5 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -16,7 +17,7 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li> <a href="<c:url value="/public/login"/>">Mon compte</a></li>
+					<li> <a href="<c:url value="/public/login"/>">Mon compte  <c:if test="${!empty sessionScope.userBean}"> : ${sessionScope.userBean.username}</c:if></a></li>
 					<li><a href="<c:url value="/investisseur/Titre/ajout"/>">Ajouter
 							titre</a></li>
 					<li><a href="<c:url value=""/>"></a></li>
@@ -37,7 +38,6 @@
 							</li>
 							<li><a href="<c:url value="/societe/list"/>">listes des
 									sociétés</a></li>
-
 						</ul>
 					</li>
 					<li> <a href="<c:url value="/public/logout"/>">Déconnexion</a></li>

@@ -3,13 +3,12 @@ package fr.dauphine.secondMarket.sm_webapp.mvc.bean;
 import java.io.Serializable;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import fr.dauphine.secondMarket.sm_webapp.utils.Constantes;
 
 @Component
-@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Scope(value = "session")
 public class UserBean implements Serializable {
 
 	/**
